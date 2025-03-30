@@ -7,10 +7,10 @@ graph-presets-plugin: basic
 ```yaml:graph-preset
 collapse-filter: false
 search: ""
-showTags: true
+showTags: false
 showAttachments: false
-hideUnresolved: true
-showOrphans: true
+hideUnresolved: false
+showOrphans: false
 collapse-color-groups: false
 colorGroups: []
 collapse-display: false
@@ -18,8 +18,8 @@ showArrow: true
 textFadeMultiplier: 0
 nodeSizeMultiplier: 1
 lineSizeMultiplier: 1
-collapse-forces: true
-centerStrength: 0.518713248970312
+collapse-forces: false
+centerStrength: 0.6
 repelStrength: 10
 linkStrength: 1
 linkDistance: 250

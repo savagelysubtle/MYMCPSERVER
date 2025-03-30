@@ -15,6 +15,9 @@
     },
     {
       "label": "prev"
+    },
+    {
+      "label": "Edge Field 6"
     }
   ],
   "edge_field_groups": [
@@ -240,17 +243,23 @@
       "default_options": {
         "fields": [],
         "indent": "\\t",
-        "link_kind": "wiki",
-        "show_attributes": [],
+        "link_kind": "markdown",
+        "show_attributes": [
+          "field",
+          "explicit",
+          "source",
+          "implied_kind",
+          "round"
+        ],
         "field_group_labels": [],
         "edge_sort_id": {
           "order": 1,
           "field": "basename"
         },
         "show_node_options": {
-          "ext": false,
+          "ext": true,
           "alias": true,
-          "folder": false
+          "folder": true
         }
       }
     },

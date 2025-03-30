@@ -13,18 +13,10 @@ hideUnresolved: true
 showOrphans: false
 collapse-color-groups: false
 colorGroups:
-  - query: path:PLAN
+  - query: ""
     color:
+      rgb: 2371798
       a: 1
-      rgb: 65297
-  - query: tag:#moc
-    color:
-      a: 1
-      rgb: 16711680
-  - query: tag:#process
-    color:
-      a: 1
-      rgb: 5431473
 collapse-display: false
 showArrow: true
 textFadeMultiplier: -0.7

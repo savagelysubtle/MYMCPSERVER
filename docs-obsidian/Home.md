@@ -1,83 +1,163 @@
 ---
 created: 2025-03-28
-tags: home
+updated: 2025-03-30
+tags: [home, moc]
+contains: [
+  [[mcpKnowledge/MCP Knowledge MOC]],
+  [[projects/myMcpServer/Project MOC]],
+  [[generalKnowledge/General Knowledge MOC]],
+  [[languages/python/Python MOC]],
+  [[languages/typescript/TypeScript MOC]]
+]
 ---
 
 # Home
 
 Welcome to the MCP Central Hub Knowledge Base. This documentation is organized into distinct categories for clarity and ease of navigation.
 
-## 1. MCP Knowledge Base
+## Documentation Organization
 
-Core knowledge about the Model Context Protocol (MCP) system.
+This documentation is organized into these main sections:
 
-### Concepts
+### 1. MCP Knowledge Base [[mcpKnowledge/README|Overview]] (implements)
 
-- [[mcp/concepts/MCP Architecture|MCP Architecture]] - Core MCP architectural principles
-- [[mcp/concepts/MCP Protocol|MCP Protocol]] - Protocol specifications and standards
-- [[mcp/concepts/MCP Server Types|MCP Server Types]] - Different types of MCP servers
+General knowledge about the Model Context Protocol (MCP) system, independent of specific implementations.
 
-### Reference
+#### Core Concepts
 
-- [[mcp/reference/MCP Protocol Specification|Protocol Specification]]
-- [[mcp/reference/MCP SDK Reference|SDK Reference]]
-- [[mcp/reference/MCP Best Practices|Best Practices]]
+- [[mcpKnowledge/core/MCP Server Architecture|MCP Architecture]] - Core architectural principles
+- [[mcpKnowledge/core/MCP Central Hub|MCP Central Hub]] - Central hub design
+- [[mcpKnowledge/core/Tool Management|Tool Management]] - Tool management system
 
-## 2. Project Documentation
+#### Development Resources
 
-Specific documentation for this MCP implementation.
+- [[mcpKnowledge/development/Implementation Guide|Implementation Guide]]
+- [[mcpKnowledge/development/Hub Configuration|Configuration Guide]]
+- [[mcpKnowledge/development/Hub Debugging|Debugging Guide]]
 
-### Architecture
+#### SDK Documentation
 
-- [[project/architecture/System Overview|System Overview]]
-- [[project/architecture/logging-centralization|Logging Centralization]]
-- [[project/architecture/Component Design|Component Design]]
+##### Python SDK
 
-### Implementation
+- [[mcpKnowledge/pythonSDK/Python SDK Overview|Python SDK Overview]]
+- [[mcpKnowledge/pythonSDK/Python Server Development|Server Development]]
+- [[mcpKnowledge/pythonSDK/Python Tool Implementation|Tool Implementation]]
 
-- [[project/implementation/Setup Guide|Setup Guide]]
-- [[project/implementation/Configuration|Configuration]]
-- [[project/implementation/Deployment|Deployment]]
+##### TypeScript SDK
 
-### Operations
+- [[mcpKnowledge/typeScriptSDK/TypeScript SDK Overview|TypeScript SDK Overview]]
+- [[mcpKnowledge/typeScriptSDK/TypeScript Server Development|Server Development]]
+- [[mcpKnowledge/typeScriptSDK/TypeScript Tool Implementation|Tool Implementation]]
 
-- [[project/operations/Monitoring|Monitoring]]
-- [[project/operations/Maintenance|Maintenance]]
-- [[project/operations/Troubleshooting|Troubleshooting]]
+### 2. Project Implementation [[projects/myMcpServer/README|Overview]] (implements)
 
-## 3. Technical Knowledge
+Specific documentation for the MyMcpServer implementation, corresponding to the `src/` directory.
 
-General technical concepts and patterns.
+#### Architecture
 
-### Development
+- [[projects/myMcpServer/architecture/System Overview|System Overview]]
+- [[projects/myMcpServer/architecture/logging-centralization|Logging Centralization]]
+- [[projects/myMcpServer/architecture/Component Design|Component Design]]
 
-- [[tech/development/Design Patterns|Design Patterns]]
-- [[tech/development/Code Standards|Code Standards]]
-- [[tech/development/Testing Strategies|Testing Strategies]]
+#### Implementation
 
-### Infrastructure
+- [[projects/myMcpServer/implementation/Setup Guide|Setup Guide]]
+- [[projects/myMcpServer/implementation/Configuration|Configuration]]
+- [[projects/myMcpServer/implementation/Deployment|Deployment]]
 
-- [[tech/infrastructure/Logging Patterns|Logging Patterns]]
-- [[tech/infrastructure/Monitoring Patterns|Monitoring Patterns]]
-- [[tech/infrastructure/Security Patterns|Security Patterns]]
+### 3. General Knowledge [[generalKnowledge/README|Overview]] (extends)
+
+General knowledge and rules that apply across different contexts.
+
+#### Making Rules
+
+- [[generalKnowledge/makingRules/Overview|Rules Overview]]
+- [[generalKnowledge/makingRules/Best Practices|Rules Best Practices]]
+- [[generalKnowledge/makingRules/Implementation|Rules Implementation]]
+
+### 4. Language Knowledge (implements)
+
+Shared knowledge for programming languages, applicable across projects.
+
+#### Python Development
+
+- [[languages/python/core/Python Best Practices|Best Practices]]
+- [[languages/python/core/Python Design Patterns|Design Patterns]]
+- [[languages/python/testing/Python Testing|Testing Guide]]
+
+#### TypeScript Development
+
+- [[languages/typescript/core/TypeScript Best Practices|Best Practices]]
+- [[languages/typescript/core/TypeScript Design Patterns|Design Patterns]]
+- [[languages/typescript/testing/TypeScript Testing|Testing Guide]]
 
 ## Maps of Content
 
-- [[MCP MOC]] - MCP-specific knowledge
-- [[Project MOC]] - Project-specific documentation
-- [[Tech MOC]] - Technical knowledge and patterns
-- [[Processes MOC]] - How-to guides and procedures
-- [[Reference MOC]] - Technical specifications
+### Core Documentation
 
-## Quick Actions
+- [[mcpKnowledge/MCP Knowledge MOC|MCP Knowledge]] (implements) - General MCP concepts and standards
+- [[projects/myMcpServer/Project MOC|MyMcpServer]] (implements) - Project-specific implementation
+- [[generalKnowledge/General Knowledge MOC|General Knowledge]] (extends) - Cross-cutting knowledge
+- [[docsGuide/Documentation Structure Guide|Documentation Guide]] (implements) - How to maintain docs
 
-- [[templates/Note Template|Create New Note]]
-- [[templates/MOC Template|Create New MOC]]
+### Language Knowledge
+
+- [[languages/python/Python MOC|Python]] (implements) - Python development knowledge
+- [[languages/typescript/TypeScript MOC|TypeScript]] (implements) - TypeScript development knowledge
+
+### Support
+
+- [[templates/Note Template|Create New Note]] (related)
+- [[templates/MOC Template|Create New MOC]] (related)
 
 ---
 
-_This knowledge base uses a three-tier organization system:
+## Documentation Structure
 
-1. MCP Knowledge - General MCP concepts and standards
-2. Project Documentation - Specific to this implementation
-3. Technical Knowledge - General technical patterns and practices_
+This knowledge base maintains clear separation between:
+
+1. **General MCP Knowledge** ([[mcpKnowledge/README|Overview]])
+   - Core concepts and architecture
+   - SDK documentation
+   - Best practices and patterns
+
+2. **Project Implementation** ([[projects/myMcpServer/README|Overview]])
+   - Specific implementation details
+   - Project architecture
+   - Source code documentation
+
+3. **General Knowledge** ([[generalKnowledge/README|Overview]])
+   - Cross-cutting concepts
+   - Universal rules and patterns
+   - Best practices
+
+4. **Language Knowledge**
+   - Shared programming patterns
+   - Language-specific best practices
+   - Reusable knowledge
+
+For details on maintaining this structure, see the [[docsGuide/Documentation Structure Guide|Documentation Guide]].
+
+---
+
+## Navigation
+
+### Contained Documents
+
+```dataview
+list from [[Home]]
+where contains(file.outlinks, this.file.link)
+```
+
+### Implementation Documents
+
+```dataview
+list from [[Home]]
+where type = "implements"
+```
+
+### Extended Knowledge
+
+```dataview
+list from [[Home]]
+where type = "extends"

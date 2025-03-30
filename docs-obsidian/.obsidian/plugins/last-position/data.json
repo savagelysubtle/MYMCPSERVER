@@ -3,8 +3,32 @@
   "myRetryCount": 30,
   "scrollHeightData": {
     "Concepts MOC.md": {
-      "height": 17.968601895734597,
-      "lastAccessed": 1743329822891
+      "height": 17.944010416666668,
+      "lastAccessed": 1743360461904
+    },
+    "node_modules/@modelcontextprotocol/sdk/README.md": {
+      "height": 58.961309523809526,
+      "lastAccessed": 1743357386901
+    },
+    "projects/myMcpServer/README.md": {
+      "height": 72.5995260663507,
+      "lastAccessed": 1743360092904
+    },
+    "projects/myMcpServer/Project MOC.md": {
+      "height": 13.608412322274882,
+      "lastAccessed": 1743360110903
+    },
+    "Configuring Cursor MCP Integration.md": {
+      "height": 66.98793161247066,
+      "lastAccessed": 1743360464892
+    },
+    "languages/typescript/TypeScript MOC.md": {
+      "height": 5.1330956625074275,
+      "lastAccessed": 1743362123899
+    },
+    "docsGuide/Linking Strategy.md": {
+      "height": 154.1448717948718,
+      "lastAccessed": 1743362354893
     }
   },
   "listenEvent": "mouseover",

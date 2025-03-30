@@ -4,35 +4,31 @@
     "type": "split",
     "children": [
       {
-        "id": "b956ceb9663b1aca",
+        "id": "cfacefa00b7631f4",
         "type": "tabs",
         "children": [
           {
-            "id": "c75aa0e2da0dc404",
+            "id": "90397b14b5d47c41",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
-            }
-          }
-        ]
-      },
-      {
-        "id": "a40de608e677c1d9",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "1328a0aff7018d8c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown-preset-view",
+              "type": "markdown",
               "state": {
-                "file": "graph presets/PLAN.md"
+                "file": "docsGuide/Linking Strategy.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
-              "title": "PLAN"
+              "title": "Linking Strategy"
             }
           }
         ]
@@ -108,8 +104,7 @@
               "title": "Tag Folder"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
@@ -129,6 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "docsGuide/Linking Strategy.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +134,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for Linking Strategy"
             }
           },
           {
@@ -161,12 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "docsGuide/Linking Strategy.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Linking Strategy"
             }
           },
           {
@@ -216,48 +213,54 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "fdd3b12740687a44",
+  "active": "90397b14b5d47c41",
   "lastOpenFiles": [
-    "project/architecture/logging-centralization.md",
-    "project/architecture",
-    "project",
-    "Tech MOC.md",
-    "Project MOC.md",
-    "MCP MOC.md",
-    "concepts/logging-centralization.md",
-    "mcpPlanning/research/proxyServer/sparfenyuk-mcp-proxy.txt",
-    "mcpPlanning/research/proxyServer/README-Proxy.md",
-    "mcpPlanning/research/proxyServer/proxyIngest.md",
-    "mcpPlanning/research/GPT/projectOverview.md",
-    "mcpPlanning/research/Adapter/technical.md",
-    "mcpPlanning/research/flowChart/flowchart.md",
-    "mcpPlanning/research/flowChart/filetree.md",
-    "mcpPlanning/research/flowChart/Editor _ Mermaid Chart-2025-03-30-012655.png",
-    "mcpPlanning/research/Adapter/overview.md",
-    "mcpPlanning/research/flowChart/Editor _ Mermaid Chart-2025-03-30-012632.svg",
-    "mcpPlanning/research/flowChart/Editor _ Mermaid Chart-2025-03-30-012517.mmd",
-    "mcpPlanning/research/core/technical.md",
-    "mcpPlanning/research/core/overview.md",
-    "mcpPlanning/final/typescript/tool-server.md",
-    "mcpPlanning/final/python/tool-server.md",
-    "mcpPlanning/final/transport/technical-v2.md",
-    "mcpPlanning/final/flowchart/flowchart.md",
-    "mcpPlanning/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034600.mmd",
-    "mcpPlanning/final/transport/overview-v2.md",
-    "mcpPlanning/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
-    "mcpPlanning/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
-    "mcpPlanning/final/cross-cutting/technical-v1.md",
-    "mcpPlanning/final/core/technical-v2.md",
-    "mcpPlanning/final/core/overview-v2.md",
-    "mcpPlanning/final/adapter/technical-v2.md",
-    "mcpPlanning/research/obsidiantopython.md",
-    "mcpPlanning/research/proxyServer",
-    "mcpPlanning/research/pythontocursor.md",
-    "mcpPlanning/research/GPT",
-    "mcpPlanning/research/Adapter",
-    "mcpPlanning/research/flowChart",
-    "mcpPlanning/research/core",
-    "mcpPlanning/final/overview.md",
+    "generalKnowledge/_index.md",
+    "languages/typescript/TypeScript MOC.md",
+    "docsGuide/_index.md",
+    "languages/_index.md",
+    "projects/_index.md",
+    "lists/_index.md",
+    "lists",
+    "tags/_index.md",
+    "tags",
+    "mcpKnowledge/_index.md",
+    "languages/typescript/core/TypeScript Design Patterns.md",
+    "languages/typescript/core",
+    "Fleeting MOC.md",
+    "languages/python/tools/Python Development Tools.md",
+    "languages/python/tools",
+    "projects/myMcpServer/architecture/overview.md",
+    "projects/myMcpServer/architecture/filetree.md",
+    "Configuring Cursor MCP Integration.md",
+    "Concepts MOC.md",
+    "python/tools/Python Development Tools.md",
+    "projects/myMcpServer/architecture/flowchart/flowchart.md",
+    "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034600.mmd",
+    "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
+    "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
+    "projects/myMcpServer/architecture/flowchart",
+    "projects/myMcpServer/implementation/cross-cutting/technical-v1.md",
+    "projects/myMcpServer/implementation/cross-cutting",
+    "projects/myMcpServer/implementation/python/tool-server.md",
+    "projects/myMcpServer/implementation/python",
+    "projects/myMcpServer/implementation/typescript/tool-server.md",
+    "projects/myMcpServer/implementation/typescript",
+    "projects/myMcpServer/implementation/transport/technical-v2.md",
+    "projects/myMcpServer/implementation/transport/overview-v2.md",
+    "projects/myMcpServer/implementation/transport",
+    "projects/myMcpServer/implementation/core/technical-v2.md",
+    "projects/myMcpServer/implementation/core/overview-v2.md",
+    "projects/myMcpServer/implementation/adapter/technical-v2.md",
+    "graph presets/MCP.md",
+    "projects/myMcpServer/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
+    "projects/myMcpServer/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
+    "projects/myMcpServer/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
+    "projects/myMcpServer/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
+    "projects/myMcpServer/mcpPlanning/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
+    "projects/myMcpServer/mcpPlanning/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
+    "projects/myMcpServer/mcpPlanning/research/flowChart/Editor _ Mermaid Chart-2025-03-30-012655.png",
+    "projects/myMcpServer/mcpPlanning/research/flowChart/Editor _ Mermaid Chart-2025-03-30-012632.svg",
     "Untitled.canvas",
     "Untitled 1.canvas"
   ]

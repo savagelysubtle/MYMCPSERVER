@@ -1,27 +1,43 @@
 ---
 created: 2025-03-30
-tags: MOC, tech
+updated: 2025-03-30
+tags: [MOC, tech, knowledge-base]
+parent: [[Home]]
+up: [[Home]]
+siblings: [[MCP MOC]], [[Project MOC]], [[Processes MOC]]
+extended_by: [
+  [[MCP MOC]],
+  [[Project MOC]],
+  [[languages/python/Python MOC]],
+  [[languages/typescript/TypeScript MOC]]
+]
+contains: [
+  [[tech/architecture/Microservices]],
+  [[tech/architecture/Event Driven]],
+  [[tech/development/Clean Code]],
+  [[tech/security/Authentication]]
+]
 ---
 
 # Tech MOC
 
-This Map of Content organizes general technical knowledge, patterns, and best practices.
+This Map of Content organizes general technical knowledge, patterns, and best practices that serve as a foundation for other knowledge areas.
 
 ## Architecture Patterns
 
-### System Design
+### System Design (foundation)
 
 - [[tech/architecture/Microservices]] - Microservices architecture
 - [[tech/architecture/Event Driven]] - Event-driven architecture
 - [[tech/architecture/Service Mesh]] - Service mesh patterns
 
-### Infrastructure
+### Infrastructure (foundation)
 
 - [[tech/infrastructure/Logging Patterns]] - Logging best practices
 - [[tech/infrastructure/Monitoring Patterns]] - Monitoring strategies
 - [[tech/infrastructure/Security Patterns]] - Security architecture
 
-### Data
+### Data (foundation)
 
 - [[tech/data/Data Modeling]] - Data modeling patterns
 - [[tech/data/Data Pipeline]] - Data processing patterns
@@ -29,19 +45,19 @@ This Map of Content organizes general technical knowledge, patterns, and best pr
 
 ## Development Practices
 
-### Code Quality
+### Code Quality (foundation)
 
 - [[tech/development/Clean Code]] - Clean code principles
 - [[tech/development/Code Review]] - Code review practices
 - [[tech/development/Refactoring]] - Refactoring patterns
 
-### Testing
+### Testing (foundation)
 
 - [[tech/testing/Test Strategy]] - Testing approaches
 - [[tech/testing/TDD]] - Test-driven development
 - [[tech/testing/Performance Testing]] - Performance test patterns
 
-### Security
+### Security (foundation)
 
 - [[tech/security/Authentication]] - Authentication patterns
 - [[tech/security/Authorization]] - Authorization patterns
@@ -49,19 +65,19 @@ This Map of Content organizes general technical knowledge, patterns, and best pr
 
 ## DevOps
 
-### CI/CD
+### CI/CD (foundation)
 
 - [[tech/devops/CI Pipeline]] - Continuous integration
 - [[tech/devops/CD Pipeline]] - Continuous deployment
 - [[tech/devops/Release Management]] - Release strategies
 
-### Operations
+### Operations (foundation)
 
 - [[tech/ops/Monitoring]] - Monitoring practices
 - [[tech/ops/Logging]] - Logging strategies
 - [[tech/ops/Alerting]] - Alert management
 
-### Infrastructure
+### Infrastructure (foundation)
 
 - [[tech/infrastructure/Container]] - Container patterns
 - [[tech/infrastructure/Orchestration]] - Orchestration patterns
@@ -69,13 +85,13 @@ This Map of Content organizes general technical knowledge, patterns, and best pr
 
 ## Languages & Frameworks
 
-### Python
+### Python (foundation)
 
 - [[tech/python/Best Practices]] - Python best practices
 - [[tech/python/Design Patterns]] - Python patterns
 - [[tech/python/Testing]] - Python testing
 
-### TypeScript
+### TypeScript (foundation)
 
 - [[tech/typescript/Best Practices]] - TypeScript best practices
 - [[tech/typescript/Design Patterns]] - TypeScript patterns
@@ -83,28 +99,53 @@ This Map of Content organizes general technical knowledge, patterns, and best pr
 
 ## Tools & Technologies
 
-### Development Tools
+### Development Tools (foundation)
 
 - [[tech/tools/IDE]] - IDE configuration
 - [[tech/tools/Git]] - Version control
 - [[tech/tools/Docker]] - Containerization
 
-### Monitoring Tools
+### Monitoring Tools (foundation)
 
 - [[tech/monitoring/Prometheus]] - Metrics collection
 - [[tech/monitoring/Grafana]] - Visualization
 - [[tech/monitoring/ELK]] - Log management
 
+## Navigation
+
+### Breadcrumb Trail
+
+1. [[Home|Home]]
+2. Current: Technical Knowledge
+
+### Knowledge Extensions
+
+_Areas that build upon this knowledge:_
+
+```dataview
+list from [[Tech MOC]]
+where type = "extends"
+```
+
+### Foundation Usage
+
+_Areas that implement these patterns:_
+
+```dataview
+list from [[Tech MOC]]
+where type = "implements"
+```
+
 ## Related MOCs
 
-- [[MCP MOC]] - MCP-specific knowledge
-- [[Project MOC]] - Project implementation
-- [[Processes MOC]] - Implementation procedures
-- [[Reference MOC]] - Technical references
+- [[MCP MOC]] (extends) - MCP-specific knowledge
+- [[Project MOC]] (extends) - Project implementation
+- [[Processes MOC]] (related) - Implementation procedures
+- [[Reference MOC]] (related) - Technical references
 
 ---
 
-_This MOC focuses on general technical knowledge and best practices, separate from MCP-specific and project-specific content._
+_This MOC provides foundational technical knowledge and best practices that other knowledge areas build upon._
 
 ## Automatically Linked Notes
 

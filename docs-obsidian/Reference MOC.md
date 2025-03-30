@@ -1,133 +1,155 @@
 ---
 created: 2025-03-28
-tags: MOC
+updated: 2025-03-30
+tags: [MOC, reference, documentation]
+parent: [[Home]]
+up: [[Home]]
+siblings: [[MCP MOC]], [[Tech MOC]], [[Processes MOC]]
+extended_by: [
+  [[MCP MOC]],
+  [[Tech MOC]],
+  [[Project MOC]]
+]
+contains: [
+  [[MCP Server Configuration]],
+  [[MCP Protocol Specification]],
+  [[API Endpoints]],
+  [[Configuration Examples]]
+]
 ---
 
 # Reference MOC
 
-This Map of Content organizes all reference material - technical specifications, command lists, API documentation, and other detailed information.
+This Map of Content organizes all reference material - technical specifications, command lists, API documentation, and other detailed information that serves as a foundation for other knowledge areas.
 
 ## MCP Reference
 
-### Server Documentation
+### Server Documentation (foundation)
 
 - [[MCP Server Configuration]] - Unified MCP server configuration and implementation
 - [[MCP Technical Implementation]] - Detailed code examples and implementation patterns
 - [[Python MCP SDK]] - Comprehensive guide for Python MCP SDK implementation
 
-### API Documentation
+### API Documentation (foundation)
 
 - [[MCP Protocol Specification]] - Technical details of the Model Context Protocol
 - [[MCP Resource Types]] - Reference for standard MCP resource types
 
 ## Technical Reference
 
-### Commands & Syntax
+### Commands & Syntax (foundation)
 
-- Technical command references
+- [[Command Reference]] - Technical command references
+- [[Syntax Guide]] - Language syntax references
+- [[CLI Documentation]] - Command line interface guide
 
-### Configuration
+### Configuration (foundation)
 
-- Configuration file references
+- [[Config Reference]] - Configuration file references
+- [[Environment Setup]] - Environment configuration guide
+- [[System Settings]] - System configuration reference
 
-### API Documentation
+### API Documentation (foundation)
 
-- API specifications and references
+- [[API Endpoints]] - API endpoint specifications
+- [[Request Response Formats]] - API request/response formats
+- [[Authentication Headers]] - Authentication specifications
 
-## Environment Setup
+## Navigation
 
-### Installation
+### Breadcrumb Trail
 
-- Installation guides and references
+1. [[Home|Home]]
+2. Current: Technical Reference
 
-### Configuration
+### Knowledge Extensions
 
-- Environment configuration references
+_Areas that build upon this reference:_
 
-## Tools & Utilities
+```dataview
+list from [[Reference MOC]]
+where type = "extends"
+```
 
-### Development Tools
+### Foundation Usage
 
-- Development tool references
+_Areas that implement these specifications:_
 
-### Monitoring Tools
-
-- Monitoring tool references
-
-## Related MOCs
-
-- [[Concepts MOC]] - Conceptual knowledge and theoretical foundations
-- [[Processes MOC]] - Step-by-step guides and procedures
-
----
-
-_All reference materials are organized here for quick lookup and access._
-
-## API References
-
-- [[API Endpoints]]
-- [[Request Response Formats]]
-- [[Authentication Headers]]
-- [[Rate Limiting Specifications]]
-
-## MCP References
-
-- [[MCP Servers List]]
-- [[Configuration Examples]]
-- [[MCP Hub Implementation]]
-- [[Tool Specifications]]
-
-## Database References
-
-- [[Database Schema]]
-- [[Query Templates]]
-- [[Indexing Strategy]]
-- [[Stored Procedures]]
-
-## Configuration References
-
-- [[Environment Variables]]
-- [[System Configuration]]
-- [[Deployment Configuration]]
-- [[Network Settings]]
-
-## External Systems
-
-- [[Third-party APIs]]
-- [[Integration Points]]
-- [[Service Dependencies]]
-- [[External Resources]]
-
-## Performance Metrics
-
-- [[Benchmark Results]]
-- [[Performance SLAs]]
-- [[Resource Utilization Baselines]]
-- [[Scaling Parameters]]
-
----
-
-_This is a Map of Content (MOC) for reference materials. Each linked note provides detailed specifications and technical information._
+```dataview
+list from [[Reference MOC]]
+where type = "implements"
+```
 
 ## Technical Specifications
 
-_Detailed technical information:_
+### API References (foundation)
 
-- (Add technical specs here)
+- [[API Endpoints]] - API endpoint documentation
+- [[Request Response Formats]] - Message format specifications
+- [[Authentication Headers]] - Authentication protocols
+- [[Rate Limiting Specifications]] - Rate limit documentation
 
-## API Documentation
+### MCP References (foundation)
 
-_API endpoints and usage:_
+- [[MCP Servers List]] - MCP server registry
+- [[Configuration Examples]] - Configuration templates
+- [[MCP Hub Implementation]] - Implementation reference
+- [[Tool Specifications]] - Tool interface specifications
 
-- (Add API docs here)
+### Database References (foundation)
 
-## Resources
+- [[Database Schema]] - Database structure
+- [[Query Templates]] - Common query patterns
+- [[Indexing Strategy]] - Database indexing guide
+- [[Stored Procedures]] - Procedure documentation
 
-_External resources and links:_
+### Configuration References (foundation)
 
-- (Add resources here)
+- [[Environment Variables]] - Environment configuration
+- [[System Configuration]] - System settings
+- [[Deployment Configuration]] - Deployment reference
+- [[Network Settings]] - Network configuration
+
+### External Systems (foundation)
+
+- [[Third-party APIs]] - External API documentation
+- [[Integration Points]] - Integration specifications
+- [[Service Dependencies]] - Dependency documentation
+- [[External Resources]] - External reference guide
+
+### Performance Metrics (foundation)
+
+- [[Benchmark Results]] - Performance benchmarks
+- [[Performance SLAs]] - Service level agreements
+- [[Resource Utilization Baselines]] - Resource metrics
+- [[Scaling Parameters]] - Scaling specifications
+
+## Related MOCs
+
+- [[MCP MOC]] (extends) - MCP-specific knowledge
+- [[Tech MOC]] (extends) - Technical knowledge
+- [[Project MOC]] (extends) - Project implementation
+- [[Processes MOC]] (related) - Implementation procedures
+
+## Knowledge Organization
+
+### Foundation Documents
+
+```dataview
+list from [[Reference MOC]]
+where type = "foundation"
+```
+
+### Extended Knowledge
+
+```dataview
+list from [[Reference MOC]]
+where type = "extends"
+```
 
 ---
+
+_This MOC provides foundational reference material that other knowledge areas build upon._
 
 ## Automatically Linked Notes
 
