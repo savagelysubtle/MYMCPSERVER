@@ -17,6 +17,12 @@ import sys
 from pathlib import Path
 
 # Add src to Python path
+# Determine the project root directory (assuming run_server.py is in src/)
+project_root = Path(__file__).parent.parent
+log_dir = project_root / "logs"
+# Create the logs directory if it doesn't exist
+log_dir.mkdir(parents=True, exist_ok=True)
+
 sys.path.insert(0, str(Path(__file__).parent))
 
 from mymcpserver import main as mcp_main
@@ -24,10 +30,11 @@ from mymcpserver import main as mcp_main
 
 def setup_logging() -> None:
     """Configure logging for the runner script."""
+    log_file_path = log_dir / "mcp_runner.log"
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler(), logging.FileHandler("mcp_runner.log")],
+        handlers=[logging.StreamHandler(), logging.FileHandler(log_file_path)],
     )
 
 

@@ -1,6 +1,8 @@
 """Python Tool Server implementation using MCP SDK."""
 
 import os
+import sys
+from pathlib import Path
 
 try:
     import mcp
@@ -17,15 +19,27 @@ from .n2.tool import (
     aichemist_list_molecules,
 )
 
-# Configure logging
-try:
-    from mcp.logger import configure_logging
+# Add project root to path to allow importing mcp_core
+# Assumes this file is src/tool_servers/python_tool_server/server.py
+project_root = Path(__file__).resolve().parent.parent.parent.parent
+src_path = project_root / "src"
+sys.path.insert(0, str(src_path))
 
-    configure_logging(level=os.environ.get("LOG_LEVEL", "INFO"))
-except ImportError:
+# Configure logging using StructuredLogger from mcp_core
+try:
+    from mcp_core.logger import StructuredLogger
+
+    logger = StructuredLogger("py-tool-server")
+    logger.info("Python Tool Server logging initialized.")
+except ImportError as e:
+    # Fallback basic logging if mcp_core logger cannot be imported
     import logging
 
     logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
+    logger = logging.getLogger("py-tool-server")
+    logger.error(
+        f"Could not import StructuredLogger from mcp_core: {e}. Using basic logging."
+    )
 
 # Create MCP server
 server = create_server(
