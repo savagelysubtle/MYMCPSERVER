@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docsGuide/Linking Strategy.md",
+                "file": "projects/myMcpServer/implementation/core/overview-v2.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Linking Strategy"
+              "title": "overview-v2"
             }
           }
         ]
@@ -124,7 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docsGuide/Linking Strategy.md",
+                "file": "projects/myMcpServer/implementation/core/overview-v2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -134,7 +134,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Linking Strategy"
+              "title": "Backlinks for overview-v2"
             }
           },
           {
@@ -201,7 +201,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "obsidian-excalidraw-plugin:New drawing": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -213,46 +212,46 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "90397b14b5d47c41",
+  "active": "5d7862b3768de6b9",
   "lastOpenFiles": [
-    "generalKnowledge/_index.md",
-    "languages/typescript/TypeScript MOC.md",
-    "docsGuide/_index.md",
-    "languages/_index.md",
-    "projects/_index.md",
-    "lists/_index.md",
-    "lists",
-    "tags/_index.md",
-    "tags",
-    "mcpKnowledge/_index.md",
-    "languages/typescript/core/TypeScript Design Patterns.md",
-    "languages/typescript/core",
-    "Fleeting MOC.md",
-    "languages/python/tools/Python Development Tools.md",
-    "languages/python/tools",
-    "projects/myMcpServer/architecture/overview.md",
-    "projects/myMcpServer/architecture/filetree.md",
-    "Configuring Cursor MCP Integration.md",
-    "Concepts MOC.md",
-    "python/tools/Python Development Tools.md",
-    "projects/myMcpServer/architecture/flowchart/flowchart.md",
-    "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034600.mmd",
+    "projects/myMcpServer/mcpKnowledge/reference/Reference MOC.md",
+    "projects/myMcpServer/mcpKnowledge/reference/MCP Servers List.md",
+    "projects/myMcpServer/mcpKnowledge/pythonSDK/Python Server Development.md",
+    "projects/myMcpServer/mcpKnowledge/typeScriptSDK/Implementation Examples.md",
+    "projects/myMcpServer/mcpKnowledge/pythonSDK/Python SDK Overview.md",
+    "projects/myMcpServer/mcpKnowledge/pythonSDK/Implementation Examples.md",
+    "projects/myMcpServer/mcpKnowledge/integration/Sequential Thinking Tools.md",
+    "projects/myMcpServer/mcpKnowledge/integration/Cursor Integration.md",
+    "projects/myMcpServer/mcpKnowledge/integration/Cursor MCP Integration.md",
+    "projects/myMcpServer/mcpKnowledge/development/Processes MOC.md",
+    "projects/myMcpServer/mcpKnowledge/development/MCP Hub Implementation.md",
+    "projects/myMcpServer/mcpKnowledge/development/Implementation Guide.md",
+    "projects/myMcpServer/mcpKnowledge/development/Hub Setup Guide.md",
+    "projects/myMcpServer/mcpKnowledge/development/Hub Implementation Process.md",
+    "projects/myMcpServer/mcpKnowledge/development/Hub Debugging.md",
+    "projects/myMcpServer/mcpKnowledge/development/Hub Configuration.md",
+    "projects/myMcpServer/mcpKnowledge/development/Configuration Examples.md",
+    "projects/myMcpServer/mcpKnowledge/core/Tool Management.md",
+    "projects/myMcpServer/mcpKnowledge/core/Server Architecture.md",
+    "projects/myMcpServer/mcpKnowledge/core/Remote Servers.md",
+    "projects/myMcpServer/mcpKnowledge/core/MCP Server Architecture.md",
+    "projects/myMcpServer/mcpKnowledge/core/MCP Central Hub.md",
+    "projects/myMcpServer/mcpKnowledge/core/MCP Architecture.md",
+    "projects/myMcpServer/mcpKnowledge/_index.md",
+    "projects/myMcpServer/mcpKnowledge/reference",
+    "projects/myMcpServer/mcpKnowledge/typeScriptSDK",
+    "projects/myMcpServer/mcpKnowledge/pythonSDK",
+    "projects/myMcpServer/mcpKnowledge/integration",
+    "projects/myMcpServer/mcpKnowledge/development",
+    "projects/myMcpServer/mcpKnowledge/core",
+    "projects/myMcpServer/mcpKnowledge",
+    "projects/mcpKnowledge/typeScriptSDK/Implementation Examples.md",
+    "projects/mcpKnowledge/reference/Reference MOC.md",
+    "projects/mcpKnowledge/typeScriptSDK",
+    "projects/mcpKnowledge/reference",
+    "projects/mcpKnowledge/pythonSDK",
     "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
     "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
-    "projects/myMcpServer/architecture/flowchart",
-    "projects/myMcpServer/implementation/cross-cutting/technical-v1.md",
-    "projects/myMcpServer/implementation/cross-cutting",
-    "projects/myMcpServer/implementation/python/tool-server.md",
-    "projects/myMcpServer/implementation/python",
-    "projects/myMcpServer/implementation/typescript/tool-server.md",
-    "projects/myMcpServer/implementation/typescript",
-    "projects/myMcpServer/implementation/transport/technical-v2.md",
-    "projects/myMcpServer/implementation/transport/overview-v2.md",
-    "projects/myMcpServer/implementation/transport",
-    "projects/myMcpServer/implementation/core/technical-v2.md",
-    "projects/myMcpServer/implementation/core/overview-v2.md",
-    "projects/myMcpServer/implementation/adapter/technical-v2.md",
-    "graph presets/MCP.md",
     "projects/myMcpServer/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
     "projects/myMcpServer/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
     "projects/myMcpServer/final/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
