@@ -5,26 +5,69 @@ tags: home
 
 # Home
 
-Welcome to the MCP Central Hub Knowledge Base. This documentation contains comprehensive information about creating, configuring, and using a centralized hub for Model Context Protocol (MCP) servers with Cursor IDE.
+Welcome to the MCP Central Hub Knowledge Base. This documentation is organized into distinct categories for clarity and ease of navigation.
 
-## Main Knowledge Areas
+## 1. MCP Knowledge Base
 
-- [[Concepts MOC]] - Core concepts and architectural principles of MCP
-- [[Processes MOC]] - Step-by-step guides for setting up and using MCP servers
-- [[Reference MOC]] - Technical specifications and detailed references
+Core knowledge about the Model Context Protocol (MCP) system.
 
-## Getting Started
+### Concepts
 
-If you're new to MCP Central Hub, here are good starting points:
+- [[mcp/concepts/MCP Architecture|MCP Architecture]] - Core MCP architectural principles
+- [[mcp/concepts/MCP Protocol|MCP Protocol]] - Protocol specifications and standards
+- [[mcp/concepts/MCP Server Types|MCP Server Types]] - Different types of MCP servers
 
-- [[MCP Central Hub]] - Understanding what a central hub does
-- [[MCP Hub Implementation Process]] - Complete implementation guide
-- [[MCP Hub Configuration]] - Configuration reference for the hub
-- [[MCP Server List]] - Comprehensive list of available servers
+### Reference
 
-## Recently Added
+- [[mcp/reference/MCP Protocol Specification|Protocol Specification]]
+- [[mcp/reference/MCP SDK Reference|SDK Reference]]
+- [[mcp/reference/MCP Best Practices|Best Practices]]
 
-- [[Fleeting MOC]] - New notes awaiting organization
+## 2. Project Documentation
+
+Specific documentation for this MCP implementation.
+
+### Architecture
+
+- [[project/architecture/System Overview|System Overview]]
+- [[project/architecture/logging-centralization|Logging Centralization]]
+- [[project/architecture/Component Design|Component Design]]
+
+### Implementation
+
+- [[project/implementation/Setup Guide|Setup Guide]]
+- [[project/implementation/Configuration|Configuration]]
+- [[project/implementation/Deployment|Deployment]]
+
+### Operations
+
+- [[project/operations/Monitoring|Monitoring]]
+- [[project/operations/Maintenance|Maintenance]]
+- [[project/operations/Troubleshooting|Troubleshooting]]
+
+## 3. Technical Knowledge
+
+General technical concepts and patterns.
+
+### Development
+
+- [[tech/development/Design Patterns|Design Patterns]]
+- [[tech/development/Code Standards|Code Standards]]
+- [[tech/development/Testing Strategies|Testing Strategies]]
+
+### Infrastructure
+
+- [[tech/infrastructure/Logging Patterns|Logging Patterns]]
+- [[tech/infrastructure/Monitoring Patterns|Monitoring Patterns]]
+- [[tech/infrastructure/Security Patterns|Security Patterns]]
+
+## Maps of Content
+
+- [[MCP MOC]] - MCP-specific knowledge
+- [[Project MOC]] - Project-specific documentation
+- [[Tech MOC]] - Technical knowledge and patterns
+- [[Processes MOC]] - How-to guides and procedures
+- [[Reference MOC]] - Technical specifications
 
 ## Quick Actions
 
@@ -33,4 +76,8 @@ If you're new to MCP Central Hub, here are good starting points:
 
 ---
 
-_This knowledge base is organized according to the PARA method (Projects, Areas, Resources, Archives) and uses bidirectional linking for improved discoverability._
+_This knowledge base uses a three-tier organization system:
+
+1. MCP Knowledge - General MCP concepts and standards
+2. Project Documentation - Specific to this implementation
+3. Technical Knowledge - General technical patterns and practices_

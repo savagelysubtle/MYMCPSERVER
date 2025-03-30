@@ -1,100 +1,49 @@
 ---
 created: 2025-03-28
-tags: MOC
+tags: MOC, deprecated
 ---
 
-# Concepts MOC
+# Concepts MOC (Deprecated)
 
-This Map of Content organizes all conceptual knowledge - definitions, explanations, and theoretical frameworks.
+> **Note**: This MOC has been reorganized into three separate MOCs for better organization:
+>
+> - [[MCP MOC]] - MCP-specific knowledge
+> - [[Project MOC]] - Project-specific documentation
+> - [[Tech MOC]] - General technical knowledge
+>
+> Please update your links to point to the appropriate new MOC.
 
-## Model Context Protocol (MCP)
+## Redirections
 
-### Core Concepts
+### MCP Content
 
-- [[MCP Architecture]] - Fundamental structure and components of MCP
-- [[MCP Central Hub]] - Unified system for managing multiple MCP servers
-- [[Cursor MCP Integration]] - How Cursor IDE implements MCP support
-- [[MCP Remote Servers]] - Extending MCP beyond local environments
-- [[MCP Server Types]] - Different categories of MCP servers and their purposes
+All MCP-related content has moved to [[MCP MOC]], including:
 
-### Usage Patterns
+- Core concepts
+- Protocol specifications
+- Server types and architecture
 
-- [[MCP Tool Selection]] - Best practices for selecting appropriate MCP tools
-- [[MCP Workflow Integration]] - Incorporating MCP tools into development workflows
+### Project Documentation
 
-## Programming Concepts
+Project-specific documentation has moved to [[Project MOC]], including:
 
-### Languages
+- System architecture
+- Implementation details
+- Operational guides
 
-- Language-specific concepts
+### Technical Knowledge
 
-### Paradigms
+General technical content has moved to [[Tech MOC]], including:
 
-- Programming paradigms and methodologies
+- Design patterns
+- Best practices
+- Infrastructure patterns
 
-### Design Patterns
+## Migration Guide
 
-- Common software design patterns
-
-## System Architecture
-
-### Infrastructure
-
-- Infrastructure and deployment concepts
-
-### Security
-
-- Security principles and concepts
-
-## AI & Machine Learning
-
-### Foundation Models
-
-- Core concepts of large language models
-
-### Prompt Engineering
-
-- Techniques for effective AI prompting
-
-## Related MOCs
-
-- [[Processes MOC]] - How-to guides and procedures
-- [[Reference MOC]] - Technical specifications and detailed information
-
----
-
-_All concept notes are organized here for easy discovery and navigation._
-
-## Definitions
-
-_Important terminology and definitions:_
-
-- (Add your definitions here)
-
-## Related Concepts
-
-_Concept clusters and related ideas:_
-
-- **Organization Methods**
-
-  - [[MOC Concept]]
-  - Tags
-  - Folders
-
-- **Connection Methods**
-  - [[Linking Strategy]]
-  - [[Knowledge Graph]]
-  - Backlinks
-
----
-
-## Automatically Linked Notes
-
-_Notes that link to this MOC:_
-
-```dataview
-list from [[Concepts MOC]] and !outgoing([[Concepts MOC]])
-```
+1. Update your links to point to the new MOCs
+2. Check the new MOCs for the reorganized content structure
+3. Use the search functionality to find specific content
 
 ---
 

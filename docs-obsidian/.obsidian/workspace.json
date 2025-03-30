@@ -218,6 +218,13 @@
   },
   "active": "fdd3b12740687a44",
   "lastOpenFiles": [
+    "project/architecture/logging-centralization.md",
+    "project/architecture",
+    "project",
+    "Tech MOC.md",
+    "Project MOC.md",
+    "MCP MOC.md",
+    "concepts/logging-centralization.md",
     "mcpPlanning/research/proxyServer/sparfenyuk-mcp-proxy.txt",
     "mcpPlanning/research/proxyServer/README-Proxy.md",
     "mcpPlanning/research/proxyServer/proxyIngest.md",
@@ -250,14 +257,7 @@
     "mcpPlanning/research/Adapter",
     "mcpPlanning/research/flowChart",
     "mcpPlanning/research/core",
-    "mcpPlanning/final/typescript",
-    "mcpPlanning/final/python",
-    "mcpPlanning/final/transport",
     "mcpPlanning/final/overview.md",
-    "mcpPlanning/final/filetree.md",
-    "mcpPlanning/PLAN/Implementation Plan MOC.md",
-    "mcpPlanning/PLAN/06 - Integration, Testing, and Running.md",
-    "mcpPlanning/PLAN/05 - TypeScript Tool Server and SDK.md",
     "Untitled.canvas",
     "Untitled 1.canvas"
   ]

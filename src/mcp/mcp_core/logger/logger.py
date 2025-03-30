@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
 if TYPE_CHECKING:
-    from mymcpserver.config import AppConfig, LoggingConfig
+    from src.config import AppConfig, LoggingConfig
 
 # --- Global state for configured logging ---
 _is_logging_configured = False
@@ -213,21 +213,46 @@ class StructuredLogger:
 
 # --- Global Logging Setup ---
 def get_log_dir(base_log_path: Path, service_name: str) -> Path:
-    # ... (keep get_log_dir as previously defined) ...
+    """Get the appropriate log directory for a service.
+
+    Args:
+        base_log_path: Base logs directory
+        service_name: Name of the service/logger (dot notation)
+
+    Returns:
+        Path: The appropriate log directory
+    """
     parts = service_name.split(".")
-    if len(parts) > 1 and parts[0] in ["mcp_core", "tool_servers", "mymcpserver"]:
-        if parts[0] == "tool_servers" and len(parts) > 1:
+
+    # Map service name patterns to log directories according to architecture doc
+    if parts[0] == "mcp_core" or service_name.startswith("mcp_core."):
+        service_dir = base_log_path / "core"
+    elif parts[0] == "tool_servers" or service_name.startswith("tool_servers."):
+        # For tool servers, create specific subdirectories if available
+        if len(parts) > 1:
             service_dir = base_log_path / "tools" / parts[1].replace("_", "-")
         else:
-            service_dir = base_log_path / parts[0].replace("_", "-")
+            service_dir = base_log_path / "tools"
+    elif parts[0] == "mcp_proxy" or service_name.startswith("mcp_proxy."):
+        service_dir = base_log_path / "proxy"
+    elif parts[0] == "mymcpserver" or service_name.startswith("mymcpserver."):
+        # Server-wide logs go to the server directory
+        service_dir = base_log_path / "server"
     else:
+        # Other/miscellaneous logs
         service_dir = base_log_path / "misc"
+
+    # Ensure directory exists
     service_dir.mkdir(parents=True, exist_ok=True)
     return service_dir
 
 
 def configure_logging(config: "AppConfig") -> None:
-    """Configures the root logger (mainly for stdout) and stores config."""
+    """Configures the root logger (mainly for stdout) and stores config.
+
+    Args:
+        config: Application configuration object
+    """
     global \
         _is_logging_configured, \
         _global_log_config, \
@@ -239,6 +264,20 @@ def configure_logging(config: "AppConfig") -> None:
         return
 
     log_config = config.logging
+    logs_path = config.logs_path
+
+    # Ensure all required log directories exist
+    required_dirs = [
+        logs_path / "core",
+        logs_path / "proxy",
+        logs_path / "server",
+        logs_path / "tools",
+        logs_path / "misc",
+    ]
+    for directory in required_dirs:
+        directory.mkdir(parents=True, exist_ok=True)
+        print(f"INFO: Ensured log directory exists: {directory}")
+
     root_logger = logging.getLogger()
     log_level_int = logging.getLevelName(config.get_effective_log_level())
 
@@ -269,7 +308,7 @@ def configure_logging(config: "AppConfig") -> None:
 
     # Store config for StructuredLogger instances to use
     _global_log_config = log_config
-    _global_logs_path = config.logs_path
+    _global_logs_path = logs_path
     _is_logging_configured = True
 
     print(f"INFO: Root logger level set to {log_config.level}")

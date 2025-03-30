@@ -1,6 +1,6 @@
 """MCP Core Layer."""
 
-from .config.config import CoreConfig, get_core_config
+from .config.config import CoreConfig
 from .errors import (
     AdapterError,
     AuthenticationError,
@@ -26,7 +26,6 @@ logger = StructuredLogger("mcp_core")
 
 __all__ = [
     "CoreConfig",
-    "get_core_config",
     "MCPError",
     "ConfigurationError",
     "TransportError",

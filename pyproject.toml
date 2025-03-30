@@ -1,60 +1,54 @@
 # pyproject.toml
 [project]
-name            = "mymcpserver"
-version         = "0.1.0"                        # Consider bumping minor version after refactor, e.g., 0.2.0
+name            = "mcp"
+version         = "0.1.0"
 description     = "The MCP server for all tools"
 readme          = "README.md"
 requires-python = ">=3.10"
-# Remove fastapi if no longer directly used by mcp_core
-# Keep uvicorn, httpx, anyio, pydantic, pydantic-settings, mcp, pyyaml, jsonschema, python-dotenv
-dependencies = ["httpx>=0.28.1", "mcp[cli]>=1.6.0", "pyyaml>=6.0.1", "pydantic>=2.0.0", "uvicorn>=0.22.0", "anyio>=3.4.0", "jsonschema>=4.17.3", "python-dotenv>=1.0.0", "pydantic-settings>=2.0.0"]
+dependencies    = ["httpx>=0.28.1", "mcp[cli]", "pyyaml>=6.0.1", "pydantic>=2.0.0", "uvicorn>=0.22.0", "anyio>=3.4.0", "jsonschema>=4.17.3", "python-dotenv>=1.0.0", "pydantic-settings>=2.0.0", "pytest>=8.3.5"]
+
   [[project.authors]]
   name  = "savagelysubtle"
   email = "163227725+savagelysubtle@users.noreply.github.com"
 
   [project.urls]
-  "Homepage"    = "https://github.com/savagelysubtle/mcp"        # Update if needed
-  "Bug Tracker" = "https://github.com/savagelysubtle/mcp/issues" # Update if needed
+  "Homepage"    = "https://github.com/savagelysubtle/mcp"
+  "Bug Tracker" = "https://github.com/savagelysubtle/mcp/issues"
 
 [build-system]
 requires      = ["uv-build>=0.6.0,<0.7"]
 build-backend = "uv_build"
 
   [project.scripts]
-  # Point to the new main entry point
-  mymcpserver = "mymcpserver.run_server:main"
+  # Point to the server.py in the mcp package
+  mcp-server = "mcp.server:main"
 
 [tool.uv]
-# Valid UV-specific configuration options
-required-version = ">=0.6.0"
-# Fix configuration for handling file locking issues on Windows
-cache-dir = "./.uv_cache"
-index-url = "https://pypi.org/simple/"
-# Add configuration to handle binary package issues
+required-version           = ">=0.6.0"
+cache-dir                  = "./.uv_cache"
+index-url                  = "https://pypi.org/simple/"
 no-build-isolation-package = ["ruff"]
+link-mode                  = "copy"
 
 [tool.setuptools.packages.find]
-where = ["src"]
-# Remove mcp_proxy if deleted
-include = ["mymcpserver", "mcp_core", "tool_servers"]
+where   = ["src"]
+include = ["mcp", "mcp_core", "tool_servers", "mcp_proxy"]
 
 # Keep tool.pytest.ini_options, tool.ruff, tool.markdownlint, tool.cspell as they were
 [tool.pytest.ini_options]
-testpaths                          = ["tests"]
-pythonpath                         = ["src"]
-tmp_path_retention_count           = 2
-tmp_path_retention_policy          = "failed"
-addopts                            = "--basetemp=./tmp"
-markers                            = ["asyncio: mark a test as an asyncio test", "metadata: mark a test relating to metadata extraction", "unit: mark a test as a unit test", "file_operations: mark a test relating to file operations", "tagging: mark a test relating to tagging", "search: mark a test relating to search functionality", "unit: Unit tests", "integration: Integration tests", "slow: Tests that take longer to run"]
-asyncio_mode                       = "strict"                                                                                                                                                                                                                                                                                                                                                                                              # Use 'auto' if using anyio fixtures directly
-asyncio_default_fixture_loop_scope = "function"
-filterwarnings                     = ["ignore::DeprecationWarning", "ignore::PendingDeprecationWarning"]
-python_files                       = ["test_*.py"]
-python_classes                     = ["Test*"]
-python_functions                   = ["test_*"]
+testpaths                 = ["tests"]
+pythonpath                = ["src"]
+tmp_path_retention_count  = 2
+tmp_path_retention_policy = "failed"
+addopts                   = "--basetemp=./tmp"
+markers                   = ["asyncio: mark a test as an asyncio test", "metadata: mark a test relating to metadata extraction", "unit: mark a test as a unit test", "file_operations: mark a test relating to file operations", "tagging: mark a test relating to tagging", "search: mark a test relating to search functionality", "unit: Unit tests", "integration: Integration tests", "slow: Tests that take longer to run"]
+filterwarnings            = ["ignore::DeprecationWarning", "ignore::PendingDeprecationWarning"]
+python_files              = ["test_*.py"]
+python_classes            = ["Test*"]
+python_functions          = ["test_*"]
 
 [tool.ruff]
-include = ["pyproject.toml", "src/**/*.py", "scripts/**/*.py", "src/**/*.py"]
+include = ["pyproject.toml", "src/**/*.py", "scripts/**/*.py", "tests/**/*.py"]
 
 exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_checkpoints", ".mypy_cache", ".nox", ".pants.d", ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", ".vscode", "__pypackages__", "_build", "buck-out", "build", "dist", "node_modules", "site-packages", "venv"]
 

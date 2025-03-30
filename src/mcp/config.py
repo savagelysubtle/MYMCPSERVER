@@ -165,7 +165,8 @@ class AppConfig(BaseSettings):
             else self.tool_server_python.port
         )
 
-    @field_validator("vault_path", "logs_path", mode="before")
+    @field_validator("vault_path", "logs_path", mode="after")
+    @classmethod
     def ensure_dir_exists(cls, v: Path) -> Path:
         """Ensure the directory exists, creating it if necessary.
 
@@ -199,7 +200,14 @@ def load_and_get_config(cli_args: dict[str, Any] | None = None) -> AppConfig:
     if _app_config is None:
         try:
             # Load initial config from env/.env file via Pydantic
-            _app_config = AppConfig()
+            _app_config = AppConfig(
+                # Explicitly pass defaults to satisfy linter, though these would
+                # normally be read from environment variables via BaseSettings
+                components="all",
+                transport="stdio",
+                host_override=None,
+                port_override=None,
+            )
 
             # Apply CLI overrides (these take highest precedence)
             if cli_args:
