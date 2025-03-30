@@ -1,0 +1,58 @@
+---
+description: 
+globs: docs-obsidian/**/*.md
+alwaysApply: false
+---
+<aiDecision>
+description: CRITICAL STRUCTURE all notes WHEN creating content in Obsidian to follow template format
+globs: docs-obsidian/**/*.md
+alwaysApply: true
+</aiDecision>
+
+# Obsidian Note Structure Rule
+
+<context>
+  <role>Knowledge Management System</role>
+  <purpose>Ensure consistent structure across all notes</purpose>
+</context>
+
+<requirements>
+  <requirement>ALWAYS BEGIN notes with metadata (tags, parent MOC)</requirement>
+  <requirement>INCLUDE sections for Overview, Key Points, Details, Related Notes, and References</requirement>
+  <requirement>ALWAYS LINK each note to at least one MOC through parent metadata</requirement>
+  <requirement>END notes with reference to parent MOC</requirement>
+</requirements>
+
+<examples>
+  <good-practice>
+    <description>Properly structured note</description>
+    <example>
+      ---
+      created: 2025-03-28
+      tags: concept
+      parent: [[Concepts MOC]]
+      ---
+
+      # Note Title
+
+      ## Overview
+      Brief description
+
+      ## Key Points
+      - Point 1
+      - Point 2
+
+      ## Details
+      Detailed content
+
+      ## Related Notes
+      - [[Related Note]] - Relationship explanation
+
+      ## References
+      - Source information
+
+      ---
+      *This note belongs to the [[Concepts MOC]]*
+    </example>
+  </good-practice>
+</examples>

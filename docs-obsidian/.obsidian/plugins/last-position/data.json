@@ -1,0 +1,15 @@
+{
+  "myInterval": 3,
+  "myRetryCount": 30,
+  "scrollHeightData": {
+    "Concepts MOC.md": {
+      "height": 17.968601895734597,
+      "lastAccessed": 1743329822891
+    }
+  },
+  "listenEvent": "mouseover",
+  "pageSize": 10,
+  "enableAutoCleanup": false,
+  "cleanupDays": 30,
+  "dataManagementSettingsOpen": false
+}

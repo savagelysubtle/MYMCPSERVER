@@ -1,0 +1,29 @@
+---
+graph-presets-plugin: basic
+---
+
+
+---
+```yaml:graph-preset
+collapse-filter: false
+search: ""
+showTags: true
+showAttachments: false
+hideUnresolved: true
+showOrphans: true
+collapse-color-groups: false
+colorGroups: []
+collapse-display: false
+showArrow: true
+textFadeMultiplier: 0
+nodeSizeMultiplier: 1
+lineSizeMultiplier: 1
+collapse-forces: true
+centerStrength: 0.518713248970312
+repelStrength: 10
+linkStrength: 1
+linkDistance: 250
+scale: 0.18462326225858322
+close: false
+```
+

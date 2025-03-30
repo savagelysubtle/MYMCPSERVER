@@ -1,0 +1,66 @@
+# Project Locations and Structure Rule
+
+<aiDecision>
+description: ALWAYS follow these project location rules when working with the codebase
+globs: src/**/*
+alwaysApply: true
+</aiDecision>
+
+<context>
+  <role>Project Structure Guardian</role>
+  <purpose>Maintain consistent project structure and file locations</purpose>
+</context>
+
+<projectRoot>
+  <path>/d:/Coding/Python_Projects/MYMCPSERVER</path>
+  <structure>
+    ├── src/                           # Source code root
+    │   ├── mcp_core/                  # Core MCP functionality
+    │   ├── mcp_proxy/                 # Proxy Connection Server
+    │   └── tool_servers/              # Tool implementations
+    ├── logs/                          # Log files directory
+    │   ├── core/                      # Core layer logs
+    │   ├── proxy/                     # Proxy layer logs
+    │   └── tools/                     # Tool server logs
+    ├── config/                        # Configuration files
+    │   ├── core/                      # Core configuration
+    │   ├── proxy/                     # Proxy configuration
+    │   └── tools/                     # Tool configuration
+    ├── tests/                         # Test files
+    │   ├── unit/                      # Unit tests
+    │   ├── integration/               # Integration tests
+    │   └── fixtures/                  # Test fixtures
+    └── docs-obsidian/                 # Documentation
+  </structure>
+</projectRoot>
+
+<requirements>
+  <requirement>ALWAYS use absolute paths from project root for file operations</requirement>
+  <requirement>MAINTAIN logs in the logs/ directory with appropriate subdirectories</requirement>
+  <requirement>STORE all configuration files in config/ directory</requirement>
+  <requirement>KEEP all source code under src/ directory</requirement>
+  <requirement>PLACE all tests in tests/ directory</requirement>
+  <requirement>USE docs-obsidian/ for all documentation</requirement>
+</requirements>
+
+<constants>
+  <paths>
+    <LOG_ROOT>logs</LOG_ROOT>
+    <CONFIG_ROOT>config</CONFIG_ROOT>
+    <SOURCE_ROOT>src</SOURCE_ROOT>
+    <TEST_ROOT>tests</TEST_ROOT>
+    <DOCS_ROOT>docs-obsidian</DOCS_ROOT>
+  </paths>
+  <defaults>
+    <LOG_LEVEL>INFO</LOG_LEVEL>
+    <CONFIG_ENV>development</CONFIG_ENV>
+    <ENCODING>utf-8</ENCODING>
+  </defaults>
+</constants>
+
+<guidelines>
+  <guideline>Use Path from pathlib for all file operations</guideline>
+  <guideline>Create directories if they don't exist when needed</guideline>
+  <guideline>Use appropriate file permissions</guideline>
+  <guideline>Follow naming conventions for each directory</guideline>
+</guidelines>

@@ -1,0 +1,46 @@
+---
+description: 
+globs: docs-obsidian/**/*.md
+alwaysApply: false
+---
+<aiDecision>
+description: ALWAYS MAINTAIN bidirectional links WHEN adding new references in Obsidian notes
+globs: docs-obsidian/**/*.md
+alwaysApply: true
+</aiDecision>
+
+# Obsidian Linking Rule
+
+<context>
+  <role>Knowledge Management System</role>
+  <purpose>Ensure proper bidirectional linking between notes</purpose>
+</context>
+
+<requirements>
+  <requirement>WHEN creating a link to another note, ADD a corresponding backlink in the referenced note</requirement>
+  <requirement>ALWAYS PLACE linked references in the "Related Notes" section</requirement>
+  <requirement>INCLUDE context with each link explaining the relationship</requirement>
+</requirements>
+
+<examples>
+  <good-practice>
+    <description>Proper bidirectional linking</description>
+    <example>
+      In Note A:
+      - [[Note B]] - Explains how concept B relates to A
+
+      In Note B:
+      - [[Note A]] - Provides context for concept B
+    </example>
+  </good-practice>
+
+  <bad-practice>
+    <description>One-way linking without context</description>
+    <example>
+      In Note A:
+      - [[Note B]]
+
+      Note B has no reference back to Note A
+    </example>
+  </bad-practice>
+</examples>

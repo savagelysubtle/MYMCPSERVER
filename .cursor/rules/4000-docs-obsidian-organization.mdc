@@ -1,0 +1,40 @@
+---
+description: 
+globs: docs-obsidian/**/*
+alwaysApply: false
+---
+ <aiDecision>
+description: IMPORTANT MAINTAIN folder structure WHEN working with docs-obsidian content
+globs: docs-obsidian/**/*
+alwaysApply: true
+</aiDecision>
+
+# Obsidian Documentation Organization Rule
+
+<context>
+  <role>Documentation System</role>
+  <purpose>Maintain consistent folder structure and organization</purpose>
+</context>
+
+<requirements>
+  <requirement>KEEP all MOC files at the top level of docs-obsidian folder</requirement>
+  <requirement>PLACE all concept notes in the concepts/ folder</requirement>
+  <requirement>PLACE all process notes in the processes/ folder</requirement>
+  <requirement>PLACE all reference material in the reference/ folder</requirement>
+  <requirement>STORE all templates in the templates/ folder</requirement>
+  <requirement>WHEN creating a new category, CREATE a dedicated folder</requirement>
+</requirements>
+
+<structure>
+  <folder name="docs-obsidian">
+    <file>Home.md</file>
+    <file>Concepts MOC.md</file>
+    <file>Processes MOC.md</file>
+    <file>Reference MOC.md</file>
+    <file>Fleeting MOC.md</file>
+    <folder>concepts/</folder>
+    <folder>processes/</folder>
+    <folder>reference/</folder>
+    <folder>templates/</folder>
+  </folder>
+</structure>

@@ -1,0 +1,105 @@
+[project]
+name            = "mymcpserver"
+version         = "0.1.0"
+description     = "The MCP server for all tools"
+readme          = "README.md"
+requires-python = ">=3.10"
+dependencies    = ["httpx>=0.28.1", "mcp[cli]>=1.6.0", "pyyaml>=6.0.1", "pydantic>=2.0.0", "fastapi>=0.100.0", "uvicorn>=0.22.0", "asyncio>=3.4.3", "jsonschema>=4.17.3", "python-dotenv>=1.0.0"]
+  [[project.authors]]
+  name  = "savagelysubtle"
+  email = "163227725+savagelysubtle@users.noreply.github.com"
+
+  [project.urls]
+  "Homepage"    = "https://github.com/savagelysubtle/mcp"
+  "Bug Tracker" = "https://github.com/savagelysubtle/mcp/issues"
+
+[build-system]
+requires      = ["uv-build>=0.6.0,<0.7"]
+build-backend = "uv_build"
+
+  [project.scripts]
+  mymcpserver = "mymcpserver:main"
+
+[tool.uv]
+# Valid UV-specific configuration options
+required-version = ">=0.6.0"
+# Fix configuration for handling file locking issues on Windows
+cache-dir = "./.uv_cache"
+index-url = "https://pypi.org/simple/"
+# Add configuration to handle binary package issues
+no-build-isolation-package = ["ruff"]
+
+[tool.setuptools.packages.find]
+where   = ["src"]
+include = ["mymcpserver", "mcp_core", "mcp_proxy", "tool_servers"]
+
+[tool.pytest.ini_options]
+testpaths                          = ["tests"]
+pythonpath                         = ["src"]
+tmp_path_retention_count           = 2
+tmp_path_retention_policy          = "failed"
+addopts                            = "--basetemp=./tmp"
+markers                            = ["asyncio: mark a test as an asyncio test", "metadata: mark a test relating to metadata extraction", "unit: mark a test as a unit test", "file_operations: mark a test relating to file operations", "tagging: mark a test relating to tagging", "search: mark a test relating to search functionality", "unit: Unit tests", "integration: Integration tests", "slow: Tests that take longer to run"]
+asyncio_mode                       = "strict"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings                     = ["ignore::DeprecationWarning", "ignore::PendingDeprecationWarning"]
+python_files                       = ["test_*.py"]
+python_classes                     = ["Test*"]
+python_functions                   = ["test_*"]
+
+[tool.ruff]
+include = ["pyproject.toml", "src/**/*.py", "scripts/**/*.py", "src/**/*.py"]
+
+exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_checkpoints", ".mypy_cache", ".nox", ".pants.d", ".pyenv", ".pytest_cache", ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", ".vscode", "__pypackages__", "_build", "buck-out", "build", "dist", "node_modules", "site-packages", "venv"]
+
+# Same as Black.
+line-length  = 88
+indent-width = 4
+
+  [tool.ruff.lint]
+  select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "ANN", # flake8-annotations
+    "S",   # flake8-bandit
+    "A",   # flake8-builtins
+  ]
+  ignore = ["E501", "ANN101", "ANN102", "ANN401"]
+  fixable = ["ALL"]
+  unfixable = []
+  dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+  # Include per-file-ignores directly in the lint section
+  per-file-ignores = {"tests/**/*.py" = ["S101", "ANN401", "F821", "F823"], "*/__init__.py" = ["F401"]}
+
+  [tool.ruff.format]
+  quote-style                = "double"
+  indent-style               = "space"
+  skip-magic-trailing-comma  = false
+  line-ending                = "auto"
+  docstring-code-format      = false
+  docstring-code-line-length = "dynamic"
+
+[tool.markdownlint]
+default = true
+MD013   = false # Line length
+MD033   = false # Inline HTML
+MD036   = false # Emphasis used as header
+MD041   = false # First line should be a top-level header
+MD001   = false # Header levels should only increment by one level
+MD026   = false # Trailing punctuation in header
+
+# Migrated from cspell.config.yaml
+[tool.cspell]
+version                = "0.2"
+ignore-paths           = []
+dictionary-definitions = []
+dictionaries           = []
+words                  = []
+ignore-words           = []
+imports                = []

@@ -1,0 +1,260 @@
+{
+  "main": {
+    "id": "a6c7ebc685fca6c7",
+    "type": "split",
+    "children": [
+      {
+        "id": "b956ceb9663b1aca",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c75aa0e2da0dc404",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      },
+      {
+        "id": "a40de608e677c1d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1328a0aff7018d8c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown-preset-view",
+              "state": {
+                "file": "graph presets/PLAN.md"
+              },
+              "icon": "lucide-file",
+              "title": "PLAN"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d6ac09f42a0bc36c",
+    "type": "split",
+    "children": [
+      {
+        "id": "c93b57f4c99e3cf3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5d7862b3768de6b9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "db433c7b14816627",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "186459e5e1bc1b3b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "fdd3b12740687a44",
+            "type": "leaf",
+            "state": {
+              "type": "graph-presets-list",
+              "state": {},
+              "icon": "graph-presets",
+              "title": "Graph Presets"
+            }
+          },
+          {
+            "id": "a340b5875588ca01",
+            "type": "leaf",
+            "state": {
+              "type": "tagfolder-view",
+              "state": {},
+              "icon": "stacked-levels",
+              "title": "Tag Folder"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 391.5
+  },
+  "right": {
+    "id": "06dbf8c80c323213",
+    "type": "split",
+    "children": [
+      {
+        "id": "a1d3905f1baa8ef2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "24dcca0c8aaf8d71",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "d55505b888b9c4ee",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "processes/mcp/Configuring Cursor MCP Integration.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Configuring Cursor MCP Integration"
+            }
+          },
+          {
+            "id": "9023542bcfdd2a71",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          },
+          {
+            "id": "cbf417a4aa70edf9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "a89c7b4017037ace",
+            "type": "leaf",
+            "state": {
+              "type": "mermaid-toolbar-view",
+              "state": {},
+              "icon": "trident-custom",
+              "title": "Mermaid Toolbar"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 587.5,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian42-brat:BRAT": false,
+      "obsidian-graph-presets:Graph Presets": false,
+      "mermaid-tools:Open Mermaid Toolbar": false
+    }
+  },
+  "active": "c75aa0e2da0dc404",
+  "lastOpenFiles": [
+    "PLAN/Implementation Plan MOC.md",
+    "graph presets/PLAN.md",
+    "graph presets/NONE.md",
+    "Untitled.canvas",
+    "Untitled 1.canvas",
+    "Concepts MOC.md",
+    "node_modules/etag/HISTORY.md",
+    "node_modules/range-parser/HISTORY.md",
+    "node_modules/vary/HISTORY.md",
+    "node_modules/media-typer/HISTORY.md",
+    "node_modules/toidentifier/HISTORY.md",
+    "Excalidraw/Drawing 2025-03-30 03.15.21.excalidraw.md",
+    "Excalidraw",
+    "graph presets/IMPLEMENTATION.md",
+    "PLAN/01 - Setup and Core Foundation.md",
+    "graph presets/MCP.md",
+    "reference/mcp/Configuration Examples.md",
+    "concepts/mcp/Tool Management.md",
+    "reference/mcp/Python MCP SDK.md",
+    "reference/mcp/Sequential Thinking Tools Integration.md",
+    "node_modules/forwarded/README.md",
+    "node_modules/ms/license.md",
+    "graph presets/Concept.md",
+    "graph presets/Implementation.md",
+    "user added for indexing later/mcpPlanning/final/transport/technical-v2.md",
+    "graph presets/MOCs.md",
+    "CI/CD Pipeline Setup.md",
+    "CI",
+    "graph presets",
+    "reference/mcp/MCP Server Configuration.md",
+    "reference/mcp/MCP Hub Implementation.md",
+    "index.js",
+    "node_modules/eventsource-parser/src/types.ts",
+    "node_modules/eventsource-parser/src/parse.ts",
+    "node_modules/eventsource-parser/src/stream.ts",
+    "node_modules/eventsource-parser/src/errors.ts",
+    "node_modules/eventsource-parser/src/index.ts",
+    "node_modules/eventsource-parser/src"
+  ]
+}
