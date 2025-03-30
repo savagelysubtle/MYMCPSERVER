@@ -12,8 +12,8 @@ dependencies    = ["httpx>=0.28.1", "mcp[cli]>=0.1.0", "pyyaml>=6.0.1", "pydanti
   email = "163227725+savagelysubtle@users.noreply.github.com"
 
   [project.urls]
-  "Homepage"    = "https://github.com/savagelysubtle/mcp"
-  "Bug Tracker" = "https://github.com/savagelysubtle/mcp/issues"
+  "Homepage"    = "https://github.com/savagelysubtle/MYMCPSERVER"
+  "Bug Tracker" = "https://github.com/savagelysubtle/MYMCPSERVER/issues"
 
 [build-system]
 requires      = ["uv-build>=0.6.0,<0.7"]
