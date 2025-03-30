@@ -1,295 +1,197 @@
 #!/usr/bin/env python3
-"""MCP System Runner.
-
-This script provides a convenient way to start various components of the MCP
-microservices architecture as described in the system documentation.
-
-Usage:
-    python run_server.py --mode [full|proxy|core|tool] --transport [http|stdio|sse]
-"""
+"""MCP System Runner - Single Entry Point."""
 
 import argparse
-import asyncio
-import logging
-import os
-import subprocess
+import logging  # For bootstrap only
 import sys
 from pathlib import Path
 
-# Add src to Python path
-# Determine the project root directory (assuming run_server.py is in src/)
-project_root = Path(__file__).parent.parent
-log_dir = project_root / "logs"
-# Create the logs directory if it doesn't exist
-log_dir.mkdir(parents=True, exist_ok=True)
+import anyio
 
-sys.path.insert(0, str(Path(__file__).parent))
+# --- Centralized Config and Logging ---
+# Make sure src is added before these imports if run directly
+_bootstrap_src_path = Path(__file__).parent
+if str(_bootstrap_src_path) not in sys.path:
+    sys.path.insert(0, str(_bootstrap_path))
 
-from mymcpserver import main as mcp_main
-
-
-def setup_logging() -> None:
-    """Configure logging for the runner script."""
-    log_file_path = log_dir / "mcp_runner.log"
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler(), logging.FileHandler(log_file_path)],
+try:
+    # Import setup_global_logging AFTER potential path modification
+    from mcp_core.logger import StructuredLogger, setup_global_logging
+    from mymcpserver.config import AppConfig, load_and_get_config
+except ImportError as e:
+    # Critical error if core modules can't be found
+    logging.basicConfig(level="ERROR")
+    logging.critical(
+        f"Failed to import core modules. Ensure PYTHONPATH is set correctly or run from project root. Error: {e}",
+        exc_info=True,
     )
+    sys.exit(1)
 
 
+# --- Component Startups ---
+async def start_core_service(config: AppConfig) -> None:
+    core_runner_logger = StructuredLogger("mymcpserver.core_runner")
+    try:
+        # Late import to ensure logging is set up
+        from mcp_core.app import get_fastmcp_app
+
+        app = get_fastmcp_app(config)
+        transport = config.transport
+        core_runner_logger.info(
+            f"Starting MCP Core via FastMCP with {transport} transport"
+        )
+
+        if transport == "stdio":
+            await app.run_stdio_async()
+        elif transport in ["sse", "http"]:
+            # Use effective host/port from config helpers
+            await app.run_sse_async(
+                host=config.get_core_host(), port=config.get_core_port()
+            )
+        else:
+            core_runner_logger.error(f"Unsupported transport for Core: {transport}")
+            raise ValueError(f"Unsupported transport: {transport}")
+        core_runner_logger.info(
+            "Core service finished."
+        )  # Will only log if it exits cleanly
+
+    except Exception as e:
+        core_runner_logger.error(f"Core service failed: {e}", exc_info=True)
+        raise  # Propagate failure to task group
+
+
+async def start_python_tool_server(config: AppConfig) -> None:
+    tool_runner_logger = StructuredLogger("mymcpserver.pytool_runner")
+    try:
+        # Late import
+        from tool_servers.python_tool_server.server import (
+            start_server as start_py_tool_server,
+        )
+
+        tool_runner_logger.info("Attempting to start Python Tool Server...")
+        # Run the blocking uvicorn server in a thread
+        await anyio.to_thread.run_sync(
+            start_py_tool_server,
+            host=config.get_tool_server_python_host(),
+            port=config.get_tool_server_python_port(),
+        )
+        tool_runner_logger.info(
+            "Python Tool Server finished."
+        )  # Will only log on clean exit
+
+    except Exception as e:
+        tool_runner_logger.error(f"Python Tool Server failed: {e}", exc_info=True)
+        raise  # Propagate failure
+
+
+async def run_services(config: AppConfig) -> None:
+    """Runs the selected MCP services concurrently."""
+    runner_logger = StructuredLogger("mymcpserver.service_runner")
+    components_to_run = config.components
+    runner_logger.info(f"Configured components: {components_to_run}")
+
+    try:
+        async with anyio.create_task_group() as tg:
+            if components_to_run in ["all", "core"]:
+                runner_logger.info("Starting Core Service Task...")
+                tg.start_soon(start_core_service, config)
+
+            if components_to_run in ["all", "tool"]:
+                # For now, only start Python tool server
+                # Add logic here to start other tool servers if needed
+                runner_logger.info("Starting Python Tool Server Task...")
+                tg.start_soon(start_python_tool_server, config)
+
+            runner_logger.info("All selected services started.")
+    except Exception as e:
+        runner_logger.error(f"Error within service task group: {e}", exc_info=True)
+        raise  # Allow main loop to catch and exit
+
+
+# --- Main Execution ---
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments.
-
-    Returns:
-        argparse.Namespace: Parsed arguments
-    """
     parser = argparse.ArgumentParser(description="MCP System Runner")
     parser.add_argument(
-        "--mode",
-        choices=["full", "proxy", "core", "tool"],
-        default="full",
-        help="Component(s) to start (default: full)",
-    )
-    parser.add_argument(
         "--transport",
-        choices=["http", "stdio", "sse", "websocket"],
-        default="http",
-        help="Transport mechanism (default: http)",
+        choices=["stdio", "sse", "http"],
+        help="Override transport mechanism (default: from env/config)",
     )
     parser.add_argument(
-        "--host", default="127.0.0.1", help="Host to bind to (default: 127.0.0.1)"
+        "--host", help="Override host for servers (default: from env/config)"
     )
     parser.add_argument(
-        "--port", type=int, default=8000, help="Port to bind to (default: 8000)"
-    )
-    parser.add_argument(
-        "--tool-server",
-        choices=["python", "typescript", "all"],
-        default="all",
-        help="Tool server to start (default: all)",
+        "--port",
+        type=int,
+        help="Override base port for Core server (default: from env/config)",
     )
     parser.add_argument(
         "--log-level",
-        choices=["debug", "info", "warning", "error"],
-        default="info",
-        help="Logging level (default: info)",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+        help="Override logging level (default: from env/config)",
     )
-
+    parser.add_argument(
+        "--component",
+        choices=["all", "core", "tool"],
+        help="Override component(s) to start (default: from env/config)",
+    )
     return parser.parse_args()
 
 
-async def run_core_process(transport: str, log_level: str, host: str, port: int) -> int:
-    """Run the MCP Core Layer as a separate process.
-
-    Args:
-        transport: Transport mechanism
-        log_level: Logging level
-        host: Host to bind to
-        port: Port to bind to
-
-    Returns:
-        int: Exit code
-    """
-    # Prepare environment variables
-    env = os.environ.copy()
-    env["MCP_TRANSPORT"] = transport
-    env["MCP_LOG_LEVEL"] = log_level
-    env["MCP_HOST"] = host
-    env["MCP_PORT"] = str(port)
-    env["MCP_COMPONENTS"] = "core"
-
-    logging.info("Starting MCP Core Layer")
-
-    # If using stdio transport, run directly
-    if transport == "stdio":
-        logging.info("MCP Core Layer running with stdio transport")
-
-        # Process stdio messages
-        # In a real implementation, this would be a loop to read from stdin
-        # and write to stdout, communicating with the Core Layer's API
-
-        return 0
-    else:
-        # Otherwise run via mcp_main
-        return mcp_main()
-
-
-async def run_proxy_process(
-    transport: str, log_level: str, host: str, port: int
-) -> int:
-    """Run the MCP Proxy Connection Server as a separate process.
-
-    Args:
-        transport: Transport mechanism
-        log_level: Logging level
-        host: Host to bind to
-        port: Port to bind to
-
-    Returns:
-        int: Exit code
-    """
-    # Prepare environment variables
-    env = os.environ.copy()
-    env["MCP_TRANSPORT"] = transport
-    env["MCP_LOG_LEVEL"] = log_level
-    env["MCP_HOST"] = host
-    env["MCP_PORT"] = str(port)
-    env["MCP_COMPONENTS"] = "proxy"
-
-    logging.info("Starting MCP Proxy Connection Server")
-
-    # If we're using stdio, we need to spawn the Core Layer process
-    if transport == "stdio":
-        # Import the actual module
-        try:
-            from mcp_proxy.__main__ import async_main
-
-            # Run the proxy server asynchronously
-            return await async_main()
-        except ImportError as e:
-            logging.error(f"Failed to import proxy modules: {e}")
-            return 1
-    else:
-        # Otherwise run via mcp_main
-        return mcp_main()
-
-
-async def run_python_tool_server(host: str, port: int, log_level: str) -> int:
-    """Run the Python Tool Server as a separate process.
-
-    Args:
-        host: Host to bind to
-        port: Port to bind to
-        log_level: Logging level
-
-    Returns:
-        int: Exit code
-    """
-    try:
-        # Prepare environment variables
-        env = os.environ.copy()
-        env["HOST"] = host
-        env["PORT"] = str(port)
-        env["LOG_LEVEL"] = log_level.upper()
-
-        # Construct path to the Python Tool Server
-        tool_server_dir = Path(__file__).parent / "tool_servers" / "python_tool_server"
-        server_script = tool_server_dir / "server.py"
-
-        if not server_script.exists():
-            logging.error(f"Python Tool Server script not found at {server_script}")
-            return 1
-
-        logging.info(f"Starting Python Tool Server at {host}:{port}")
-
-        # Run the server as a subprocess
-        process = subprocess.Popen(
-            [sys.executable, str(server_script)],
-            env=env,
-            cwd=str(tool_server_dir),
-        )
-
-        # Wait for the process
-        return_code = process.wait()
-        return return_code
-    except Exception as e:
-        logging.error(f"Error running Python Tool Server: {e}")
-        return 1
-
-
-def run_mcp_server(args: argparse.Namespace) -> int:
-    """Run the MCP server components based on command-line arguments.
-
-    Args:
-        args: Command-line arguments
-
-    Returns:
-        int: Exit code
-    """
-    try:
-        if args.mode == "full":
-            # Run all components
-            logging.info("Starting MCP in full mode")
-
-            # In full mode with stdio, we spawn the Proxy which in turn spawns Core
-            if args.transport == "stdio":
-                return asyncio.run(
-                    run_proxy_process(
-                        args.transport, args.log_level, args.host, args.port
-                    )
-                )
-            else:
-                # Start MCP main components
-                mcp_process = mcp_main()
-
-                # Also start tool servers if in full mode
-                if args.tool_server == "python" or args.tool_server == "all":
-                    logging.info("Starting Python Tool Server")
-                    # Use a different port for the tool server
-                    tool_port = args.port + 1
-                    asyncio.run(
-                        run_python_tool_server(args.host, tool_port, args.log_level)
-                    )
-
-                return mcp_process
-
-        elif args.mode == "proxy":
-            # Run only the proxy server
-            return asyncio.run(
-                run_proxy_process(args.transport, args.log_level, args.host, args.port)
-            )
-
-        elif args.mode == "core":
-            # Run only the core server
-            return asyncio.run(
-                run_core_process(args.transport, args.log_level, args.host, args.port)
-            )
-
-        elif args.mode == "tool":
-            # Run tool server(s)
-            if args.tool_server == "python" or args.tool_server == "all":
-                logging.info("Starting Python Tool Server")
-                return asyncio.run(
-                    run_python_tool_server(args.host, args.port, args.log_level)
-                )
-
-            if args.tool_server == "typescript" or args.tool_server == "all":
-                logging.info("Starting TypeScript Tool Server")
-                # This would start the TypeScript tool server
-                # For now, just log since we haven't implemented it yet
-                logging.warning("TypeScript Tool Server not yet implemented")
-
-            return 0
-        else:
-            logging.error(f"Invalid mode: {args.mode}")
-            return 1
-    except KeyboardInterrupt:
-        logging.info("Runner interrupted by user")
-        return 0
-    except Exception as e:
-        logging.error(f"Error running MCP components: {e}")
-        return 1
-
-
 def main() -> int:
-    """Main entry point.
-
-    Returns:
-        int: Exit code
-    """
-    setup_logging()
-    args = parse_args()
+    # Basic bootstrap logging for initial setup/errors
+    logging.basicConfig(level="INFO", format="%(levelname)s:%(name)s: %(message)s")
+    bootstrap_logger = logging.getLogger("mcp_runner_bootstrap")
 
     try:
-        return run_mcp_server(args)
-    except KeyboardInterrupt:
-        logging.info("Runner interrupted by user")
-        return 0
+        # Ensure src path is set for potential imports during config loading
+        src_path = Path(__file__).parent
+        if str(src_path) not in sys.path:
+            sys.path.insert(0, str(src_path))
+            bootstrap_logger.info(f"Added {src_path} to sys.path")
+
+        args = parse_args()
+        config = load_and_get_config(vars(args))
+
+        # Initialize Structured Logging using loaded config
+        # This replaces the basicConfig for subsequent logging
+        setup_global_logging(config)
+        main_logger = StructuredLogger("mymcpserver.runner")
+        main_logger.info(
+            "Structured logging initialized.",
+            config=config.model_dump(mode="json", exclude={"core": {"auth_token"}}),
+        )  # Exclude sensitive fields
+
     except Exception as e:
-        logging.error(f"Error running MCP components: {e}")
+        bootstrap_logger.critical(f"Failed during initial setup: {e}", exc_info=True)
         return 1
+
+    # --- Run Services ---
+    try:
+        main_logger.info(
+            f"Running components: {config.components} with transport: {config.transport}"
+        )
+        anyio.run(run_services, config)
+        main_logger.info("run_services completed.")  # Log clean exit if it happens
+        exit_code = 0
+
+    except KeyboardInterrupt:
+        main_logger.info("Runner interrupted by user")
+        exit_code = 0
+    except Exception as e:
+        main_logger.critical(
+            f"Critical error during service execution: {e}", exc_info=True
+        )
+        exit_code = 1
+    finally:
+        main_logger.info("MCP Runner shutting down.")
+        # Add any final cleanup needed here
+
+    return exit_code
 
 
 if __name__ == "__main__":
+    # Ensure src is in the path *before* any potential imports in __main__ block
+    _src_path = Path(__file__).parent
+    if str(_src_path) not in sys.path:
+        sys.path.insert(0, str(_src_path))
     sys.exit(main())
