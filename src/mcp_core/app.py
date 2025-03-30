@@ -5,28 +5,24 @@ from typing import Any
 
 # MCP SDK Import
 from mcp.server.fastmcp import Context, FastMCP
-from mcp.server.session import ServerSession  # For type hint
+from mcp.server.session import ServerSession
 
 # Local Imports
-from mymcpserver.config import (
-    AppConfig,
-    CoreConfig,
-    get_config_instance,
-)  # Use unified config
+from mymcpserver.config import AppConfig, CoreConfig, get_config_instance
 
 from .adapters.python_tool_adapter import PythonToolAdapter
+from .errors import AdapterError, ToolError, TransportError  # Import TransportError
 from .health import CoreHealth, SystemHealth
-from .logger import StructuredLogger  # Use structured logger
+from .logger import StructuredLogger
 from .registry import ToolRegistry
 from .router import Router
-
-# No longer need routes.py
 
 logger = StructuredLogger("mcp_core.app")
 
 
 # --- Lifespan Context ---
 class CoreLifespanContext:
+    # ... (keep definition as before) ...
     def __init__(
         self,
         config: CoreConfig,
@@ -38,15 +34,12 @@ class CoreLifespanContext:
         self.registry = registry
         self.router = router
         self.health_checker = health_checker
-        self.py_tool_adapter: Optional[PythonToolAdapter] = (
-            None  # Store adapter if needed after init
-        )
+        self.py_tool_adapter: PythonToolAdapter | None = None
 
 
 @asynccontextmanager
 async def core_lifespan(app: FastMCP) -> AsyncIterator[CoreLifespanContext]:
     """Application lifecycle manager for FastMCP."""
-    # Config is already loaded by run_server.py
     config = get_config_instance()
     logger.info(
         "MCP Core Lifespan starting.",
@@ -55,43 +48,101 @@ async def core_lifespan(app: FastMCP) -> AsyncIterator[CoreLifespanContext]:
 
     registry = ToolRegistry()
     router = Router(registry)
-    health_checker = SystemHealth([CoreHealth()])  # Add more checks as needed
+    health_checker = SystemHealth([CoreHealth()])
 
     # --- Adapter Setup ---
-    # Only set up adapters for components that are meant to be separate processes
-    py_tool_server_adapter = PythonToolAdapter(
-        host=config.get_tool_server_python_host(),
-        port=config.get_tool_server_python_port(),
-    )
-    lifespan_ctx = CoreLifespanContext(config.core, registry, router, health_checker)
-    lifespan_ctx.py_tool_adapter = (
-        py_tool_server_adapter  # Store for potential direct use
-    )
-
-    # --- Tool Registration (via Adapter Proxy) ---
-    # This assumes the Core layer proxies calls to the separate Python Tool Server
-    # A better approach might involve fetching the tool list from the tool server
-    known_python_tools = {
-        "obsidian.list_notes": "List Obsidian notes",
-        "obsidian.search_notes": "Search Obsidian notes",
-        "obsidian.save_note": "Save an Obsidian note",
-        "aichemist.get_molecule": "Get molecule information",
-        "aichemist.list_molecules": "List available molecules",
-        "aichemist.calculate_property": "Calculate a molecular property",
-    }
-    for tool_name, description in known_python_tools.items():
-        registry.register_tool(
-            tool_name=tool_name,
-            adapter=py_tool_server_adapter,  # Use the adapter instance
-            version="1.0.0",  # TODO: Get version from tool server
-            description=f"{description} (via Python Tool Server)",
-        )
-    logger.info(f"Registered {len(known_python_tools)} tools via PythonToolAdapter.")
+    # Create PythonToolAdapter with parameters from its constructor
+    host = config.get_tool_server_python_host()
+    port = config.get_tool_server_python_port()
+    timeout = 30.0  # Default timeout
+    retries = config.core.max_retries
 
     try:
+        # Use tool_timeout if available
+        timeout = float(config.core.tool_timeout)
+    except (AttributeError, ValueError):
+        logger.warning("Could not get tool_timeout from config, using default")
+
+    py_tool_server_adapter = PythonToolAdapter(
+        host=host,
+        port=port,
+        timeout=timeout,
+        retries=retries,
+    )
+
+    lifespan_ctx = CoreLifespanContext(config.core, registry, router, health_checker)
+    lifespan_ctx.py_tool_adapter = py_tool_server_adapter
+
+    try:
+        # Initialize adapter (creates httpx client, performs initial health check)
         await py_tool_server_adapter.initialize()
-        logger.info("Core Lifespan initialized adapters.")
-        yield lifespan_ctx
+        logger.info("PythonToolAdapter initialized.")
+
+        # --- Dynamic Tool Registration ---
+        if config.tool_server_python.dynamic_tool_discovery:
+            logger.info("Attempting dynamic tool discovery from Python Tool Server...")
+            try:
+                # Now we can safely use the adapted list_remote_tools method
+                try:
+                    remote_tools = await py_tool_server_adapter.list_remote_tools()
+                    for tool in remote_tools:
+                        # Register each discovered tool using the adapter
+                        registry.register_tool(
+                            tool_name=tool.name,  # This works with both real and fallback implementation
+                            adapter=py_tool_server_adapter,
+                            version=getattr(
+                                tool, "version", "1.0.0"
+                            ),  # Safe with both implementations
+                            description=tool.description,  # Safe with both implementations
+                        )
+                    logger.info(
+                        f"Dynamically registered {len(remote_tools)} tools via PythonToolAdapter."
+                    )
+                except (ImportError, AttributeError) as e:
+                    # If we hit errors with the dynamic discovery, fall back to manual registration
+                    logger.warning(
+                        f"Dynamic tool registration failed, using fallback: {e}"
+                    )
+
+                    # Register some tools manually as a fallback
+                    sample_tools = [
+                        {"name": "python_echo", "description": "Echo tool in Python"},
+                        {"name": "python_math", "description": "Math operations"},
+                    ]
+
+                    for tool in sample_tools:
+                        registry.register_tool(
+                            tool_name=tool["name"],
+                            adapter=py_tool_server_adapter,
+                            version="1.0.0",  # Default version
+                            description=tool["description"],
+                        )
+
+                    logger.info(
+                        f"Manually registered {len(sample_tools)} tools via PythonToolAdapter."
+                    )
+            except (AdapterError, ToolError, TransportError) as e:
+                logger.error(
+                    f"Failed tool registration: {e}. Manual registration might be needed.",
+                    exc_info=True,
+                )
+            except Exception as e:
+                logger.error(
+                    f"Unexpected error during tool registration: {e}",
+                    exc_info=True,
+                )
+        else:
+            logger.info(
+                "Dynamic tool discovery disabled. Manual registration expected if proxying."
+            )
+            # Add manual registration here if needed as fallback
+            # known_python_tools = { ... }
+            # for tool_name, description in known_python_tools.items():
+            #     registry.register_tool(...)
+
+        logger.info("Core Lifespan setup complete.")
+        yield lifespan_ctx  # Yield context for the app to run
+
     finally:
         logger.info("MCP Core shutting down lifespan context")
         await registry.shutdown()  # Shuts down adapters
@@ -105,13 +156,13 @@ def get_fastmcp_app(config: AppConfig) -> FastMCP:
         instructions="Core service managing tools and resources.",
         lifespan=core_lifespan,
         debug=config.logging.level == "DEBUG",
-        dependencies=[],  # Project manages dependencies
+        dependencies=[],
     )
 
     # --- Tool Registration using @mcp.tool ---
-
-    # Bridge Tool: Routes calls through the internal Router/Registry/Adapter system
-    @app.tool(name="execute_proxied_tool")  # More specific name
+    # Bridge Tool (routes through Router/Registry/Adapter)
+    @app.tool(name="execute_proxied_tool")
+    # ... (keep implementation as before) ...
     async def execute_tool_handler(
         ctx: Context[ServerSession, CoreLifespanContext],
         tool_name: str,
@@ -119,7 +170,6 @@ def get_fastmcp_app(config: AppConfig) -> FastMCP:
         version: str | None = None,
         use_circuit_breaker: bool = True,
     ) -> Any:
-        """Executes a tool registered via adapters by routing the request."""
         router = ctx.request_context.lifespan_context.router
         logger.info(
             f"Executing proxied tool: {tool_name}",
@@ -138,7 +188,7 @@ def get_fastmcp_app(config: AppConfig) -> FastMCP:
                 tool=tool_name,
                 request_id=ctx.request_id,
             )
-            return result  # FastMCP handles result conversion
+            return result
         except Exception as e:
             logger.error(
                 f"Error executing proxied tool {tool_name}: {e}",
@@ -146,37 +196,25 @@ def get_fastmcp_app(config: AppConfig) -> FastMCP:
                 request_id=ctx.request_id,
                 exc_info=True,
             )
-            raise  # Let FastMCP handle error response
+            raise
 
     # Direct Core Tool Example
     @app.tool(name="core_add")
+    # ... (keep implementation as before) ...
     def core_add_tool(a: int, b: int) -> int:
-        """Adds two numbers directly within the core service."""
         logger.info(f"Executing core_add tool with a={a}, b={b}")
         return a + b
 
     # Health Check Tool
     @app.tool(name="core_health")
+    # ... (keep implementation as before) ...
     async def core_health_tool(
         ctx: Context[ServerSession, CoreLifespanContext],
     ) -> dict:
-        """Returns the health status of the core service."""
         logger.debug("Executing core_health tool", request_id=ctx.request_id)
         health_checker = ctx.request_context.lifespan_context.health_checker
-        # Optionally add dynamic checks here, e.g., pinging tool servers
-        # adapter = ctx.request_context.lifespan_context.py_tool_adapter
-        # if adapter:
-        #     py_tool_health = await adapter.health_check()
-        #     health_checker.components.append(lambda: py_tool_health) # Add check result
         health_status = await health_checker.check_health()
         return health_status
-
-    # --- Add Resource/Prompt registrations using app decorators if needed ---
-    # @app.resource(...)
-    # def my_resource_handler(...): ...
-    #
-    # @app.prompt(...)
-    # def my_prompt_handler(...): ...
 
     logger.info("FastMCP application instance created and configured.")
     return app

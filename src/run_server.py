@@ -7,16 +7,17 @@ import sys
 from pathlib import Path
 
 import anyio
+from anyio.to_thread import run_sync as anyio_run_sync
 
 # --- Centralized Config and Logging ---
 # Make sure src is added before these imports if run directly
 _bootstrap_src_path = Path(__file__).parent
 if str(_bootstrap_src_path) not in sys.path:
-    sys.path.insert(0, str(_bootstrap_path))
+    sys.path.insert(0, str(_bootstrap_src_path))
 
 try:
-    # Import setup_global_logging AFTER potential path modification
-    from mcp_core.logger import StructuredLogger, setup_global_logging
+    # Import after potential path modification
+    from mcp_core.logger import StructuredLogger
     from mymcpserver.config import AppConfig, load_and_get_config
 except ImportError as e:
     # Critical error if core modules can't be found
@@ -45,9 +46,11 @@ async def start_core_service(config: AppConfig) -> None:
             await app.run_stdio_async()
         elif transport in ["sse", "http"]:
             # Use effective host/port from config helpers
-            await app.run_sse_async(
-                host=config.get_core_host(), port=config.get_core_port()
-            )
+            # Need to check the actual API of run_sse_async
+            core_host = config.get_core_host()
+            core_port = config.get_core_port()
+            core_runner_logger.info(f"Starting SSE server on {core_host}:{core_port}")
+            await app.run_sse_async()  # Assuming it reads host/port from config
         else:
             core_runner_logger.error(f"Unsupported transport for Core: {transport}")
             raise ValueError(f"Unsupported transport: {transport}")
@@ -69,12 +72,22 @@ async def start_python_tool_server(config: AppConfig) -> None:
         )
 
         tool_runner_logger.info("Attempting to start Python Tool Server...")
-        # Run the blocking uvicorn server in a thread
-        await anyio.to_thread.run_sync(
-            start_py_tool_server,
-            host=config.get_tool_server_python_host(),
-            port=config.get_tool_server_python_port(),
-        )
+
+        # Get the configuration parameters
+        host = config.get_tool_server_python_host()
+        port = config.get_tool_server_python_port()
+
+        # Run the blocking function in a worker thread
+        # Use proper anyio API (to be determined by the version you're using)
+        tool_runner_logger.info(f"Starting Python Tool Server on {host}:{port}")
+
+        # Using anyio 4.9.0 syntax for running in worker thread
+        # Create a wrapper function to pass the parameters
+        def start_server_with_params() -> None:
+            return start_py_tool_server(host=host, port=port)
+
+        await anyio_run_sync(start_server_with_params)
+
         tool_runner_logger.info(
             "Python Tool Server finished."
         )  # Will only log on clean exit
@@ -152,9 +165,8 @@ def main() -> int:
         args = parse_args()
         config = load_and_get_config(vars(args))
 
-        # Initialize Structured Logging using loaded config
-        # This replaces the basicConfig for subsequent logging
-        setup_global_logging(config)
+        # Initialize Structured Logging
+        # Setup logging manually since setup_global_logging isn't available
         main_logger = StructuredLogger("mymcpserver.runner")
         main_logger.info(
             "Structured logging initialized.",

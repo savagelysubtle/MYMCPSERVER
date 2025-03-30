@@ -1,12 +1,14 @@
 # src/tool_servers/python_tool_server/server.py
 import os
 import sys
+from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 
 # --- SDK Import ---
 try:
-    import mcp
-    from mcp import ToolContext, ToolResponse, create_server
+    import mcp  # type: ignore
+    from mcp import ToolContext, ToolResponse, create_server  # type: ignore
 
     SDK_AVAILABLE = True
 except ImportError:
@@ -15,15 +17,53 @@ except ImportError:
 
     # Define stubs if needed for basic execution without SDK
     class ToolContext:
+        """Stub class for ToolContext when SDK is not available."""
+
         pass
 
     class ToolResponse:
+        """Stub class for ToolResponse when SDK is not available."""
+
         pass
 
-    def create_server(**kwargs):
-        return MagicMockServer()  # Placeholder
+    # More complete mock implementation to avoid linter errors
+    class MagicMockServer:
+        """Mock server implementation when SDK is not available."""
 
-    def tool(*args, **kwargs):
+        def __init__(self) -> None:
+            self.tools: dict[str, Callable] = {}
+            self.name = "mock-server"
+            self.description = "Mock Server (SDK not available)"
+            self.version = "0.0.0"
+
+        def register_tool(self, tool_func: Callable) -> None:
+            """Mock register_tool method."""
+            tool_name = getattr(tool_func, "_tool_name", tool_func.__name__)
+            self.tools[tool_name] = tool_func
+
+        def tool(self, name: str = "", description: str = "") -> Callable:
+            """Mock tool decorator."""
+
+            def decorator(func: Callable) -> Callable:
+                func._tool_name = name or func.__name__
+                func._tool_description = description
+                return func
+
+            return decorator
+
+        def start_http(self, host: str = "127.0.0.1", port: int = 8001) -> None:
+            """Mock start_http method that logs an error."""
+            print(
+                f"ERROR: Cannot start server on {host}:{port}: MCP SDK not installed.",
+                file=sys.stderr,
+            )
+
+    def create_server(**kwargs: Any) -> "MagicMockServer":
+        """Create a mock server when SDK is not available."""
+        return MagicMockServer()
+
+    def tool(*args: Any, **kwargs: Any) -> Callable[..., Any]:
+        """Mock tool decorator when SDK is not available."""
         return lambda f: f
 
 
@@ -95,16 +135,34 @@ if SDK_AVAILABLE:
         return {"status": "healthy", "registered_tools": list(server.tools.keys())}
 
 else:
-    # Provide a dummy server if SDK is missing to potentially allow startup
-    class MagicMockServer:
-        def start_http(self, **kwargs):
-            logger.error("MCP SDK not found, cannot start server.")  # type: ignore
+    # Create a more complete mock server if SDK is missing
+    server = create_server(
+        name="python-tool-server-mock",
+        description="Mock Python Tool Server (SDK not available)",
+        version="0.1.0",
+    )
 
-    server = MagicMockServer()
+    # Even with mock server, we can still register the tools for bookkeeping
+    if TOOLS_IMPORTED:
+        logger.info("Registering tools to mock server...")  # type: ignore
+        try:
+            server.register_tool(obsidian_list_notes)
+            server.register_tool(obsidian_search_notes)
+            server.register_tool(obsidian_save_note)
+            server.register_tool(aichemist_get_molecule)
+            server.register_tool(aichemist_list_molecules)
+            server.register_tool(aichemist_calculate_property)
+        except Exception as e:
+            logger.error(f"Failed to register tools to mock server: {e}")  # type: ignore
+
+    # Add a simple health check endpoint to the mock server
+    @server.tool(name="health", description="Check tool server health (mock)")
+    async def health_check_mock(ctx: Any) -> dict:
+        return {"status": "mocked", "registered_tools": list(server.tools.keys())}
 
 
 # --- Server Start ---
-def start_server(host: str = "127.0.0.1", port: int = 8001):
+def start_server(host: str = "127.0.0.1", port: int = 8001) -> None:
     """Start the Python Tool Server (Blocking)."""
     if not SDK_AVAILABLE:
         logger.critical("Cannot start server: MCP SDK is not installed.")  # type: ignore

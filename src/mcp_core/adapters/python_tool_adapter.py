@@ -10,6 +10,43 @@ from mcp_core.errors import AdapterError, ToolError, TransportError
 # Use structured logger
 from mcp_core.logger import StructuredLogger
 
+# Try to import mcp.types, but provide fallbacks if not available
+try:
+    import mcp.types as mcp_types
+
+    HAS_MCP_TYPES = True
+except ImportError:
+    HAS_MCP_TYPES = False
+
+    # Define minimal fallback types for when mcp.types is not available
+    class Tool:
+        """Simple fallback for mcp.types.Tool when not available."""
+
+        def __init__(self, name: str, description: str, version: str = "1.0.0"):
+            self.name = name
+            self.description = description
+            self.version = version
+
+    class ListToolsResult:
+        """Simple fallback for mcp.types.ListToolsResult when not available."""
+
+        def __init__(self, tools: list[Tool]):
+            self.tools = tools
+
+        @classmethod
+        def model_validate(cls, data: dict) -> "ListToolsResult":
+            """Simple validation method."""
+            tools = [
+                Tool(
+                    name=t.get("name", "unknown"),
+                    description=t.get("description", ""),
+                    version=t.get("version", "1.0.0"),
+                )
+                for t in data.get("tools", [])
+            ]
+            return cls(tools=tools)
+
+
 from .base_adapter import BaseAdapter
 
 logger = StructuredLogger("adapter.python_tool")
@@ -172,7 +209,7 @@ class PythonToolAdapter(BaseAdapter):
         ) from last_exception
 
     async def health_check(self) -> dict[str, Any]:
-        # ... (implement enhanced health check as before) ...
+        """Check the health of the adapter by connecting to the Python Tool Server."""
         if not self.client:
             return {"status": "unhealthy", "message": "Adapter not initialized"}
         try:
@@ -205,3 +242,67 @@ class PythonToolAdapter(BaseAdapter):
                 f"Health check failed for Python Tool Server: {e}", exc_info=True
             )
             return {"status": "unhealthy", "server": self.base_url, "error": str(e)}
+
+    async def list_remote_tools(self) -> list[Tool | Any]:
+        """Fetches the list of tools from the remote Python Tool Server."""
+        if not self.client:
+            raise AdapterError("Adapter not initialized. Call initialize() first.")
+
+        # Construct a standard MCP tools/list request
+        # Note: MCP SDK client sessions handle request IDs, but raw HTTP needs manual handling
+        # For simplicity, we'll assume the SDK server doesn't require strict JSON-RPC framing
+        # for a simple GET /tools endpoint if available, OR we need to implement
+        # a minimal MCP client call here. Let's assume the SDK server provides /tools/list via GET.
+        # **Correction:** The SDK server expects MCP JSON-RPC. We need to send that.
+        # Let's use the adapter's *existing* execute logic cleverly, if possible,
+        # or implement a minimal JSON-RPC call.
+
+        # Minimal JSON-RPC call:
+        request_payload = {
+            "jsonrpc": "2.0",
+            "method": "tools/list",
+            "id": "discovery_request",  # Use a fixed or random ID
+        }
+        url = f"{self.base_url}/"  # Assume MCP endpoint is root, adjust if different
+
+        try:
+            logger.debug(f"Sending tools/list request to {url}")
+            response = await self.client.post(url, json=request_payload)
+            response.raise_for_status()
+            response_data = response.json()
+
+            # Validate the response structure (basic check)
+            if "result" not in response_data or "tools" not in response_data["result"]:
+                raise AdapterError(
+                    "Invalid tools/list response format from tool server."
+                )
+
+            # Use the appropriate implementation based on whether mcp.types is available
+            if HAS_MCP_TYPES:
+                # Use the real mcp.types implementation
+                list_result = mcp_types.ListToolsResult.model_validate(
+                    response_data["result"]
+                )
+                logger.info(
+                    f"Discovered {len(list_result.tools)} tools from Python Tool Server."
+                )
+                return list_result.tools
+            else:
+                # Use our fallback implementation
+                list_result = ListToolsResult.model_validate(response_data["result"])
+                logger.info(
+                    f"Discovered {len(list_result.tools)} tools from Python Tool Server (using fallback types)."
+                )
+                return list_result.tools
+
+        except (httpx.RequestError, httpx.HTTPStatusError) as e:
+            logger.error(
+                f"Failed to list tools from Python Tool Server at {url}: {e}",
+                exc_info=True,
+            )
+            raise TransportError(f"Could not fetch tools from {url}: {e}") from e
+        except Exception as e:
+            logger.error(
+                f"Error parsing tool list from Python Tool Server: {e}", exc_info=True
+            )
+            raise AdapterError("Failed to parse tool list from remote server") from e
