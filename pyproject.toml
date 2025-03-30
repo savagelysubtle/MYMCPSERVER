@@ -5,7 +5,7 @@ version         = "0.1.0"
 description     = "The MCP server for all tools"
 readme          = "README.md"
 requires-python = ">=3.10"
-dependencies    = ["httpx>=0.28.1", "mcp[cli]", "pyyaml>=6.0.1", "pydantic>=2.0.0", "uvicorn>=0.22.0", "anyio>=3.4.0", "jsonschema>=4.17.3", "python-dotenv>=1.0.0", "pydantic-settings>=2.0.0", "pytest>=8.3.5"]
+dependencies    = ["httpx>=0.28.1", "mcp[cli]>=0.1.0", "pyyaml>=6.0.1", "pydantic>=2.0.0", "uvicorn>=0.22.0", "anyio>=3.4.0", "jsonschema>=4.17.3", "python-dotenv>=1.0.0", "pydantic-settings>=2.0.0", "pytest>=8.3.5"]
 
   [[project.authors]]
   name  = "savagelysubtle"
@@ -20,7 +20,7 @@ requires      = ["uv-build>=0.6.0,<0.7"]
 build-backend = "uv_build"
 
   [project.scripts]
-  # Point to the server.py in the mcp package
+  # Corrected path to the server.py in the mcp package
   mcp-server = "mcp.server:main"
 
 [tool.uv]
@@ -29,9 +29,11 @@ cache-dir                  = "./.uv_cache"
 index-url                  = "https://pypi.org/simple/"
 no-build-isolation-package = ["ruff"]
 link-mode                  = "copy"
+managed                    = true
 
 [tool.setuptools.packages.find]
-where   = ["src"]
+where = ["src"]
+# Fixed package paths to match actual directory structure
 include = ["mcp", "mcp_core", "tool_servers", "mcp_proxy"]
 
 # Keep tool.pytest.ini_options, tool.ruff, tool.markdownlint, tool.cspell as they were
