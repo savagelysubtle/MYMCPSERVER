@@ -1,6 +1,6 @@
 ---
 created: 2025-03-30
-updated: 2025-03-30
+updated: 2025-03-31
 tags: [folder-note, implementation, myMcpServer]
 parent: [[../_index]]
 up: [[../_index]]
@@ -32,6 +32,7 @@ This directory contains documentation related to the implementation details of t
   - [[adapter/technical-v2|Adapter Implementation]] - Tool Registration, Version Management
 - [[python/_index|Python]] - Python-specific implementation details
   - [[python/tool-server|Python Tool Server]] - SDK Architecture, Tool Implementation Guide
+  - [[python/cli-tool|CLI Tool]] - Secure Command Execution for Windows Environments
 - [[typescript/_index|TypeScript]] - TypeScript-specific implementation details
   - [[typescript/tool-server|TypeScript Tool Server]] - SDK Architecture, Tool Implementation Guide
 - [[cross-cutting/_index|Cross-Cutting]] - Cross-cutting concerns implementation

@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "AIchemist Codex": {
+      "command": "npx",
+      "args": ["--yes", "--", "npm", "run", "start"],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+        "PATH": "${env:PATH};${workspaceFolder}\\.venv\\Scripts",
+        "VIRTUAL_ENV": "${workspaceFolder}\\.venv",
+        "UV_CACHE_DIR": "${workspaceFolder}\\.uv_cache",
+        "MCP_SERVER_ROOT": "${workspaceFolder}",
+        "MCP_TRANSPORT": "stdio",
+        "MCP_LOG_LEVEL": "INFO"
+      },
+      "transport": "stdio"
+    }
+  }
+}

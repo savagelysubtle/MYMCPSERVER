@@ -1,27 +1,28 @@
 # pyproject.toml
 [project]
-name            = "mcp"
+name            = "chemist_server"
 version         = "0.1.0"
 description     = "The MCP server for all tools"
 readme          = "README.md"
-requires-python = ">=3.10"
-dependencies    = ["httpx>=0.28.1", "mcp[cli]>=0.1.0", "pyyaml>=6.0.1", "pydantic>=2.0.0", "uvicorn>=0.22.0", "anyio>=3.4.0", "jsonschema>=4.17.3", "python-dotenv>=1.0.0", "pydantic-settings>=2.0.0", "pytest>=8.3.5"]
+requires-python = ">=3.13"
+dependencies    = ["httpx", "mcp[cli]", "pyyaml", "pydantic", "uvicorn", "anyio", "jsonschema", "python-dotenv", "pydantic-settings", "pytest", "the_aichemist_codex @ git+https://github.com/savagelysubtle/the_aichemist_codex.git@refactor", "GitPython"]
 
-  [[project.authors]]
-  name  = "savagelysubtle"
-  email = "163227725+savagelysubtle@users.noreply.github.com"
+    [[project.authors]]
+    name  = "savagelysubtle"
+    email = "163227725+savagelysubtle@users.noreply.github.com"
 
-  [project.urls]
-  "Homepage"    = "https://github.com/savagelysubtle/MYMCPSERVER"
-  "Bug Tracker" = "https://github.com/savagelysubtle/MYMCPSERVER/issues"
+    [project.urls]
+    "Homepage"    = "https://github.com/savagelysubtle/MYMCPSERVER"
+    "Bug Tracker" = "https://github.com/savagelysubtle/MYMCPSERVER/issues"
 
 [build-system]
 requires      = ["uv-build>=0.6.0,<0.7"]
 build-backend = "uv_build"
 
-  [project.scripts]
-  # Corrected path to the server.py in the mcp package
-  mcp-server = "mcp.server:main"
+    [project.scripts]
+    # Path to the server.py in the chemist_server package
+    mcp-server         = "chemist_server.server:main"
+    mcp-chemist-server = "src.chemist_server.server:main"
 
 [tool.uv]
 required-version           = ">=0.6.0"
@@ -33,8 +34,8 @@ managed                    = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
-# Fixed package paths to match actual directory structure
-include = ["mcp", "mcp_core", "tool_servers", "mcp_proxy"]
+# Corrected to match the actual directory structure
+include = ["chemist_server"]
 
 # Keep tool.pytest.ini_options, tool.ruff, tool.markdownlint, tool.cspell as they were
 [tool.pytest.ini_options]
@@ -58,33 +59,33 @@ exclude = [".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".ipynb_ch
 line-length  = 88
 indent-width = 4
 
-  [tool.ruff.lint]
-  select = [
-    "E",   # pycodestyle errors
-    "F",   # pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "UP",  # pyupgrade
-    "N",   # pep8-naming
-    "ANN", # flake8-annotations
-    "S",   # flake8-bandit
-    "A",   # flake8-builtins
-  ]
-  ignore = ["E501", "ANN101", "ANN102", "ANN401"]
-  fixable = ["ALL"]
-  unfixable = []
+    [tool.ruff.lint]
+    select = [
+        "E",   # pycodestyle errors
+        "F",   # pyflakes
+        "I",   # isort
+        "B",   # flake8-bugbear
+        "C4",  # flake8-comprehensions
+        "UP",  # pyupgrade
+        "N",   # pep8-naming
+        "ANN", # flake8-annotations
+        "S",   # flake8-bandit
+        "A",   # flake8-builtins
+    ]
+    ignore = ["E501", "ANN101", "ANN102", "ANN401"]
+    fixable = ["ALL"]
+    unfixable = []
 
-  # Include per-file-ignores directly in the lint section
-  per-file-ignores = {"tests/**/*.py" = ["S101", "ANN401", "F821", "F823"], "*/__init__.py" = ["F401"]}
+    # Include per-file-ignores directly in the lint section
+    per-file-ignores = {"tests/**/*.py" = ["S101", "ANN401", "F821", "F823"], "*/__init__.py" = ["F401"]}
 
-  [tool.ruff.format]
-  quote-style                = "double"
-  indent-style               = "space"
-  skip-magic-trailing-comma  = false
-  line-ending                = "auto"
-  docstring-code-format      = false
-  docstring-code-line-length = "dynamic"
+    [tool.ruff.format]
+    quote-style                = "double"
+    indent-style               = "space"
+    skip-magic-trailing-comma  = false
+    line-ending                = "auto"
+    docstring-code-format      = false
+    docstring-code-line-length = "dynamic"
 
 [tool.markdownlint]
 default = true

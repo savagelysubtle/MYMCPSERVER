@@ -1,0 +1,12 @@
+{
+  "name": "mcp-chemist-server",
+  "version": "1.0.0",
+  "description": "MCP Server for AIchemist Codex",
+  "scripts": {
+    "start": "python -m src.chemist_server.server --transport stdio --component all"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

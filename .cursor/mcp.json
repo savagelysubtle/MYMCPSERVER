@@ -1,16 +1,46 @@
 {
   "mcpServers": {
-    "AIchemist Hub": {
-      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "mcp.src.aichemist_mcp_hub_new"],
+    "web-fetch-server": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
       "env": {
+        "PYTHONIOENCODING": "utf-8",
         "PYTHONPATH": "${workspaceFolder}",
-        "PATH": "${env:PATH};${workspaceFolder}\\.venv\\Scripts",
-        "VIRTUAL_ENV": "${workspaceFolder}\\.venv",
-        "UV_CACHE_DIR": "${workspaceFolder}\\.uv_cache",
-        "MCP_SERVER_ROOT": "${workspaceFolder}"
+        "PYTHONUNBUFFERED": "1",
+        "MCP_LOG_LEVEL": "DEBUG"
       },
-      "transport": "stdio"
+      "transport": "stdio",
+      "shell": true,
+      "enabled": true
+    },
+    "github-server": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "transport": "stdio",
+      "shell": true,
+      "enabled": true
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "transport": "stdio",
+      "shell": true,
+      "enabled": true
+    },
+    "python-mcp-server": {
+      "command": "${workspaceFolder}/run_mcp_server.bat",
+      "args": [],
+      "transport": "stdio",
+      "shell": true,
+      "enabled": false
     }
   }
 }

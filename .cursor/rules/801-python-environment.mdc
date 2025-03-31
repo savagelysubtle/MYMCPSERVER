@@ -1,5 +1,5 @@
 ---
-description: 
+description: ALWAYS use uv packagemanagement and uv venv and sync
 globs: **/*.py,pyproject.toml
 alwaysApply: false
 ---
@@ -14,11 +14,12 @@ alwaysApply: false
   [build-system]
   requires      = ["uv-build>=0.6.0,<0.7"]
   build-backend = "uv_build"
+  python version must stay 3.13 the aichemsit codex is a CRITICAL package to the tool server MUST STAY 3.13
   </CRITICAL>
 </IMPORTANT>
 
 <python-environment-management>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
 
   <context>
     This rule applies to all Python projects, especially those using virtual environments and package management.
