@@ -1,116 +1,59 @@
 ---
-created: 2025-03-30
-updated: { { date } }
-tags: [template, documentation]
-parent: [[../Documentation Structure Guide]]
-up: [[../Documentation Structure Guide]]
-siblings: []
-implements: []
-extends: []
-related: []
-next: []
-previous: []
+created: { { date:YYYY-MM-DD } }
+updated: { { date:YYYY-MM-DD } }
+tags: [untagged] # Add relevant tags
+parent: [[../Parent/_index]] # Link to the logical parent directory
+up: [[../Parent/_index]] # CRUCIAL: Link to parent directory's _index.md
+siblings: [] # Optional: Link to related notes at the same level
+implements: [] # Link using [[Note Title]](implements)
+extends: [] # Link using [[Note Title]](extends)
+references: [] # Link using [[Note Title]](references)
+related: [] # Link using [[Note Title]](related)
+based_on_decision: [] # Link using [[Decision Note]](based_on_decision)
+informed_by_research: [] # Link using [[Research Note]](informed_by_research)
+next: [] # Link using [[Next Note]](next)
+previous: [] # Link using [[Previous Note]](previous)
 ---
 
 # {{title}}
 
 ## Overview
 
-<!-- Brief overview of what this note covers -->
+<!-- Brief overview of the topic -->
 
 ## Key Points
 
-<!-- Main ideas or key points about this topic -->
-
-- Point 1
-- Point 2
-- Point 3
+<!-- Bullet points of key information -->
 
 ## Details
 
-<!-- Detailed explanation or information -->
+<!-- Main content of the note -->
 
-### Section 1
+## Relationships
 
-<!-- First major topic -->
+<!-- Add typed links to show semantic relationships -->
+<!-- Examples: -->
+<!-- - This concept [[Another Concept]](implements) core functionality -->
+<!-- - Based on research in [[Research Document]](informed_by_research) -->
+<!-- - Next step: [[Next Step]](next) in the process -->
 
-### Section 2
+### Core Relationships
 
-<!-- Second major topic -->
+<!-- Optional: Group by relationship type -->
 
-### Section 3
+### Implementation Relationships
 
-<!-- Third major topic -->
-
-## Implementation
-
-<!-- If applicable, include implementation details -->
-
-### Examples
-
-<!-- Code examples or practical applications -->
-
-### Best Practices
-
-<!-- Best practices and guidelines -->
+<!-- Optional: Group by relationship type -->
 
 ## Related Documentation
 
-### Core Concepts
+<!-- Standard links to related documentation -->
+<!-- Use typed links where the relationship is important -->
 
-<!-- Links to related core concepts -->
+## References
 
-- [[../../mcpKnowledge/core/MCP Architecture|MCP Architecture]]
-- (Add more related core concepts)
-
-### Implementation Guides
-
-<!-- Links to related implementation guides -->
-
-- [[../../mcpKnowledge/development/Implementation Guide|Implementation Guide]]
-- (Add more related guides)
-
-### Examples
-
-<!-- Links to related examples -->
-
-- [[../../projects/myMcpServer/implementation/Server Configuration|Server Configuration]]
-- (Add more related examples)
-
-## External References
-
-<!-- External documentation, articles, or resources -->
-
-- [Reference 1](url)
-- [Reference 2](url)
+<!-- External references or links -->
 
 ---
 
-[[../Documentation Structure Guide|← Back to Documentation Guide]]
-
-Note: When creating a new note:
-
-1. Update Frontmatter
-
-   - Set creation and update dates
-   - Add appropriate tags
-   - Update parent link to relevant MOC
-   - Set up/siblings for navigation
-   - Define relationships (implements/extends/related)
-   - Set next/previous for sequential docs
-
-2. Content Guidelines
-
-   - Replace all placeholder content
-   - Add proper cross-references
-   - Use typed links where appropriate
-   - Maintain bidirectional relationships
-
-3. Navigation
-
-   - Ensure breadcrumb fields are correct
-   - Update related documents' relationships
-   - Verify navigation paths
-   - Check bidirectional links
-
-4. Remove these instructions
+_Instructions: Replace {{title}} with actual title. Update `parent` and `up` links accurately. Add specific tags. Fill in all sections with relevant content. Use typed links in the "Relationships" section to establish semantic connections. Remove any unused sections and these instructions._

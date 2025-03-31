@@ -1,8 +1,9 @@
 ---
 created: 2025-03-30
+updated: 2025-03-30
 tags: [documentation, guide, metadata, linking]
 parent: [[Documentation Structure Guide]]
-up: [[Documentation Structure Guide]]
+up: [[_index]]
 siblings: [[Creating a New Note]], [[Knowledge Graph]], [[Linking Strategy]]
 ---
 
@@ -19,8 +20,8 @@ Every note should include the following frontmatter:
 created: [creation-date]
 updated: [last-update-date]
 tags: [relevant-tags]
-parent: [[parent-MOC]]
-up: [[parent-document]]
+parent: [[Parent MOC or Index]] # Link to the logical parent
+up: [[Path/To/Parent/_index]] # CRUCIAL: Link to parent directory's _index.md
 siblings: [[related-doc-1]], [[related-doc-2]]
 ---
 ```
@@ -28,126 +29,130 @@ siblings: [[related-doc-1]], [[related-doc-2]]
 ### Breadcrumb Fields
 
 1. **Hierarchical Navigation**
-   - `parent` - Direct parent document (usually an MOC)
-   - `up` - Upward navigation (can be different from parent)
+
+   - `parent` - Link to the logical parent document (usually an \_index.md or related conceptual parent)
+   - `up` - Upward navigation (always points to parent directory's \_index.md)
    - `siblings` - Related documents at the same level
 
 2. **Relationship Types**
-   - `implements` - Implementation of a concept
-   - `extends` - Extension or enhancement of another document
-   - `related` - General relationship to other documents
-   - `next` - Next document in a sequence
-   - `previous` - Previous document in a sequence
+   All relationship fields should use the standardized typed link format within the content: `[[Target Note|Optional Display Text]](relationship_type)`
 
-Example with relationships:
+## Official Typed Link Relationships
 
-```yaml
----
-created: 2025-03-30
-tags: [implementation, python]
-parent: [[Python MOC]]
-up: [[Development Guide]]
-siblings: [[Testing Guide]], [[Deployment Guide]]
-implements: [[Design Specification]]
-next: [[Implementation Phase 2]]
-previous: [[Requirements Document]]
----
-```
+### Core Relationships
 
-### Tag Categories
+- `implements` - Indicates this document describes an implementation of a concept or design specified in the target document
 
-1. Content Type Tags
-   - mcp
-   - python
-   - typescript
-   - project
-   - guide
-   - documentation
+  - Example: A code documentation [[Design Specification]](implements) because it realizes the design
 
-2. Topic Tags
-   - architecture
-   - implementation
-   - development
-   - testing
-   - deployment
+- `extends` - Indicates this document extends or enhances concepts from the target document
 
-3. Status Tags
-   - draft
-   - review
-   - deprecated
-   - current
+  - Example: This pattern [[Base Pattern]](extends) with additional features
 
-## Linking Conventions
+- `references` - Indicates this document references or relies on information in the target document
 
-### Relative vs. Absolute Paths
+  - Example: See [[Technical Specification]](references) for more details
 
-1. Within Same Category
+- `related` - Indicates a general relationship to another document without a more specific type
+  - Example: Also check [[Related Topic]](related) for complementary information
 
-   ```markdown
-   [[Tool Management]] - Same directory
-   [[../core/MCP Architecture]] - Parent directory
-   [[./implementation/Setup Guide]] - Child directory
-   ```
+### Decision-based Relationships
 
-2. Across Categories
+- `based_on_decision` - Indicates this document is based on a decision documented in the target document
 
-   ```markdown
-   [[../../mcpKnowledge/core/MCP Architecture]]
-   [[../../languages/python/Python MOC]]
-   [[../../projects/myMcpServer/Project MOC]]
-   ```
+  - Example: This approach follows [[Architecture Decision Record 12]](based_on_decision)
 
-### Link Text
+- `informed_by_research` - Indicates this document is informed by research in the target document
+  - Example: These requirements were [[Research Findings]](informed_by_research)
 
-Use descriptive link text:
+### Compositional Relationships
 
-```markdown
-[[MCP Architecture|Core MCP Architectural Principles]]
-[[Python MOC|Python Development Guide]]
-```
+- `part_of` - Indicates this document is a component or part of a larger system documented in the target
 
-### Typed Links
+  - Example: This component is [[System Architecture]](part_of)
 
-Use typed links to indicate relationship types:
+- `contains` - Indicates this document contains or includes the target document
+  - Example: This system [[Component X]](contains) as a critical element
+
+### Sequential Relationships
+
+- `next` - Indicates the target document is the next in a sequence
+
+  - Example: Proceed to [[Implementation Phase 2]](next)
+
+- `previous` - Indicates the target document is the previous in a sequence
+  - Example: Return to [[Requirements Document]](previous)
+
+### Dependency Relationships
+
+- `depends_on` - Indicates this document depends on content in the target document
+
+  - Example: This component [[Authentication Service]](depends_on)
+
+- `prerequisite_for` - Indicates this document is a prerequisite for the target document
+  - Example: This setup is [[Advanced Configuration]](prerequisite_for)
+
+### Semantic Relationships
+
+- `example_of` - Indicates this document provides an example of the target document
+
+  - Example: This code is an [[Design Pattern]](example_of)
+
+- `contradicts` - Indicates this document contradicts or provides an alternative to the target
+  - Example: This approach [[Alternative Method]](contradicts) for specific cases
+
+## Using Typed Links
+
+### Syntax
+
+Use the following format for typed links:
 
 ```markdown
-[[Design Specification|Design]] (implements)
-[[Core Concept|Concept]] (extends)
-[[Related Topic|Topic]] (related)
+[[Target Note|Optional Display Text]](relationship_type)
+```
+
+### Context
+
+1. Place typed links directly in the content where the relationship is contextually relevant
+2. Use the "Relationships / Links" section for additional explicit connections
+3. Always ensure the relationship type accurately reflects the actual relationship
+
+### Examples
+
+```markdown
+## Implementation Details
+
+This component [[Authentication System]](implements) the security requirements and [[Logging Framework]](depends_on) for audit trails.
+
+## Relationships / Links
+
+- [[System Architecture]](part_of) - This component is part of the overall system
+- [[Security Requirements]](references) - Referenced security standards
+- [[Component Interface]](next) - Next document in the implementation guide
 ```
 
 ## Directory Structure Navigation
 
-### MCP Knowledge
+### Hierarchical Structure with \_index.md
 
 ```
-mcpKnowledge/
-├── core/
-├── pythonSDK/
-├── typeScriptSDK/
-└── integration/
-```
-
-### Project Documentation
-
-```
-projects/
-└── myMcpServer/
-    ├── architecture/
-    ├── implementation/
-    └── mcpPlanning/
-```
-
-### Language Knowledge
-
-```
-languages/
-├── python/
+docs-obsidian/
+├── _index.md
+├── mcpKnowledge/
+│   ├── _index.md
 │   ├── core/
-│   └── testing/
-└── typescript/
-    ├── core/
-    └── testing/
+│   │   ├── _index.md
+│   │   └── MCP Architecture.md
+│   └── pythonSDK/
+│       ├── _index.md
+│       └── Python SDK Overview.md
+└── projects/
+    ├── _index.md
+    └── myMcpServer/
+        ├── _index.md
+        └── architecture/
+            ├── _index.md
+            └── System Overview.md
 ```
 
 ## Navigation Management
@@ -157,79 +162,71 @@ languages/
 Use frontmatter fields to create explicit navigation paths:
 
 ```yaml
-up: Navigate to parent/higher level
-siblings: Navigate laterally
-next/previous: Navigate sequentially
+up: [[../_index]] # Always point to parent directory's _index.md
+siblings: [[File1]], [[File2]] # Related files at same level
 ```
 
 ### 2. Relationship Navigation
 
 Use typed relationships to create semantic connections:
 
-```yaml
-implements: Connect to specifications
-extends: Connect to base concepts
-related: Connect to relevant content
+```markdown
+This component [[Design Doc]](implements) the specification.
 ```
 
 ### 3. Automatic Collection
 
 Use dataview queries to collect related notes:
 
-```markdown
+````markdown
 Notes linking to this document:
+
 ```dataview
 list from [[Metadata and Linking Guide]] and !outgoing([[Metadata and Linking Guide]])
 ```
-
-```
-
-### 4. Manual References
-
-Add "Related Content" sections:
-```markdown
-## Related Content
-- [[Other Guide]] - Brief description
-- [[Another Document]] - Brief description
-```
+````
 
 ## Best Practices
 
 1. **Consistent Naming**
+
    - Use PascalCase for file names
    - Be descriptive but concise
    - Include category prefixes when helpful
 
 2. **Link Maintenance**
+
    - Update links when moving files
    - Check for broken links regularly
    - Use relative paths when possible
 
 3. **Metadata Updates**
+
    - Keep creation dates accurate
    - Update modification dates
    - Maintain relevant tags
    - Keep breadcrumbs current
 
 4. **Content Organization**
-   - Link to relevant MOCs
+
+   - Link to relevant \_index.md files
    - Use consistent headings
    - Include navigation links
    - Maintain clear hierarchies
 
 5. **Relationship Management**
-   - Use appropriate relationship types
-   - Keep relationships bidirectional
+   - Use appropriate relationship types from the official list
+   - Keep relationships bidirectional when possible
    - Document relationship context
    - Review relationships periodically
 
 ## Related Guides
 
 - [[Documentation Structure Guide]] - Overall documentation structure
-- [[MOC Template]] - Template for Maps of Content
-- [[Note Template]] - Template for new notes
+- [[templates/_index Template|_index Template]] - Template for directory index files
+- [[templates/Note Template|Note Template]] - Template for new notes
 - [[Knowledge Graph]] - Understanding the knowledge graph
 
 ---
 
-[[Documentation Structure Guide|← Back to Documentation Guide]]
+[[_index|← Back to Documentation Guide]]

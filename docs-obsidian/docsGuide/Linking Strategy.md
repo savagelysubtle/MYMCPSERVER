@@ -3,6 +3,8 @@ created: 2025-03-28
 updated: 2025-03-30
 tags: [documentation, organization, linking]
 parent: [[Documentation Structure Guide]]
+up: [[_index]]
+siblings: [[Metadata and Linking Guide]], [[Creating a New Note]]
 ---
 
 # Linking Strategy
@@ -13,156 +15,134 @@ This guide defines how notes are connected to create a robust and useful knowled
 
 ## Key Points
 
-- Effective linking creates a discoverable knowledge network
-- Links should be meaningful and contextual
-- Different types of links serve different purposes
-- Bidirectional linking ensures connections work both ways
+- Hierarchical navigation uses the `up` link to parent \_index.md files
+- Semantic relationships are expressed using typed links
+- Links should be meaningful and placed in context
+- The typed link format encodes the relationship type
 
 ## Link Types
 
-### 1. Hierarchical Links
+### 1. Hierarchical Directory Links
 
-Connect notes within their organizational hierarchy:
+Connect notes within their organizational hierarchy using \_index.md files:
 
 ```markdown
-# Within mcpKnowledge
-[[../core/MCP Architecture]]
-[[../pythonSDK/Python SDK Overview]]
+# Standard up link in frontmatter
 
-# Within projects
-[[../architecture/System Overview]]
-[[../implementation/Setup Guide]]
+up: [[../_index]]
+
+# Navigation within content
+
+See the [[../_index|Parent Directory]] for more context.
 ```
 
-### 2. Cross-Category Links
+### 2. Typed Relationship Links
 
-Connect related content across different categories:
+Express semantic relationships with typed links in the format `[[Target]](relationship_type)`:
 
 ```markdown
-# From project to MCP knowledge
-[[../../mcpKnowledge/core/MCP Architecture]]
+# Core relationships
 
-# From language to project
-[[../../projects/myMcpServer/implementation/Setup Guide]]
+This component [[Authentication System]](implements) the design specification.
+This approach [[Base Pattern]](extends) with additional features.
+See [[Technical Reference]](references) for more details.
+
+# Decision relationships
+
+We chose this approach based on [[Architecture Decision Record]](based_on_decision).
+These requirements are [[Research Findings]](informed_by_research).
+
+# Compositional relationships
+
+This service is [[Overall System]](part_of) the architecture.
+The system [[Authentication Service]](contains) as a critical component.
+
+# Sequential relationships
+
+After this, proceed to [[Next Step]](next) in the process.
+Return to [[Previous Step]](previous) if needed.
 ```
 
-### 3. MOC Links
+### 3. Contextual Placement
 
-Maps of Content serve as navigation hubs:
+Put typed links where they make sense in the document:
 
 ```markdown
-# Main MOCs
-[[mcpKnowledge/MCP Knowledge MOC]]
-[[projects/myMcpServer/Project MOC]]
-[[languages/python/Python MOC]]
+## Implementation
+
+We designed this component to [[Security Requirements]](implements) while maintaining high performance.
+
+## Dependencies
+
+This module [[Database Service]](depends_on) and requires [[Configuration Manager]](depends_on) to be running.
+
+## Relationships / Links
+
+- [[System Architecture]](part_of) - This component is part of the overall system
+- [[Authentication Protocol]](references) - Protocol specifications
 ```
 
 ## Best Practices
 
-### 1. Link Text
+### 1. Hierarchical Navigation
 
-Use descriptive link text:
+- **Always** include the `up` link in frontmatter pointing to parent directory's \_index.md
+- Use `parent` to link to the logical parent (which may be different from the directory parent)
+- Include key siblings in frontmatter for lateral navigation
 
-```markdown
-[[MCP Architecture|Core Architectural Principles]]
-[[Python MOC|Python Development Guide]]
-```
+### 2. Typed Links in Content
 
-### 2. Relative vs. Absolute Paths
+- Use typed links directly in the content where they make contextual sense
+- Choose the most specific relationship type from the standardized list
+- Provide brief explanation after the typed link for clarity
+- Maintain bidirectional relationships for important connections
 
-- Use relative paths within the same category
-- Use absolute paths for cross-category links
-- Keep paths as short as possible
+### 3. Directory Structure Navigation
 
-### 3. Backlinks
-
-- Add "Related Content" sections
-- Use dataview queries for automatic link collection
-- Maintain bidirectional links where appropriate
-
-### 4. Link Maintenance
-
-- Update links when moving files
-- Check for broken links regularly
-- Use consistent linking patterns
-
-## Directory Structure
-
-### Base Directories
+The repository uses a hierarchical structure with \_index.md files for navigation:
 
 ```
 docs-obsidian/
-├── mcpKnowledge/    # MCP-specific knowledge
-├── projects/        # Project implementations
-├── languages/       # Language-specific knowledge
-└── docsGuide/      # Documentation guidelines
+├── _index.md
+├── mcpKnowledge/
+│   ├── _index.md
+│   └── core/
+│       ├── _index.md
+│       └── MCP Architecture.md
+└── projects/
+    └── myMcpServer/
+        ├── _index.md
+        └── implementation/
+            ├── _index.md
+            └── Setup Guide.md
 ```
 
-### Link Examples
+- Every note's `up` link must point to its directory's \_index.md
+- Each \_index.md file's `up` link points to its parent directory's \_index.md
+- This creates an unbroken hierarchical navigation chain
 
-1. **MCP Knowledge**
+### 4. Relationship Documentation
 
-   ```
-   mcpKnowledge/
-   ├── core/
-   ├── pythonSDK/
-   ├── typeScriptSDK/
-   └── integration/
-   ```
-
-2. **Project Documentation**
-
-   ```
-   projects/myMcpServer/
-   ├── architecture/
-   ├── implementation/
-   └── mcpPlanning/
-   ```
-
-3. **Language Documentation**
-
-   ```
-   languages/
-   ├── python/
-   └── typescript/
-   ```
-
-## Content Organization
-
-### 1. Related Content Sections
-
-Organize links by relevance:
+Include a "Relationships / Links" section in documents with important connections:
 
 ```markdown
-## Related Concepts
-- [[Concept A]]
-- [[Concept B]]
+## Relationships / Links
 
-## Implementation
-- [[Guide A]]
-- [[Guide B]]
+- [[System Architecture]](part_of) - This component is part of the overall system
+- [[Authentication Protocol]](references) - Protocol specifications used
+- [[Implementation Phase 2]](next) - Next step in the development process
 ```
 
-### 2. Navigation Links
+## Official Relationship Types
 
-Include navigation aids:
-
-```markdown
-[[Parent MOC|← Back to Parent]]
-[[Home|← Back to Home]]
-```
+For a complete list of standardized relationship types and their usage, see the [[Metadata and Linking Guide#Official Typed Link Relationships|Official Typed Link Relationships]] section in the Metadata and Linking Guide.
 
 ## Related Documentation
 
 - [[Documentation Structure Guide]] - Overall documentation structure
-- [[Knowledge Graph]] - Understanding the knowledge graph
-- [[MOC Concept]] - Maps of Content organization
-
-## References
-
-- [Obsidian Linking](https://help.obsidian.md/How+to/Internal+link)
-- [Zettelkasten Method](https://zettelkasten.de/posts/overview/)
+- [[Metadata and Linking Guide]] - Comprehensive metadata and linking standards
+- [[Creating a New Note]] - Step-by-step guide for creating properly linked notes
 
 ---
 
-[[Documentation Structure Guide|← Back to Documentation Guide]]
+[[_index|← Back to Documentation Guide]]

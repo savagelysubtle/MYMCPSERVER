@@ -1,40 +1,93 @@
 ---
-description: 
-globs: docs-obsidian/**/*
+description: IMPORTANT MAINTAIN hierarchical folder structure using _index.md WHEN working with docs-obsidian content
+globs: docs-obsidian/**/*.md, *.md
 alwaysApply: false
 ---
  <aiDecision>
-description: IMPORTANT MAINTAIN folder structure WHEN working with docs-obsidian content
-globs: docs-obsidian/**/*
-alwaysApply: true
+  description: IMPORTANT MAINTAIN hierarchical folder structure using _index.md WHEN working with docs-obsidian content
+  globs: docs-obsidian/**/*.md
+  alwaysApply: true
 </aiDecision>
 
-# Obsidian Documentation Organization Rule
+# Obsidian Documentation Organization Rule (v2 - Hierarchical)
 
 <context>
   <role>Documentation System</role>
-  <purpose>Maintain consistent folder structure and organization</purpose>
+  <purpose>Maintain consistent hierarchical folder structure and organization using _index.md files for navigation.</purpose>
 </context>
 
 <requirements>
-  <requirement>KEEP all MOC files at the top level of docs-obsidian folder</requirement>
-  <requirement>PLACE all concept notes in the concepts/ folder</requirement>
-  <requirement>PLACE all process notes in the processes/ folder</requirement>
-  <requirement>PLACE all reference material in the reference/ folder</requirement>
-  <requirement>STORE all templates in the templates/ folder</requirement>
-  <requirement>WHEN creating a new category, CREATE a dedicated folder</requirement>
+  <requirement>USE dedicated top-level folders for distinct knowledge areas: docsGuide/, generalKnowledge/, languages/, mcpKnowledge/, projects/.</requirement>
+  <requirement>PLACE meta-documentation (guides, templates) within the docsGuide/ folder.</requirement>
+  <requirement>PLACE shared language-specific knowledge in languages/{language}/{category}/ folders (e.g., languages/python/patterns/).</requirement>
+  <requirement>PLACE general MCP concepts and SDK overviews in the mcpKnowledge/ folder and its subdirectories.</requirement>
+  <requirement>PLACE project-specific documentation within projects/{projectName}/, further organized by component/layer (e.g., projects/myMcpServer/implementation/core/).</requirement>
+  <requirement>CREATE an _index.md file within EACH significant directory to serve as the entry point and navigation hub for that directory.</requirement>
+  <requirement>ENSURE each _index.md file contains appropriate frontmatter, including an 'up' link to the parent directory's _index.md.</requirement>
+  <requirement>AVOID using top-level MOC files for primary directory organization; use _index.md instead.</requirement>
+  <requirement>USE the Fleeting MOC.md or a dedicated Fleeting/ folder as an inbox for temporary notes.</requirement>
 </requirements>
 
 <structure>
+  <description>Example of the target hierarchical structure.</description>
   <folder name="docs-obsidian">
-    <file>Home.md</file>
-    <file>Concepts MOC.md</file>
-    <file>Processes MOC.md</file>
-    <file>Reference MOC.md</file>
-    <file>Fleeting MOC.md</file>
-    <folder>concepts/</folder>
-    <folder>processes/</folder>
-    <folder>reference/</folder>
-    <folder>templates/</folder>
+    <file>_index.md</file> <!-- Root Index -->
+    <folder name="docsGuide">
+      <file>_index.md</file>
+      <folder name="templates">
+         <file>_index.md</file>
+         <file>Note Template.md</file>
+         <file>_index Template.md</file>
+      </folder>
+      <file>Documentation Structure Guide.md</file>
+      <!-- other guides -->
+    </folder>
+    <folder name="generalKnowledge">
+      <file>_index.md</file>
+      <!-- other general notes -->
+    </folder>
+    <folder name="languages">
+      <file>_index.md</file>
+      <folder name="python">
+        <file>_index.md</file>
+        <folder name="core">
+           <file>_index.md</file>
+        </folder>
+        <!-- other categories -->
+      </folder>
+      <folder name="typescript">
+         <file>_index.md</file>
+         <!-- categories -->
+      </folder>
+    </folder>
+    <folder name="mcpKnowledge">
+       <file>_index.md</file>
+       <folder name="core">
+          <file>_index.md</file>
+          <!-- core concept notes -->
+       </folder>
+       <!-- other mcp categories -->
+    </folder>
+    <folder name="projects">
+       <file>_index.md</file>
+       <folder name="myMcpServer">
+          <file>_index.md</file> <!-- Project Index -->
+          <folder name="architecture">
+             <file>_index.md</file>
+             <file>System Overview.md</file>
+          </folder>
+          <folder name="implementation">
+             <file>_index.md</file>
+             <folder name="core">
+                <file>_index.md</file>
+                <file>technical-v2.md</file>
+             </folder>
+             <!-- other implementation layers -->
+          </folder>
+          <!-- other project sections like api -->
+       </folder>
+       <!-- other projects -->
+    </folder>
+    <file>Fleeting MOC.md</file> <!-- Optional Inbox -->
   </folder>
 </structure>

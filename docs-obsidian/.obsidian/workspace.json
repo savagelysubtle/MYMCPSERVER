@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "cfacefa00b7631f4",
+        "id": "3dac87bc426d3040",
         "type": "tabs",
         "children": [
           {
-            "id": "90397b14b5d47c41",
+            "id": "4eff7032eb070fb4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/myMcpServer/implementation/core/overview-v2.md",
+                "file": "projects/myMcpServer/architecture/System Overview.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "overview-v2"
+              "title": "System Overview"
             }
           }
         ]
@@ -63,7 +63,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "MOC",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -104,7 +104,8 @@
               "title": "Tag Folder"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -124,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/myMcpServer/implementation/core/overview-v2.md",
+                "file": "projects/myMcpServer/architecture/System Overview.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -134,7 +135,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for overview-v2"
+              "title": "Backlinks for System Overview"
             }
           },
           {
@@ -212,44 +213,44 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "5d7862b3768de6b9",
+  "active": "4eff7032eb070fb4",
   "lastOpenFiles": [
-    "projects/myMcpServer/mcpKnowledge/reference/Reference MOC.md",
-    "projects/myMcpServer/mcpKnowledge/reference/MCP Servers List.md",
-    "projects/myMcpServer/mcpKnowledge/pythonSDK/Python Server Development.md",
-    "projects/myMcpServer/mcpKnowledge/typeScriptSDK/Implementation Examples.md",
-    "projects/myMcpServer/mcpKnowledge/pythonSDK/Python SDK Overview.md",
-    "projects/myMcpServer/mcpKnowledge/pythonSDK/Implementation Examples.md",
-    "projects/myMcpServer/mcpKnowledge/integration/Sequential Thinking Tools.md",
-    "projects/myMcpServer/mcpKnowledge/integration/Cursor Integration.md",
-    "projects/myMcpServer/mcpKnowledge/integration/Cursor MCP Integration.md",
-    "projects/myMcpServer/mcpKnowledge/development/Processes MOC.md",
-    "projects/myMcpServer/mcpKnowledge/development/MCP Hub Implementation.md",
-    "projects/myMcpServer/mcpKnowledge/development/Implementation Guide.md",
-    "projects/myMcpServer/mcpKnowledge/development/Hub Setup Guide.md",
-    "projects/myMcpServer/mcpKnowledge/development/Hub Implementation Process.md",
-    "projects/myMcpServer/mcpKnowledge/development/Hub Debugging.md",
-    "projects/myMcpServer/mcpKnowledge/development/Hub Configuration.md",
-    "projects/myMcpServer/mcpKnowledge/development/Configuration Examples.md",
-    "projects/myMcpServer/mcpKnowledge/core/Tool Management.md",
-    "projects/myMcpServer/mcpKnowledge/core/Server Architecture.md",
-    "projects/myMcpServer/mcpKnowledge/core/Remote Servers.md",
-    "projects/myMcpServer/mcpKnowledge/core/MCP Server Architecture.md",
-    "projects/myMcpServer/mcpKnowledge/core/MCP Central Hub.md",
-    "projects/myMcpServer/mcpKnowledge/core/MCP Architecture.md",
-    "projects/myMcpServer/mcpKnowledge/_index.md",
+    "languages/python/_index.md",
+    "languages/typescript/_index.md",
+    "graph presets/noindex-noguides.md",
+    "mcpKnowledge/development/Implementation Guide.md",
+    "mcpKnowledge/integration/Cursor MCP Integration.md",
+    "graph presets/semantic.md",
+    "graph presets/domains.md",
+    "graph presets/content.md",
+    "graph presets/structure.md",
+    "graph presets/clean.md",
+    "mcpKnowledge/core/Tool Management.md",
+    "projects/myMcpServer/implementation/_index.md",
+    "docsGuide/Documentation Structure Guide.md",
+    "docsGuide/Metadata and Linking Guide.md",
+    "docsGuide/Linking Strategy.md",
+    "docsGuide/Knowledge Graph.md",
+    "docsGuide/templates/_index Template.md",
+    "projects/myMcpServer/_index.md",
+    "mcpKnowledge/typeScriptSDK/_index.md",
+    "mcpKnowledge/reference/_index.md",
+    "mcpKnowledge/reference/Reference MOC.md",
+    "mcpKnowledge/pythonSDK/_index.md",
+    "mcpKnowledge/integration/_index.md",
+    "mcpKnowledge/development/_index.md",
+    "mcpKnowledge/core/_index.md",
+    "projects/myMcpServer/implementation/cross-cutting/_index.md",
+    "mcpKnowledge/typeScriptSDK",
+    "mcpKnowledge/reference",
+    "mcpKnowledge/pythonSDK",
+    "mcpKnowledge/integration",
+    "mcpKnowledge/development",
+    "mcpKnowledge/core",
+    "mcpKnowledge",
     "projects/myMcpServer/mcpKnowledge/reference",
     "projects/myMcpServer/mcpKnowledge/typeScriptSDK",
     "projects/myMcpServer/mcpKnowledge/pythonSDK",
-    "projects/myMcpServer/mcpKnowledge/integration",
-    "projects/myMcpServer/mcpKnowledge/development",
-    "projects/myMcpServer/mcpKnowledge/core",
-    "projects/myMcpServer/mcpKnowledge",
-    "projects/mcpKnowledge/typeScriptSDK/Implementation Examples.md",
-    "projects/mcpKnowledge/reference/Reference MOC.md",
-    "projects/mcpKnowledge/typeScriptSDK",
-    "projects/mcpKnowledge/reference",
-    "projects/mcpKnowledge/pythonSDK",
     "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",
     "projects/myMcpServer/architecture/flowchart/Editor _ Mermaid Chart-2025-03-30-034538.png",
     "projects/myMcpServer/flowchart/Editor _ Mermaid Chart-2025-03-30-034551.svg",

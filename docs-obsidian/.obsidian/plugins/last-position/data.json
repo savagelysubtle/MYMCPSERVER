@@ -27,12 +27,32 @@
       "lastAccessed": 1743362123899
     },
     "docsGuide/Linking Strategy.md": {
-      "height": 153.37565104166666,
-      "lastAccessed": 1743368719666
+      "height": 85.75325520833333,
+      "lastAccessed": 1743375853656
     },
     "projects/myMcpServer/implementation/core/overview-v2.md": {
       "height": 4.642252604166667,
       "lastAccessed": 1743368731664
+    },
+    "docsGuide/Documentation Structure Guide.md": {
+      "height": 207.4375,
+      "lastAccessed": 1743376102657
+    },
+    "docsGuide/Knowledge Graph.md": {
+      "height": 71.16883886255924,
+      "lastAccessed": 1743375838661
+    },
+    "projects/myMcpServer/implementation/_index.md": {
+      "height": 8.564231738035264,
+      "lastAccessed": 1743376405662
+    },
+    "mcpKnowledge/core/Tool Management.md": {
+      "height": 134.77278645833334,
+      "lastAccessed": 1743376903656
+    },
+    "projects/myMcpServer/architecture/System Overview.md": {
+      "height": 34.6640625,
+      "lastAccessed": 1743379970763
     }
   },
   "listenEvent": "mouseover",

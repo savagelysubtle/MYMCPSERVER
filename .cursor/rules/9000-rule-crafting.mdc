@@ -1,12 +1,12 @@
 ---
-description: 
+description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
 globs: .cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
 alwaysApply: false
 ---
 <aiDecision>
-description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
-globs: .cursor/rules/*.mdc
-alwaysApply: true
+  description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
+  globs: .cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
+  alwaysApply: true
 </aiDecision>
 
 # Rule Crafting Standards
@@ -32,9 +32,9 @@ alwaysApply: true
     <description>Properly formatted rule</description>
     <example>
       <aiDecision>
-      description: ALWAYS MAINTAIN code style WHEN writing new functions
-      globs: src/**/*.js
-      alwaysApply: false
+        description: ALWAYS MAINTAIN code style WHEN writing new functions
+        globs: src/**/*.js,.cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
+        alwaysApply: false
       </aiDecision>
       
       # Rule Title

@@ -2,21 +2,20 @@
 created: 2025-03-30
 updated: 2025-03-30
 tags: [folder-note, languages, development]
-parent: [[../Home]]
-up: [[../Home]]
-contains: [
-  [[python/_index]],
-  [[typescript/_index]]
-]
-lists: [
-  {
-    "name": "Language Guides",
-    "items": [
-      "[[python/Python MOC|Python Development]]",
-      "[[typescript/TypeScript MOC|TypeScript Development]]"
-    ]
-  }
-]
+parent: [[../_index]]
+up: [[../_index]]
+contains: [[[python/_index]], [[typescript/_index]]]
+lists:
+  [
+    {
+      'name': 'Language Guides',
+      'items':
+        [
+          '[[python/_index|Python Development]]',
+          '[[typescript/_index|TypeScript Development]]',
+        ],
+    },
+  ]
 ---
 
 # Languages Directory
@@ -27,29 +26,32 @@ This directory contains language-specific knowledge and best practices that are 
 
 ```
 languages/
-├── python/         # Python development knowledge
-│   ├── core/      # Core concepts and patterns
-│   └── tools/     # Development tools
-└── typescript/    # TypeScript development knowledge
-    ├── core/      # Core concepts and patterns
-    └── tools/     # Development tools
+├── _index.md         # This directory index
+├── python/           # Python development knowledge
+│   ├── _index.md     # Python directory index
+│   ├── core/         # Core concepts and patterns
+│   └── tools/        # Development tools
+└── typescript/       # TypeScript development knowledge
+    ├── _index.md     # TypeScript directory index
+    ├── core/         # Core concepts and patterns
+    └── tools/        # Development tools
 ```
 
 ## Language Documentation
 
 ### Python Development
 
-- [[python/Python MOC|Python Knowledge Base]]
-- Core concepts and patterns
-- Development tools and practices
-- Testing strategies
+- [[python/_index|Python Knowledge Base]](defines) - Python-specific development knowledge
+- Core concepts and design patterns
+- Development tools and best practices
+- Testing strategies and methodologies
 
 ### TypeScript Development
 
-- [[typescript/TypeScript MOC|TypeScript Knowledge Base]]
-- Core concepts and patterns
-- Development tools and practices
-- Testing strategies
+- [[typescript/_index|TypeScript Knowledge Base]](defines) - TypeScript-specific development knowledge
+- Core concepts and design patterns
+- Development tools and best practices
+- Testing strategies and methodologies
 
 ## Knowledge Organization
 
@@ -58,35 +60,37 @@ languages/
 Each language section includes:
 
 1. Design Patterns
-   - Common patterns
-   - Implementation examples
-   - Best practices
+
+   - Common patterns and idioms
+   - Implementation examples with code
+   - Best practices and anti-patterns
 
 2. Development Practices
-   - Coding standards
-   - Testing approaches
-   - Documentation guidelines
+
+   - Coding standards and style guides
+   - Testing approaches and methodologies
+   - Documentation standards
 
 3. Tool Usage
-   - Development tools
-   - Testing frameworks
-   - Build systems
+   - Development environments and IDEs
+   - Testing frameworks and libraries
+   - Build systems and package management
+
+## Relationships
+
+- This directory [[../projects/_index]](informs) implementation projects
+- The [[python/_index]](supports) and [[typescript/_index]](supports) the [[../mcpKnowledge/_index]](defines) implementation
+- Language knowledge [[../projects/myMcpServer/_index]](used_by) for project development
 
 ## Navigation
 
-### Parent Directory
+- Parent: [[../_index|Home]]
+- Siblings: [[../mcpKnowledge/_index|MCP Knowledge]], [[../projects/_index|Projects]]
 
-[[../Home|← Back to Home]]
-
-### Child Directories
+## Child Directories
 
 - [[python/_index|Python Knowledge]]
 - [[typescript/_index|TypeScript Knowledge]]
-
-### Related Directories
-
-- [[../mcpKnowledge/_index|MCP Knowledge]]
-- [[../projects/_index|Project Implementations]]
 
 ## Tag Groups
 
@@ -108,72 +112,35 @@ Each language section includes:
 - #reference
 - #example
 
-## Lists
+## Python Resources
 
-### Python Resources
+- Core: [[python/core/_index|Python Core Concepts]](defines)
+- Tools: [[python/tools/_index|Python Development Tools]](implements)
+- Testing: [[python/testing/_index|Python Testing]](implements)
 
-1. Core Development
-   - [[python/core/Python Best Practices|Best Practices]]
-   - [[python/core/Python Design Patterns|Design Patterns]]
-   - [[python/core/Python Testing|Testing Guide]]
+## TypeScript Resources
 
-2. Tools and Libraries
-   - [[python/tools/Python Development Tools|Development Tools]]
-   - [[python/tools/Python Testing Tools|Testing Tools]]
-   - [[python/tools/Python Build Tools|Build Tools]]
+- Core: [[typescript/core/_index|TypeScript Core Concepts]](defines)
+- Tools: [[typescript/tools/_index|TypeScript Development Tools]](implements)
+- Testing: [[typescript/testing/_index|TypeScript Testing]](implements)
 
-### TypeScript Resources
+## Subdirectories
 
-1. Core Development
-   - [[typescript/core/TypeScript Best Practices|Best Practices]]
-   - [[typescript/core/TypeScript Design Patterns|Design Patterns]]
-   - [[typescript/core/TypeScript Testing|Testing Guide]]
+```dataview
+LIST
+FROM "docs-obsidian/languages" AND #folder-note
+SORT file.path ASC
+```
 
-2. Tools and Libraries
-   - [[typescript/tools/TypeScript Development Tools|Development Tools]]
-   - [[typescript/tools/TypeScript Testing Tools|Testing Tools]]
-   - [[typescript/tools/TypeScript Build Tools|Build Tools]]
+## Contained Notes (Dataview)
 
-## Relationships
-
-### Extended By
-
-- [[../projects/myMcpServer/_index|MCP Server Project]]
-- [[../projects/aiChemist/_index|AI Chemist Project]]
-
-### Implements
-
-- [[../Tech MOC|Technical Knowledge]]
-- [[../Reference MOC|Technical References]]
-
-### References
-
-- [[../mcpKnowledge/_index|MCP Knowledge]]
-- [[../docsGuide/_index|Documentation Guide]]
-
-## Usage Guidelines
-
-### Adding New Content
-
-1. Place in appropriate language directory
-2. Follow language-specific conventions
-3. Include practical examples
-4. Link to related knowledge
-
-### Updating Content
-
-1. Maintain consistency with standards
-2. Update related documentation
-3. Review dependencies
-4. Test code examples
-
-### Cross-Language Patterns
-
-1. Document shared patterns
-2. Note language-specific differences
-3. Provide implementation examples
-4. Link related implementations
+```dataview
+LIST
+FROM "docs-obsidian/languages"
+WHERE file.name != "_index"
+SORT file.name ASC
+```
 
 ---
 
-_This folder note provides organization and navigation for language-specific knowledge._
+_This directory index provides organization and navigation for language-specific knowledge._

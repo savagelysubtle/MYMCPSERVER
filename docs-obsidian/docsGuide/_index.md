@@ -2,33 +2,29 @@
 created: 2025-03-30
 updated: 2025-03-30
 tags: [folder-note, documentation, guide]
-parent: [[../Home]]
-up: [[../Home]]
-contains: [
-  [[Documentation Structure Guide]],
-  [[Creating a New Note]],
-  [[Knowledge Graph]],
-  [[Linking Strategy]],
-  [[Metadata and Linking Guide]],
-  [[MOC Concept]]
-]
-lists: [
-  {
-    "name": "Core Guides",
-    "items": [
-      "[[Documentation Structure Guide]]",
-      "[[Metadata and Linking Guide]]",
-      "[[MOC Concept]]"
-    ]
-  },
-  {
-    "name": "Process Guides",
-    "items": [
-      "[[Creating a New Note]]",
-      "[[Linking Strategy]]"
-    ]
-  }
-]
+parent: [[../_index]]
+up: [[../_index]]
+contains:
+  [
+    [[Documentation Structure Guide]],
+    [[Creating a New Note]],
+    [[Knowledge Graph]],
+    [[Linking Strategy]],
+    [[Metadata and Linking Guide]],
+    [[templates/_index]],
+  ]
+lists:
+  [
+    {
+      'name': 'Core Guides',
+      'items':
+        ['[[Documentation Structure Guide]]', '[[Metadata and Linking Guide]]'],
+    },
+    {
+      'name': 'Process Guides',
+      'items': ['[[Creating a New Note]]', '[[Linking Strategy]]'],
+    },
+  ]
 ---
 
 # Documentation Guide Directory
@@ -39,16 +35,16 @@ This directory contains guides and templates for maintaining the documentation s
 
 ```
 docsGuide/
-├── Documentation Structure Guide.md  # Overall structure
+├── _index.md                       # This directory index
+├── Documentation Structure Guide.md # Overall structure
 ├── Creating a New Note.md           # Note creation process
 ├── Knowledge Graph.md               # Graph organization
 ├── Linking Strategy.md             # Linking guidelines
 ├── Metadata and Linking Guide.md   # Metadata standards
-├── MOC Concept.md                  # MOC explanation
 └── templates/                      # Document templates
-    ├── MOC Template.md
-    ├── Note Template.md
-    └── README.md
+    ├── _index.md                   # Templates directory index
+    ├── _index Template.md          # Directory index template
+    └── Note Template.md            # Standard note template
 ```
 
 ## Documentation Components
@@ -56,46 +52,40 @@ docsGuide/
 ### Core Documentation
 
 1. Structure and Organization
-   - [[Documentation Structure Guide]] - Overall documentation structure
-   - [[MOC Concept]] - Maps of Content organization
-   - [[Knowledge Graph]] - Knowledge graph structure
+
+   - [[Documentation Structure Guide]] (implements) - Overall documentation structure
+   - [[Knowledge Graph]] (references) - Knowledge graph structure
 
 2. Metadata and Relationships
-   - [[Metadata and Linking Guide]] - Metadata standards
-   - [[Linking Strategy]] - Linking guidelines
+
+   - [[Metadata and Linking Guide]] (implements) - Metadata standards
+   - [[Linking Strategy]] (implements) - Linking guidelines
 
 3. Process Guides
-   - [[Creating a New Note]] - Note creation workflow
-   - [[templates/README|Templates Overview]] - Template usage
+   - [[Creating a New Note]] (implements) - Note creation workflow
+   - [[templates/_index]] (contains) - Document templates
 
 ## Organization Methods
 
-### 1. Folder Notes
+### 1. Directory Index Files
 
-- Purpose: Directory organization
-- Implementation: _index.md files
-- Navigation: Parent/child relationships
-- Example: This file
+- Purpose: Directory organization and navigation
+- Implementation: \_index.md files in each significant directory
+- Navigation: Hierarchical with `up` links to parent \_index.md files
+- Example: This file is the directory index for docsGuide/
 
-### 2. Tag Notes
+### 2. Typed Relationships
 
-- Purpose: Tag-based organization
-- Implementation: [[../tags/_index|Tag Organization]]
-- Categories: Topic, type, status
-- Usage: Content discovery
-
-### 3. List Notes
-
-- Purpose: Sequential organization
-- Implementation: [[../lists/_index|List Organization]]
-- Types: Sequences, hierarchies, dependencies
-- Usage: Process documentation
+- Purpose: Semantic organization
+- Implementation: Typed links like [[Metadata and Linking Guide]](implements)
+- Categories: Implements, extends, references, etc.
+- Usage: Content discovery and semantic relationships
 
 ## Navigation
 
 ### Parent Directory
 
-[[../Home|← Back to Home]]
+- Parent: [[../_index|Home]]
 
 ### Child Directories
 
@@ -104,7 +94,7 @@ docsGuide/
 ### Related Directories
 
 - [[../mcpKnowledge/_index|MCP Knowledge]]
-- [[../projects/_index|Project Documentation]]
+- [[../projects/_index|Projects]]
 
 ## Tag Groups
 
@@ -123,73 +113,43 @@ docsGuide/
 ### By Type
 
 - #folder-note
-- #tag-note
-- #list-note
-
-## Lists
-
-### Core Documentation
-
-1. Structure
-   - [[Documentation Structure Guide]]
-   - [[MOC Concept]]
-   - [[Knowledge Graph]]
-
-2. Organization
-   - [[Metadata and Linking Guide]]
-   - [[Linking Strategy]]
-
-3. Process
-   - [[Creating a New Note]]
-   - [[templates/README]]
-
-### Templates
-
-1. Content Types
-   - [[templates/Note Template|Note Template]]
-   - [[templates/MOC Template|MOC Template]]
-
-2. Organization Types
-   - Folder Notes
-   - Tag Notes
-   - List Notes
+- #documentation
 
 ## Relationships
 
 ### Implements
 
-- [[../Tech MOC]] - Documentation standards
-- [[../Reference MOC]] - Reference documentation
+The documentation guides implement best practices for:
 
-### Used By
-
-- [[../mcpKnowledge/_index|MCP Documentation]]
-- [[../projects/_index|Project Documentation]]
-- [[../languages/_index|Language Documentation]]
+- [[../mcpKnowledge/_index|MCP Documentation]] (used_by)
+- [[../projects/_index|Project Documentation]] (used_by)
+- [[../languages/_index|Language Documentation]] (used_by)
 
 ## Usage Guidelines
 
 ### Creating Documentation
 
-1. Choose appropriate template
-2. Follow structure guidelines
-3. Add proper metadata
-4. Create relationships
-
-### Organizing Content
-
-1. Use folder notes
-2. Implement tag organization
-3. Create list relationships
-4. Maintain navigation
+1. Choose appropriate template from [[templates/_index|Templates]]
+2. Follow structure guidelines in [[Documentation Structure Guide]]
+3. Add proper metadata as specified in [[Metadata and Linking Guide]]
+4. Create typed relationships following [[Linking Strategy]]
 
 ### Maintaining Documentation
 
-1. Update relationships
-2. Review organization
-3. Check navigation
-4. Verify metadata
+1. Update relationships using typed links
+2. Review organization via \_index.md files
+3. Maintain the hierarchical `up` link navigation
+4. Verify metadata matches the current standards
+
+## Contained Notes (Dataview)
+
+```dataview
+LIST
+FROM "docs-obsidian/docsGuide"
+WHERE file.name != "_index"
+SORT file.name ASC
+```
 
 ---
 
-_This folder note provides organization and guidance for the documentation system._
+_This directory index provides organization and guidance for the documentation system._
