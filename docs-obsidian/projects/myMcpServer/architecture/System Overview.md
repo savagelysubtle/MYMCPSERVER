@@ -1,7 +1,9 @@
 ---
 created: 2025-03-30
 tags: [architecture, system-design, mcp-hub]
-parent: [[../Project MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Component Design]], [[logging-centralization]]
 ---
 
 # System Overview
@@ -173,4 +175,4 @@ The MCP (Machine Comprehension Platform) is designed as a modular, extensible sy
 
 ---
 
-[[../Project MOC|← Back to Project MOC]]
+[[../_index|← Back to Project Documentation]]

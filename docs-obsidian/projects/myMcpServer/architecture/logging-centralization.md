@@ -2,7 +2,9 @@
 created: 2025-03-30
 updated: 2025-03-30
 tags: [architecture, logging, implementation, myMcpServer]
-parent: [[../Project MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[System Overview]], [[Component Design]]
 ---
 
 # Logging Centralization Strategy
@@ -123,4 +125,4 @@ other               -> logs/misc/
 
 ---
 
-[[../Project MOC|← Back to Project MOC]]
+[[../_index|← Back to Project Documentation]]

@@ -2,7 +2,9 @@
 created: 2025-03-28
 updated: 2025-03-30
 tags: [mcp, setup, development, windows, guide]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Hub Configuration]], [[Hub Debugging]], [[Implementation Guide]]
 ---
 
 # Setting Up MCP Central Hub for Windows
@@ -214,4 +216,4 @@ Write-Host "All MCP servers started!"
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

@@ -1,7 +1,9 @@
 ---
 created: 2025-03-30
 tags: [api, documentation, tools, mcp-hub]
-parent: [[../Project MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[core_api]]
 ---
 
 # Tool API Specification
@@ -222,4 +224,4 @@ export class ExampleTool extends BaseTool {
 
 ---
 
-[[../Project MOC|← Back to Project MOC]]
+[[../_index|← Back to Project Documentation]]

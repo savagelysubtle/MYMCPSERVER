@@ -84,7 +84,7 @@ Each language section includes:
 
 ## Navigation
 
-- Parent: [[../_index|Home]]
+- Parent: [[../_index|Documentation Root]]
 - Siblings: [[../mcpKnowledge/_index|MCP Knowledge]], [[../projects/_index|Projects]]
 
 ## Child Directories

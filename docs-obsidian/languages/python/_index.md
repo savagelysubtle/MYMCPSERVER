@@ -2,8 +2,9 @@
 created: 2025-03-30
 updated: 2025-03-30
 tags: [folder-note, python, programming-language]
-parent: [[../Python MOC]]
+parent: [[../_index]]
 up: [[../_index]]
+siblings: [[../typescript/_index|TypeScript]]
 contains: []
 ---
 

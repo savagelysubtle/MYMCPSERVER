@@ -1,7 +1,9 @@
 ---
 created: 2025-03-30
 tags: [mcp, integration, cursor, ide]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Cursor Integration]], [[Sequential Thinking Tools]]
 ---
 
 # Cursor MCP Integration
@@ -82,4 +84,4 @@ For implementation examples, see:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

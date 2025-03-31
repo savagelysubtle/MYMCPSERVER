@@ -1,18 +1,16 @@
 {
   "mcpServers": {
-    "personal-mcp": {
-      "command": "uv",
-      "args": ["run", "mcp-server"],
+    "AIchemist Hub": {
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "mcp.src.aichemist_mcp_hub_new"],
       "env": {
-        "VAULT_PATH": "${env:VAULT_PATH}",
-        "LOGS_PATH": "${env:LOGS_PATH}",
-        "PYTHONUNBUFFERED": "1",
-        "MCP_TRANSPORT": "stdio",
-        "MCP_LOG_LEVEL": "DEBUG",
-        "MCP_ENABLE_RICH_LOGGING": "1",
-        "PYTHONPATH": "${env:WORKSPACE_FOLDER}"
+        "PYTHONPATH": "${workspaceFolder}",
+        "PATH": "${env:PATH};${workspaceFolder}\\.venv\\Scripts",
+        "VIRTUAL_ENV": "${workspaceFolder}\\.venv",
+        "UV_CACHE_DIR": "${workspaceFolder}\\.uv_cache",
+        "MCP_SERVER_ROOT": "${workspaceFolder}"
       },
-      "cwd": "${env:WORKSPACE_FOLDER}"
+      "transport": "stdio"
     }
   }
 }

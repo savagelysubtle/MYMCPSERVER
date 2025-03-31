@@ -2,7 +2,9 @@
 created: 2025-03-28
 updated: 2025-03-30
 tags: [mcp, configuration, development, reference]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Hub Debugging]], [[Hub Implementation Process]], [[Implementation Guide]]
 ---
 
 # MCP Hub Configuration Reference
@@ -232,4 +234,4 @@ Paths in the configuration can use:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

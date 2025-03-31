@@ -85,7 +85,7 @@ docsGuide/
 
 ### Parent Directory
 
-- Parent: [[../_index|Home]]
+- Parent: [[../_index|Documentation Root]]
 
 ### Child Directories
 

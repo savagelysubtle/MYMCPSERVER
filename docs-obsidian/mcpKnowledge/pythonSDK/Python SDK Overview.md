@@ -2,7 +2,9 @@
 created: 2024-03-29
 updated: 2025-03-30
 tags: [mcp, python, sdk, development]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Python Server Development]], [[Python Tool Implementation]]
 ---
 
 # Python MCP SDK Reference
@@ -153,4 +155,4 @@ For practical implementation examples, see:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

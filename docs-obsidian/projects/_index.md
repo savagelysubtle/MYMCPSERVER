@@ -45,7 +45,7 @@ projects/
 
 ## Navigation
 
-- Parent: [[../_index|Home]]
+- Parent: [[../_index|Documentation Root]]
 - Siblings: [[../mcpKnowledge/_index|MCP Knowledge]], [[../languages/_index|Languages]]
 
 ## Subdirectories

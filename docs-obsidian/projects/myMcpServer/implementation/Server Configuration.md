@@ -2,7 +2,9 @@
 created: 2024-03-29
 updated: 2025-03-30
 tags: [mcp, server, configuration, myMcpServer, mcp-hub]
-parent: [[../Project MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: []
 ---
 
 # Server Implementation Guide
@@ -169,4 +171,4 @@ The unified server provides:
 
 ---
 
-[[../Project MOC|← Back to Project Documentation]]
+[[../_index|← Back to Project Documentation]]

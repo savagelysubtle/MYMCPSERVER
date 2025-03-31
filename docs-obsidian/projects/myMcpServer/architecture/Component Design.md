@@ -1,7 +1,9 @@
 ---
 created: 2025-03-30
 tags: [architecture, design, components, mcp-hub]
-parent: [[../Project MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[System Overview]], [[logging-centralization]]
 ---
 
 # Component Design
@@ -226,4 +228,4 @@ sequenceDiagram
 
 ---
 
-[[../Project MOC|← Back to Project MOC]]
+[[../_index|← Back to Project Documentation]]

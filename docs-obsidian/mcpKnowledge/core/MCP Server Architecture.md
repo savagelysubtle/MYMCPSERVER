@@ -2,7 +2,9 @@
 created: 2025-03-28
 updated: 2025-03-30
 tags: [mcp, architecture, protocol, core-concept]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[MCP Architecture]], [[MCP Central Hub]], [[Tool Management]]
 ---
 
 # MCP Server Architecture
@@ -67,4 +69,4 @@ For specific implementation details, see:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

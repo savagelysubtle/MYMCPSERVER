@@ -2,7 +2,7 @@
 created: 2025-03-30
 updated: 2025-03-30
 tags: [documentation, guide, structure]
-parent: [[Home]]
+parent: [[../_index]]
 up: [[_index]]
 siblings: [[Creating a New Note]], [[Knowledge Graph]], [[Linking Strategy]]
 ---
@@ -128,8 +128,8 @@ All notes should include:
 created: [date]
 updated: [date]
 tags: [relevant-tags]
-parent: [[Parent MOC or Index]] # Link to the logical parent (can be higher level)
-up: [[Path/To/Parent/_index]] # CRUCIAL: Always link to parent directory's _index.md
+parent: [[Parent Document]] # Link to the logical parent (can be higher level)
+up: [[../_index]] # CRUCIAL: Always link to parent directory's _index.md
 siblings: [[doc1]], [[doc2]]
 implements: [] # Using typed links in content is preferred to listing here
 extends: [] # Using typed links in content is preferred to listing here

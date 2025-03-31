@@ -2,17 +2,17 @@
 created: 2025-03-30
 updated: 2025-03-30
 tags: [folder-note, general-knowledge]
-parent: [[../Home]]
-up: [[../Home]]
+parent: [[../_index]]
+up: [[../_index]]
 contains: [
-  [[General Knowledge MOC]],
+  [[makingRules/_index]],
   [[makingRules/creatingRules]]
 ]
 lists: [
   {
     "name": "Knowledge Areas",
     "items": [
-      "[[General Knowledge MOC|General Knowledge]]",
+      "[[makingRules/_index|General Knowledge]]",
       "[[makingRules/creatingRules|Rule Creation]]"
     ]
   }
@@ -27,17 +27,17 @@ This directory contains general knowledge and principles that apply across diffe
 
 ```
 generalKnowledge/
-├── General Knowledge MOC.md   # Knowledge organization
-├── README.md                  # Directory overview
-└── makingRules/              # Rule creation guides
-    └── creatingRules.md      # Rule creation process
+├── _index.md                 # Directory index
+└── makingRules/             # Rule creation guides
+    ├── _index.md            # Rule creation index
+    └── creatingRules.md     # Rule creation process
 ```
 
 ## Knowledge Areas
 
 ### General Knowledge
 
-- [[General Knowledge MOC|Knowledge Overview]]
+- [[makingRules/_index|Knowledge Overview]]
 - Cross-cutting concepts
 - Universal principles
 - Shared patterns
@@ -72,7 +72,7 @@ generalKnowledge/
 
 ### Parent Directory
 
-[[../Home|← Back to Home]]
+[[../_index|← Back to Documentation Root]]
 
 ### Child Directories
 
@@ -137,11 +137,6 @@ generalKnowledge/
 - [[../mcpKnowledge/_index|MCP Knowledge]]
 - [[../projects/_index|Project Knowledge]]
 - [[../languages/_index|Language Knowledge]]
-
-### References
-
-- [[../Tech MOC|Technical Knowledge]]
-- [[../Reference MOC|Technical References]]
 
 ## Usage Guidelines
 

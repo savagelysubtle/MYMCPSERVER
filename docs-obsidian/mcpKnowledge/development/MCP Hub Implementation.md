@@ -2,7 +2,9 @@
 created: 2025-03-28
 updated: 2025-03-30
 tags: [mcp, implementation, development, code]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Hub Configuration]], [[Hub Debugging]], [[Implementation Guide]]
 ---
 
 # MCP Hub Implementation
@@ -440,4 +442,4 @@ For a working implementation example, see:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

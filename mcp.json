@@ -1,0 +1,276 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "python",
+      "args": ["mcp/src/start_thinking_server.py"],
+      "transport": "stdio"
+    }
+  },
+  "tools": {
+    "sequentialthinking_tools": {
+      "description": "A detailed tool for dynamic and reflective problem-solving through thoughts with intelligent tool recommendations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "thought": {
+            "type": "string",
+            "description": "Your current thinking step"
+          },
+          "next_thought_needed": {
+            "type": "boolean",
+            "description": "Whether another thought step is needed"
+          },
+          "thought_number": {
+            "type": "integer",
+            "description": "Current thought number",
+            "minimum": 1
+          },
+          "total_thoughts": {
+            "type": "integer",
+            "description": "Estimated total thoughts needed",
+            "minimum": 1
+          },
+          "is_revision": {
+            "type": "boolean",
+            "description": "Whether this revises previous thinking"
+          },
+          "revises_thought": {
+            "type": "integer",
+            "description": "Which thought is being reconsidered",
+            "minimum": 1
+          },
+          "branch_from_thought": {
+            "type": "integer",
+            "description": "Branching point thought number",
+            "minimum": 1
+          },
+          "branch_id": {
+            "type": "string",
+            "description": "Branch identifier"
+          },
+          "needs_more_thoughts": {
+            "type": "boolean",
+            "description": "If more thoughts are needed"
+          },
+          "current_step": {
+            "type": "object",
+            "description": "Current step recommendation",
+            "properties": {
+              "step_description": {
+                "type": "string",
+                "description": "What needs to be done"
+              },
+              "recommended_tools": {
+                "type": "array",
+                "description": "Tools recommended for this step",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "tool_name": {
+                      "type": "string",
+                      "description": "Name of the tool being recommended"
+                    },
+                    "confidence": {
+                      "type": "number",
+                      "description": "0-1 indicating confidence in recommendation",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "rationale": {
+                      "type": "string",
+                      "description": "Why this tool is recommended"
+                    },
+                    "priority": {
+                      "type": "number",
+                      "description": "Order in the recommendation sequence"
+                    },
+                    "suggested_inputs": {
+                      "type": "object",
+                      "description": "Optional suggested parameters"
+                    },
+                    "alternatives": {
+                      "type": "array",
+                      "description": "Alternative tools that could be used",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "tool_name",
+                    "confidence",
+                    "rationale",
+                    "priority"
+                  ]
+                }
+              },
+              "expected_outcome": {
+                "type": "string",
+                "description": "What to expect from this step"
+              },
+              "next_step_conditions": {
+                "type": "array",
+                "description": "Conditions to consider for the next step",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "step_description",
+              "recommended_tools",
+              "expected_outcome"
+            ]
+          },
+          "previous_steps": {
+            "type": "array",
+            "description": "Steps already recommended",
+            "items": {
+              "type": "object",
+              "properties": {
+                "step_description": {
+                  "type": "string",
+                  "description": "What needs to be done"
+                },
+                "recommended_tools": {
+                  "type": "array",
+                  "description": "Tools recommended for this step",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "tool_name": {
+                        "type": "string",
+                        "description": "Name of the tool being recommended"
+                      },
+                      "confidence": {
+                        "type": "number",
+                        "description": "0-1 indicating confidence in recommendation"
+                      },
+                      "rationale": {
+                        "type": "string",
+                        "description": "Why this tool is recommended"
+                      },
+                      "priority": {
+                        "type": "number",
+                        "description": "Order in the recommendation sequence"
+                      }
+                    }
+                  }
+                },
+                "expected_outcome": {
+                  "type": "string",
+                  "description": "What to expect from this step"
+                }
+              }
+            }
+          },
+          "remaining_steps": {
+            "type": "array",
+            "description": "High-level descriptions of upcoming steps",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "thought",
+          "next_thought_needed",
+          "thought_number",
+          "total_thoughts"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "thought": {
+            "type": "string",
+            "description": "The thought that was processed"
+          },
+          "current_step": {
+            "type": "object",
+            "description": "Current step recommendation",
+            "properties": {
+              "step_description": {
+                "type": "string",
+                "description": "What needs to be done"
+              },
+              "recommended_tools": {
+                "type": "array",
+                "description": "Tools recommended for this step",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "tool_name": {
+                      "type": "string",
+                      "description": "Name of the tool being recommended"
+                    },
+                    "confidence": {
+                      "type": "number",
+                      "description": "0-1 indicating confidence in recommendation"
+                    },
+                    "rationale": {
+                      "type": "string",
+                      "description": "Why this tool is recommended"
+                    },
+                    "priority": {
+                      "type": "number",
+                      "description": "Order in the recommendation sequence"
+                    },
+                    "suggested_inputs": {
+                      "type": "object",
+                      "description": "Optional suggested parameters"
+                    },
+                    "alternatives": {
+                      "type": "array",
+                      "description": "Alternative tools that could be used",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "expected_outcome": {
+                "type": "string",
+                "description": "What to expect from this step"
+              },
+              "next_step_conditions": {
+                "type": "array",
+                "description": "Conditions to consider for the next step",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "thought_number": {
+            "type": "integer",
+            "description": "Current thought number"
+          },
+          "total_thoughts": {
+            "type": "integer",
+            "description": "Estimated total thoughts needed"
+          },
+          "next_thought_needed": {
+            "type": "boolean",
+            "description": "Whether another thought step is needed"
+          },
+          "previous_steps": {
+            "type": "array",
+            "description": "Steps already recommended",
+            "items": {
+              "type": "object"
+            }
+          },
+          "remaining_steps": {
+            "type": "array",
+            "description": "High-level descriptions of upcoming steps",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

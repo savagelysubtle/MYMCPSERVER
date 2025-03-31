@@ -20,9 +20,9 @@ Every note should include the following frontmatter:
 created: [creation-date]
 updated: [last-update-date]
 tags: [relevant-tags]
-parent: [[Parent MOC or Index]] # Link to the logical parent
-up: [[Path/To/Parent/_index]] # CRUCIAL: Link to parent directory's _index.md
-siblings: [[related-doc-1]], [[related-doc-2]]
+parent: [[Parent Document]] # Link to the logical parent document
+up: [[../_index]] # CRUCIAL: Link to parent directory's _index.md
+siblings: [[related-doc-1]], [[related-doc-2]] # Related documents at same level
 ---
 ```
 

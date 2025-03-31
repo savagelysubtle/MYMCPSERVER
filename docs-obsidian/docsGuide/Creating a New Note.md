@@ -3,6 +3,8 @@ created: 2025-03-28
 updated: 2025-03-30
 tags: [documentation, guide, process]
 parent: [[Documentation Structure Guide]]
+up: [[_index]]
+siblings: [[Documentation Structure Guide]], [[Linking Strategy]], [[Metadata and Linking Guide]]
 ---
 
 # Creating a New Note
@@ -15,9 +17,9 @@ This guide walks through the process of creating a new note using our template s
 
 ### 1. Create the Note
 
-1. Use the template shortcut or click on the template in the quick links from [[Home]]
+1. Use the template shortcut or click on the template in the quick links from [[../_index|Documentation Root]]
 2. Name your note with a descriptive title that captures the main idea
-3. Use the appropriate template from [[templates/Note Template|Note Template]]
+3. Use the appropriate template from [[templates/_index|Templates]]
 
 ### 2. Fill in the Content
 
@@ -29,9 +31,9 @@ This guide walks through the process of creating a new note using our template s
 ### 3. Organize and Link
 
 1. Decide which category this note belongs to:
-   - MCP Knowledge ([[../mcpKnowledge/README|Overview]])
-   - Project Documentation ([[../projects/myMcpServer/README|Overview]])
-   - Language Knowledge ([[../languages/README|Overview]])
+   - MCP Knowledge ([[../mcpKnowledge/_index|MCP Knowledge]])
+   - Project Documentation ([[../projects/myMcpServer/_index|MyMcpServer]])
+   - Language Knowledge ([[../languages/_index|Languages]])
 2. Place the file in the appropriate directory
 3. Add contextual links to related notes
 4. Ensure bidirectional linking by editing related notes to link back
@@ -49,7 +51,7 @@ This guide walks through the process of creating a new note using our template s
 
 - Include creation date
 - Add relevant tags
-- Link to parent MOC
+- Link to parent document
 - Update modification date when editing
 
 ### Directory Structure
@@ -65,18 +67,17 @@ This guide walks through the process of creating a new note using our template s
 
 - [[Documentation Structure Guide]] - Overall documentation structure
 - [[Metadata and Linking Guide]] - Metadata conventions
-- [[MOC Concept]] - Understanding Maps of Content
 
 ### Templates
 
+- [[templates/_index|Templates]] - Available templates
 - [[templates/Note Template|Note Template]] - Standard note template
-- [[templates/MOC Template|MOC Template]] - Template for Maps of Content
 
 ## References
 
 - [[Documentation Structure Guide|Documentation Guide]]
-- [[templates/README|Templates Overview]]
+- [[templates/_index|Templates Overview]]
 
 ---
 
-[[Documentation Structure Guide|← Back to Documentation Guide]]
+[[_index|← Back to Documentation Guide]]

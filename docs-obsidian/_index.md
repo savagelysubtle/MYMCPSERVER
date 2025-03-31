@@ -15,7 +15,7 @@ contains:
   ]
 ---
 
-# Home
+# Documentation Root
 
 Welcome to the MCP Central Hub Knowledge Base. This documentation is organized into distinct categories for clarity and ease of navigation.
 

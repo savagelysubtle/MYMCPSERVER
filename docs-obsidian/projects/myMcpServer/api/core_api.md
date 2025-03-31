@@ -1,7 +1,9 @@
 ---
 created: 2025-03-30
 tags: [api, documentation, core, mcp-hub]
-parent: [[../Project MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[tool_api]]
 ---
 
 # Core API Specification
@@ -184,4 +186,4 @@ The Core API provides the fundamental interfaces for interacting with the MCP sy
 
 ---
 
-[[../Project MOC|← Back to Project MOC]]
+[[../_index|← Back to Project Documentation]]

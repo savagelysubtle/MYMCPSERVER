@@ -6,8 +6,9 @@ tags:
   - implementation
   - development
   - guide
-parent:
-  - - ../MCP Knowledge MOC
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Hub Configuration]], [[Hub Debugging]], [[MCP Hub Implementation]]
 ---
 
 # MCP Implementation Guide
@@ -145,4 +146,4 @@ For language-specific implementation examples, see:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]

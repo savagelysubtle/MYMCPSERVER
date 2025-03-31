@@ -2,7 +2,9 @@
 created: 2025-03-28
 updated: 2025-03-30
 tags: [mcp, cursor, integration]
-parent: [[../MCP Knowledge MOC]]
+parent: [[../_index]]
+up: [[_index]]
+siblings: [[Cursor MCP Integration]], [[Sequential Thinking Tools]]
 ---
 
 # Cursor MCP Integration
@@ -104,4 +106,4 @@ Example `.cursor/mcp.json`:
 
 ---
 
-[[../MCP Knowledge MOC|← Back to MCP Knowledge]]
+[[../_index|← Back to MCP Knowledge]]
