@@ -41,19 +41,3 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
-
-# Obsidian
-# Ignore user-specific workspace settings
-docs-obsidian/.obsidian/workspace.json
-# Ignore installed plugins (usually managed separately or reinstalled)
-docs-obsidian/.obsidian/plugins/
-# Ignore large cache/generated files if any
-docs-obsidian/.obsidian/cache/
-docs-obsidian/node_modules/
-# Ignore Excalidraw backups (optional)
-docs-obsidian/Excalidraw/Backups/
-# Ignore user added files
-docs-obsidian/user added for indexing later/
-
-
-docs-obsidian/ingestt/savagelysubtle-mymcpserver.txt

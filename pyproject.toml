@@ -23,7 +23,6 @@ build-backend = "uv_build"
     # Path to the server.py in the chemist_server package
     mcp-server         = "chemist_server.server:main"
     mcp-chemist-server = "src.chemist_server.server:main"
-    renamer            = "scripts.renamer_run:main"
 
 [tool.uv]
 required-version           = ">=0.6.0"

@@ -18,7 +18,8 @@ alwaysApply: false
 </context>
 
 <requirements>
-  <requirement>ALWAYS USE aiDecision XML tags for frontmatter</requirement>
+  <requirement>ALWAYS USE aiDecision XML tags at beginning of rule with description, globs, and alwaysApply</requirement>
+  
   <requirement>USE ACTION TRIGGER OUTCOME format for descriptions</requirement>
   <requirement>START descriptions with action words (ALWAYS, WHEN, CRITICAL, IMPORTANT)</requirement>
   <requirement>INCLUDE specific glob patterns for rule application</requirement>
