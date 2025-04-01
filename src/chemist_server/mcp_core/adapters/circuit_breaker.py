@@ -154,7 +154,7 @@ class CircuitBreaker:
 
             # Re-raise the exception
             raise CircuitBreakerError(
-                f"Circuit {self.name} operation failed: {str(e)}",
+                f"Circuit {self.name} operation failed: {e!s}",
                 details={
                     "circuit": self.name,
                     "state": self.state.value,

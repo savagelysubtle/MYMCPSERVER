@@ -59,7 +59,6 @@ verify_virtual_env()
 
 import git  # GitPython library
 import httpx
-
 from mcp.server.fastmcp import FastMCP
 from mcp.server.lowlevel import Server
 
@@ -392,48 +391,48 @@ def track_tool_usage(func: Callable) -> Callable:
                 "error_type": "memory_limit_exceeded",
             }
         except httpx.TimeoutException as e:
-            logger.error(f"Timeout in tool {tool_name}: {str(e)}", exc_info=True)
+            logger.error(f"Timeout in tool {tool_name}: {e!s}", exc_info=True)
             return {
-                "error": f"Request timeout in {tool_name}: {str(e)}",
+                "error": f"Request timeout in {tool_name}: {e!s}",
                 "tool_used": tool_name,
                 "status": "error",
                 "error_type": "timeout",
             }
         except (httpx.RequestError, httpx.HTTPStatusError) as e:
-            logger.error(f"HTTP error in tool {tool_name}: {str(e)}", exc_info=True)
+            logger.error(f"HTTP error in tool {tool_name}: {e!s}", exc_info=True)
             return {
-                "error": f"HTTP request error in {tool_name}: {str(e)}",
+                "error": f"HTTP request error in {tool_name}: {e!s}",
                 "tool_used": tool_name,
                 "status": "error",
                 "error_type": "http_error",
             }
         except (FileNotFoundError, PermissionError) as e:
             logger.error(
-                f"File system error in tool {tool_name}: {str(e)}", exc_info=True
+                f"File system error in tool {tool_name}: {e!s}", exc_info=True
             )
             return {
-                "error": f"File system error in {tool_name}: {str(e)}",
+                "error": f"File system error in {tool_name}: {e!s}",
                 "tool_used": tool_name,
                 "status": "error",
                 "error_type": "file_system_error",
             }
         except json.JSONDecodeError as e:
             logger.error(
-                f"JSON parsing error in tool {tool_name}: {str(e)}", exc_info=True
+                f"JSON parsing error in tool {tool_name}: {e!s}", exc_info=True
             )
             return {
-                "error": f"JSON parsing error in {tool_name}: {str(e)}",
+                "error": f"JSON parsing error in {tool_name}: {e!s}",
                 "tool_used": tool_name,
                 "status": "error",
                 "error_type": "json_error",
             }
         except Exception as e:
             # Log the error
-            logger.error(f"Error in tool {tool_name}: {str(e)}", exc_info=True)
+            logger.error(f"Error in tool {tool_name}: {e!s}", exc_info=True)
 
             # Return an error result instead of raising an exception
             return {
-                "error": f"Tool execution error in {tool_name}: {str(e)}",
+                "error": f"Tool execution error in {tool_name}: {e!s}",
                 "tool_used": tool_name,
                 "status": "error",
                 "error_type": "unknown_error",
@@ -487,7 +486,7 @@ def mcp_tool(
         except ValidationError as e:
             return False, str(e)
         except Exception as e:
-            return False, f"Schema validation error: {str(e)}"
+            return False, f"Schema validation error: {e!s}"
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         # Set default schema if none provided
@@ -677,7 +676,7 @@ async def get_git_status() -> dict[str, Any]:
             "has_changes": len(changes) > 0,
         }
     except Exception as e:
-        raise Exception(f"Git operation failed: {str(e)}") from e
+        raise Exception(f"Git operation failed: {e!s}") from e
 
 
 # Update list_branches to use the schema-based approach
@@ -748,7 +747,7 @@ async def list_branches() -> dict[str, Any]:
 
         return {"branches": branches, "count": len(branches)}
     except Exception as e:
-        raise Exception(f"Git operation failed: {str(e)}") from e
+        raise Exception(f"Git operation failed: {e!s}") from e
 
 
 # Update search_codebase to use the schema-based approach
@@ -956,7 +955,7 @@ async def get_memory_bank_context() -> dict[str, Any]:
             "file_path": str(active_context_path.relative_to(AICHEMIST_ROOT)),
         }
     except Exception as e:
-        return {"error": f"Error reading activeContext.md: {str(e)}", "status": "error"}
+        return {"error": f"Error reading activeContext.md: {e!s}", "status": "error"}
 
 
 @mcp_tool(
@@ -1097,7 +1096,7 @@ async def update_memory_bank_context(
         }
     except Exception as e:
         return {
-            "error": f"Error updating activeContext.md: {str(e)}",
+            "error": f"Error updating activeContext.md: {e!s}",
             "status": "error",
         }
 
@@ -1234,7 +1233,7 @@ async def execute_bedtime_protocol(
         }
     except Exception as e:
         return {
-            "error": f"Error executing Bedtime Protocol: {str(e)}",
+            "error": f"Error executing Bedtime Protocol: {e!s}",
             "status": "error",
             "protocol_completed": False,
         }
@@ -1649,7 +1648,7 @@ async def analyze_codebase_architecture(
                                     dependencies.append(dependency)
                                     info["imports"].append(import_component)
                 except Exception as e:
-                    logger.warning(f"Error reading {file_path}: {str(e)}")
+                    logger.warning(f"Error reading {file_path}: {e!s}")
 
     # Generate recommendations based on clean architecture principles
     recommendations = []
@@ -2450,7 +2449,7 @@ async def generate_class_diagram(
             classes.extend(visitor.classes)
             relationships.extend(visitor.relationships)
         except Exception as e:
-            logger.warning(f"Error parsing {file_path}: {str(e)}")
+            logger.warning(f"Error parsing {file_path}: {e!s}")
 
     # Generate the appropriate diagram format
     diagram_lines = []
@@ -2713,7 +2712,7 @@ async def create_relationship(
         return result
     except Exception as e:
         return {
-            "error": f"Failed to create relationship: {str(e)}",
+            "error": f"Failed to create relationship: {e!s}",
             "status": "error",
         }
 
@@ -2877,7 +2876,7 @@ async def list_relationships(
 
     except Exception as e:
         return {
-            "error": f"Failed to list relationships: {str(e)}",
+            "error": f"Failed to list relationships: {e!s}",
             "status": "error",
         }
 
@@ -2992,7 +2991,7 @@ async def delete_relationship(
 
     except Exception as e:
         return {
-            "error": f"Failed to delete relationship: {str(e)}",
+            "error": f"Failed to delete relationship: {e!s}",
             "status": "error",
         }
 
@@ -3047,7 +3046,7 @@ async def get_relationship_types() -> dict[str, Any]:
         }
     except Exception as e:
         return {
-            "error": f"Failed to get relationship types: {str(e)}",
+            "error": f"Failed to get relationship types: {e!s}",
             "status": "error",
         }
 
@@ -3218,7 +3217,7 @@ async def visualize_relationships(
         }
     except Exception as e:
         return {
-            "error": f"Failed to visualize relationships: {str(e)}",
+            "error": f"Failed to visualize relationships: {e!s}",
             "status": "error",
         }
 

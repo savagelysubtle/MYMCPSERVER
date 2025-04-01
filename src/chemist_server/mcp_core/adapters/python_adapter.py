@@ -61,11 +61,11 @@ class PythonAdapter(BaseAdapter):
             )
         except ImportError as e:
             raise AdapterError(
-                f"Failed to import module {self.module_path}: {str(e)}"
+                f"Failed to import module {self.module_path}: {e!s}"
             ) from e
         except AttributeError as e:
             raise AdapterError(
-                f"Failed to get function {self.function_name} from module {self.module_path}: {str(e)}"
+                f"Failed to get function {self.function_name} from module {self.module_path}: {e!s}"
             ) from e
 
     async def execute(
@@ -91,7 +91,7 @@ class PythonAdapter(BaseAdapter):
             try:
                 self._load_module()
             except Exception as e:
-                raise AdapterError(f"Failed to load module: {str(e)}") from e
+                raise AdapterError(f"Failed to load module: {e!s}") from e
 
         try:
             # Check if the function is async
@@ -122,7 +122,7 @@ class PythonAdapter(BaseAdapter):
                 function=self.function_name,
                 error=str(e),
             )
-            raise AdapterError(f"Error executing {tool_name}: {str(e)}") from e
+            raise AdapterError(f"Error executing {tool_name}: {e!s}") from e
 
     async def health_check(self) -> dict[str, Any]:
         """Check adapter health.
@@ -161,7 +161,7 @@ class PythonAdapter(BaseAdapter):
             if self.module is None:
                 self._load_module()
         except Exception as e:
-            raise AdapterError(f"Failed to initialize adapter: {str(e)}") from e
+            raise AdapterError(f"Failed to initialize adapter: {e!s}") from e
 
     async def shutdown(self) -> None:
         """Shutdown the adapter.

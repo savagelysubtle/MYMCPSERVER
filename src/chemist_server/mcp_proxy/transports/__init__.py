@@ -69,6 +69,6 @@ __all__ = [
     "BaseTransport",
     "SSETransport",
     "StdioHandler",
-    "WebSocketTransport",
     "TransportManager",
+    "WebSocketTransport",
 ]

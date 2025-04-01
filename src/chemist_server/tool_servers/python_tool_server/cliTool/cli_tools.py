@@ -156,8 +156,7 @@ except ValueError:
 
 # Remove any file manipulation commands to ensure they can't be used even with command processing
 for restricted_cmd in RESTRICTED_COMMANDS:
-    if restricted_cmd in UNIX_TO_WINDOWS_COMMANDS:
-        del UNIX_TO_WINDOWS_COMMANDS[restricted_cmd]
+    UNIX_TO_WINDOWS_COMMANDS.pop(restricted_cmd, None)
 
 # Common flag translations
 UNIX_TO_WINDOWS_FLAGS = {
@@ -395,7 +394,7 @@ def preprocess_uv_command(command: str) -> tuple[str, dict[str, Any]]:
         pip_cmd_match = next(
             (
                 pip_cmd
-                for pip_cmd in PIP_TO_UV_COMMANDS.keys()
+                for pip_cmd in PIP_TO_UV_COMMANDS
                 if command.lower().startswith(pip_cmd)
             ),
             None,
@@ -679,7 +678,7 @@ async def run_command(ctx: Any, command: str) -> dict[str, Any]:
         return formatted_result
 
     except CommandSecurityError as e:
-        logger.error(f"Security violation: {str(e)}")
+        logger.error(f"Security violation: {e!s}")
         return {
             "error": str(e),
             "type": "SecurityViolation",
@@ -687,7 +686,7 @@ async def run_command(ctx: Any, command: str) -> dict[str, Any]:
             "command": command,
         }
     except CommandTimeoutError as e:
-        logger.error(f"Command timeout: {str(e)}")
+        logger.error(f"Command timeout: {e!s}")
         return {
             "error": f"Command timed out after {executor.config.command_timeout} seconds",
             "type": "CommandTimeout",
@@ -695,7 +694,7 @@ async def run_command(ctx: Any, command: str) -> dict[str, Any]:
             "command": command,
         }
     except CommandError as e:
-        logger.error(f"Command execution error: {str(e)}")
+        logger.error(f"Command execution error: {e!s}")
         return {
             "error": str(e),
             "type": e.__class__.__name__,
@@ -703,9 +702,9 @@ async def run_command(ctx: Any, command: str) -> dict[str, Any]:
             "command": command,
         }
     except Exception as e:
-        logger.error(f"Unexpected error executing command: {str(e)}")
+        logger.error(f"Unexpected error executing command: {e!s}")
         return {
-            "error": f"Unexpected error: {str(e)}",
+            "error": f"Unexpected error: {e!s}",
             "type": "UnexpectedError",
             "success": False,
             "command": command,
@@ -761,8 +760,8 @@ async def show_security_rules(ctx: Any) -> dict[str, Any]:
         }
 
     except Exception as e:
-        logger.error(f"Error retrieving security rules: {str(e)}")
+        logger.error(f"Error retrieving security rules: {e!s}")
         return {
-            "error": f"Failed to retrieve security rules: {str(e)}",
+            "error": f"Failed to retrieve security rules: {e!s}",
             "success": False,
         }

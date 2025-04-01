@@ -3,4 +3,4 @@
 from .request import CoreRequest, RequestContext
 from .response import CoreResponse, ErrorResponse
 
-__all__ = ["CoreRequest", "RequestContext", "CoreResponse", "ErrorResponse"]
+__all__ = ["CoreRequest", "CoreResponse", "ErrorResponse", "RequestContext"]

@@ -6,6 +6,14 @@
       "transport": "stdio",
       "shell": true,
       "enabled": true
+    },
+    "mem0-mcp-server": {
+      "command": "${workspaceFolder}/.venv/Scripts/activate && cd ${workspaceFolder}/src/chemist_server/tool_servers/typescript_tool_server/mem0-mcp && python main.py",
+      "args": [],
+      "transport": "sse",
+      "sseUrl": "http://127.0.0.1:8080/sse",
+      "shell": true,
+      "enabled": true
     }
   }
 }

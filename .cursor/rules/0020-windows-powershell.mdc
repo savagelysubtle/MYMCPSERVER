@@ -1,6 +1,6 @@
 ---
 description: USER is on WINDOWS ALL TOOL CALLS to reflect
-globs: **/*
+globs: 
 alwaysApply: true
 ---
 <aiDecision>

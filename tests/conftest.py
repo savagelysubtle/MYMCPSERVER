@@ -254,8 +254,6 @@ ConfigT = TypeVar("ConfigT")
 class TestAppConfigBase:
     """Base app config class to avoid type conflicts."""
 
-    pass
-
 
 # Try to import real config, or create a stub version
 try:
@@ -267,8 +265,6 @@ try:
     class TestAppConfig(RealAppConfig, TestAppConfigBase):
         """Test app config class that combines real config with our base class."""
 
-        pass
-
     # Wrapper function with proper typing
     def test_load_and_get_config(
         cli_args: dict[str, Any] | None = None, **kwargs
@@ -276,7 +272,7 @@ try:
         """Wrapper to ensure consistent typing."""
         config = real_load_and_get_config(cli_args, **kwargs)
         # This cast helps with type checking
-        return cast(TestAppConfig, config)
+        return cast("TestAppConfig", config)
 
     CONFIG_MODULE_EXISTS = True
 
@@ -373,14 +369,14 @@ def mock_subprocess_run() -> Generator[MagicMock]:
 async def create_connected_server_and_client_session(
     function_default_config: TestAppConfig,
 ) -> AsyncGenerator[tuple[Any, Any]]:
-    """
-    Fixture that creates a FastMCP server and client session for integration testing.
+    """Fixture that creates a FastMCP server and client session for integration testing.
 
     Uses the function-scoped default config by default. Initializes the app
     and yields the app instance and a mock client session.
 
     Yields:
         Tuple[FastMCP, MockClientSession]: A tuple of (FastMCP app, mock client session)
+
     """
     # Check if necessary modules exist before proceeding
     try:
@@ -397,7 +393,7 @@ async def create_connected_server_and_client_session(
 
     # Initialize the FastMCP app - use Any to bypass type checking which is complex here
     try:
-        app = get_fastmcp_app(cast(Any, config))
+        app = get_fastmcp_app(cast("Any", config))
     except Exception as e:
         pytest.fail(f"Failed to initialize FastMCP app in fixture: {e}")
 
@@ -405,6 +401,6 @@ async def create_connected_server_and_client_session(
     client = MockClientSession(app)
 
     # Yield the app and client
-    yield app, client
+    return app, client
 
     # Add any necessary cleanup here if required after tests using the fixture

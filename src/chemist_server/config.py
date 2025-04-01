@@ -10,8 +10,8 @@ __all__ = [
     "AppConfig",
     "LoggingConfig",
     "ToolServerPythonConfig",
-    "load_and_get_config",
     "get_config_instance",
+    "load_and_get_config",
 ]
 
 # Standard library imports

@@ -84,8 +84,8 @@ async def get_git_status() -> dict[str, Any]:
         )
         return result
     except Exception as e:
-        logger.error(f"Git operation failed: {str(e)}")
-        raise Exception(f"Git operation failed: {str(e)}") from e
+        logger.error(f"Git operation failed: {e!s}")
+        raise Exception(f"Git operation failed: {e!s}") from e
 
 
 async def list_branches() -> dict[str, Any]:
@@ -133,8 +133,8 @@ async def list_branches() -> dict[str, Any]:
         logger.debug(f"Retrieved {len(branches)} branches from repository")
         return {"branches": branches, "count": len(branches)}
     except Exception as e:
-        logger.error(f"Git operation failed: {str(e)}")
-        raise Exception(f"Git operation failed: {str(e)}") from e
+        logger.error(f"Git operation failed: {e!s}")
+        raise Exception(f"Git operation failed: {e!s}") from e
 
 
 async def search_codebase(

@@ -60,7 +60,7 @@ class TypeScriptAdapter(BaseAdapter):
             if not npm_path:
                 raise AdapterError("npm executable not found in PATH")
 
-            self.server_process = subprocess.Popen(  # noqa: S603, S607
+            self.server_process = subprocess.Popen(
                 [npm_path, "start"],
                 cwd=self.server_path,
                 stdout=subprocess.PIPE,
@@ -87,7 +87,7 @@ class TypeScriptAdapter(BaseAdapter):
                 server_url=self.server_url,
             )
         except Exception as e:
-            raise AdapterError(f"Failed to start TypeScript server: {str(e)}") from e
+            raise AdapterError(f"Failed to start TypeScript server: {e!s}") from e
 
     async def execute(
         self,
@@ -125,7 +125,7 @@ class TypeScriptAdapter(BaseAdapter):
                 tool=tool_name,
                 error=str(e),
             )
-            raise AdapterError(f"Error executing TypeScript tool: {str(e)}") from e
+            raise AdapterError(f"Error executing TypeScript tool: {e!s}") from e
 
     async def health_check(self) -> dict[str, Any]:
         """Check adapter health.
@@ -165,7 +165,7 @@ class TypeScriptAdapter(BaseAdapter):
             await self._start_server()
         except Exception as e:
             raise AdapterError(
-                f"Failed to initialize TypeScript adapter: {str(e)}"
+                f"Failed to initialize TypeScript adapter: {e!s}"
             ) from e
 
     async def shutdown(self) -> None:
@@ -194,5 +194,5 @@ class TypeScriptAdapter(BaseAdapter):
                     error=str(e),
                 )
                 raise AdapterError(
-                    f"Error shutting down TypeScript adapter: {str(e)}"
+                    f"Error shutting down TypeScript adapter: {e!s}"
                 ) from e

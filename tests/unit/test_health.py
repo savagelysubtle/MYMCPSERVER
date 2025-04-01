@@ -312,4 +312,3 @@ class TestHealthRegistry:
 
         # Verify timestamp
         assert result["timestamp"] == 1234567890  # Assuming a fixed timestamp for testing
-```

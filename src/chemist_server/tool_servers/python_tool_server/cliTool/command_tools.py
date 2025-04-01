@@ -267,7 +267,7 @@ class CommandExecutor:
                 command=command,
                 exc_info=True,
             )
-            raise CommandExecutionError(f"Command execution failed: {str(e)}")
+            raise CommandExecutionError(f"Command execution failed: {e!s}")
 
     def get_security_rules(self) -> dict[str, str | list[str] | int | Any]:
         """Get the current security configuration for this executor"""

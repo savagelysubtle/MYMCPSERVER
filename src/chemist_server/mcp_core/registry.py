@@ -298,14 +298,14 @@ class ToolRegistry:
                 raise
             except Exception as e:
                 # Wrap other exceptions
-                raise AdapterError(f"Error executing tool {tool_name}: {str(e)}") from e
+                raise AdapterError(f"Error executing tool {tool_name}: {e!s}") from e
         else:
             # Execute directly without circuit breaker
             try:
                 result = await adapter.execute(tool_name, parameters, context)
                 return result
             except Exception as e:
-                raise AdapterError(f"Error executing tool {tool_name}: {str(e)}") from e
+                raise AdapterError(f"Error executing tool {tool_name}: {e!s}") from e
 
     async def shutdown(self) -> None:
         """Shutdown all adapters.
@@ -322,7 +322,7 @@ class ToolRegistry:
                     await adapter.shutdown()
                 except Exception as e:
                     errors.append(
-                        f"Error shutting down {tool_name} v{version}: {str(e)}"
+                        f"Error shutting down {tool_name} v{version}: {e!s}"
                     )
 
         if errors:

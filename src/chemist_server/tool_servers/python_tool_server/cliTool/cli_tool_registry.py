@@ -150,7 +150,7 @@ def register_tools(server: Any) -> None:
             logger.info(f"Registered tool: {tool['name']}")
         except Exception as e:
             logger.error(
-                f"Failed to register tool {tool['name']}: {str(e)}", exc_info=True
+                f"Failed to register tool {tool['name']}: {e!s}", exc_info=True
             )
 
 

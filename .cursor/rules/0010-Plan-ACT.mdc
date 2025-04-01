@@ -1,6 +1,6 @@
 ---
 description: ALWAYS follow this protocol WHEN assisting with code tasks
-globs: **/*.{py,js,ts,java,c,cpp,cs,go,rb,php,html,css,sql}
+globs: 
 alwaysApply: true
 ---
 <aiDecision>
