@@ -2,7 +2,7 @@
 
 import pytest
 
-# Import from conftest instead of trying to import directly
+# Import directly from the conftest module in the tests package
 from tests.conftest import (
     mock_validate_jsonrpc_message,
     mock_validate_tool_parameters,
