@@ -1,0 +1,115 @@
+---
+description: ALWAYS follow these project location rules when working with the codebase
+globs: src/**/*,**/*.py,**/*.ts,**/*.js,**/*.md
+alwaysApply: false
+---
+<aiDecision>
+  description: "ALWAYS follow these project location rules WHEN working with the codebase"
+  globs: "**/*.py,**/*.ts,**/*.js,**/*.md"
+  alwaysApply: true
+</aiDecision>
+
+# Project Locations and Structure Rule
+
+<context>
+  <role>Project Structure Guardian</role>
+  <purpose>Maintain consistent project structure and file locations</purpose>
+  <version>2.0.0</version>
+</context>
+
+<projectRoot>
+  <path>${WORKSPACE_FOLDER}</path>
+  <structure>
+    ├── src/                           # Source code root
+    │   ├── mcp/                       # Main MCP package
+    │   │   ├── mcp_core/              # Core MCP functionality
+    │   │   ├── config.py              # Configuration management
+    │   │   └── server/                # Server implementations
+    ├── logs/                          # Log files directory
+    │   ├── core/                      # Core layer logs
+    │   ├── proxy/                     # Proxy layer logs
+    │   ├── tools/                     # Tool server logs
+    │   ├── server/                    # Server logs
+    │   └── misc/                      # Miscellaneous logs
+    ├── config/                        # Configuration files
+    ├── tests/                         # Test files
+    └── docs-obsidian/                 # Documentation
+  </structure>
+</projectRoot>
+
+<environmentVariables>
+  <variable name="WORKSPACE_FOLDER" default="D:/Coding/Python_Projects/MYMCPSERVER">Project root directory</variable>
+  <variable name="VAULT_PATH" default="${WORKSPACE_FOLDER}/docs-obsidian">Documentation vault path</variable>
+  <variable name="LOGS_PATH" default="${WORKSPACE_FOLDER}/logs">Log files directory</variable>
+  <variable name="PYTHONPATH" importance="critical">Must include project source and dependencies</variable>
+</environmentVariables>
+
+<requirements>
+  <requirement>ALWAYS use environment variables for file paths when available</requirement>
+  <requirement>MAINTAIN logs in the logs/ directory with appropriate subdirectories</requirement>
+  <requirement>STORE all configuration files in config/ directory</requirement>
+  <requirement>KEEP all source code under src/mcp/ directory</requirement>
+  <requirement>PLACE all tests in tests/ directory</requirement>
+  <requirement>USE docs-obsidian/ for all documentation</requirement>
+</requirements>
+
+<constants>
+  <paths>
+    <LOG_ROOT>${LOGS_PATH}</LOG_ROOT>
+    <CONFIG_ROOT>${WORKSPACE_FOLDER}/config</CONFIG_ROOT>
+    <SOURCE_ROOT>${WORKSPACE_FOLDER}/src</SOURCE_ROOT>
+    <MCP_ROOT>${WORKSPACE_FOLDER}/src/mcp</MCP_ROOT>
+    <TEST_ROOT>${WORKSPACE_FOLDER}/tests</TEST_ROOT>
+    <DOCS_ROOT>${VAULT_PATH}</DOCS_ROOT>
+  </paths>
+  <logDirectories>
+    <CORE_LOGS>${LOG_ROOT}/core</CORE_LOGS>
+    <PROXY_LOGS>${LOG_ROOT}/proxy</PROXY_LOGS>
+    <TOOLS_LOGS>${LOG_ROOT}/tools</TOOLS_LOGS>
+    <SERVER_LOGS>${LOG_ROOT}/server</SERVER_LOGS>
+    <MISC_LOGS>${LOG_ROOT}/misc</MISC_LOGS>
+  </logDirectories>
+  <defaults>
+    <LOG_LEVEL>INFO</LOG_LEVEL>
+    <CONFIG_ENV>development</CONFIG_ENV>
+    <ENCODING>utf-8</ENCODING>
+  </defaults>
+</constants>
+
+<guidelines>
+  <guideline>Use Path from pathlib for all file operations</guideline>
+  <guideline>Create directories if they don't exist when needed</guideline>
+  <guideline>Use appropriate file permissions</guideline>
+  <guideline>Follow naming conventions for each directory</guideline>
+  <guideline>Use environment variables from .env.local for path configuration</guideline>
+  <guideline>Check the existence of paths before operations</guideline>
+</guidelines>
+
+<examples>
+  <good-practice>
+    <description>Loading a file using environment variables</description>
+    <example>
+      from pathlib import Path
+      import os
+      
+      # Get path from environment with fallback
+      logs_path = Path(os.getenv("LOGS_PATH", Path.cwd() / "logs"))
+      
+      # Create log directory if it doesn't exist
+      (logs_path / "core").mkdir(parents=True, exist_ok=True)
+      
+      # Use the path
+      log_file = logs_path / "core" / f"app.{time.strftime('%Y%m%d')}.log"
+    </example>
+  </good-practice>
+  
+  <bad-practice>
+    <description>Using hardcoded absolute paths</description>
+    <example>
+      # DON'T DO THIS - Hardcoded path that won't work across environments
+      log_file = "D:/Coding/Python_Projects/MYMCPSERVER/logs/core/app.log"
+      
+      # Instead use environment variables or relative paths from project root
+    </example>
+  </bad-practice>
+</examples>

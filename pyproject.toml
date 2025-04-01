@@ -23,6 +23,7 @@ build-backend = "uv_build"
     # Path to the server.py in the chemist_server package
     mcp-server         = "chemist_server.server:main"
     mcp-chemist-server = "src.chemist_server.server:main"
+    renamer            = "scripts.renamer_run:main"
 
 [tool.uv]
 required-version           = ">=0.6.0"
@@ -33,9 +34,9 @@ link-mode                  = "copy"
 managed                    = true
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src", "."]
 # Corrected to match the actual directory structure
-include = ["chemist_server"]
+include = ["chemist_server", "scripts"]
 
 # Keep tool.pytest.ini_options, tool.ruff, tool.markdownlint, tool.cspell as they were
 [tool.pytest.ini_options]

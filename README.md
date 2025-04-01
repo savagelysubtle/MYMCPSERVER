@@ -13,8 +13,8 @@ A MCP server implementation for Obsidian integration that provides tools for man
 
 ## Requirements
 
-- Python >= 3.13
-- MCP >= 1.6.0
+- Python >= 3.13 as it uses AIChemistCodex and that relies on the latest version of Python
+- MCP >= 0.1.0
 - PyYAML >= 6.0.1
 
 ## Installation
