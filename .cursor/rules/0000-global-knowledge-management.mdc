@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description: ALWAYS APPLY knowledge management principles WHEN working with documentation
+globs: **/*
 alwaysApply: true
 ---
 <aiDecision>

@@ -5,15 +5,25 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 
+# MCP SDK Import - using fallback import paths
+from mcp.server.fastmcp import Context, FastMCP
+from mcp.server.session import ServerSession
+
 # Local Imports
 from chemist_server.config import AppConfig, CoreConfig, get_config_instance
 
-# MCP SDK Import
-from chemist_server.mcp.server.fastmcp import Context, FastMCP
-from chemist_server.mcp.server.session import ServerSession
+# Import CLI and Git tools directly
+from chemist_server.tool_servers.python_tool_server.cliTool.cli_tools import (
+    run_command,
+    show_security_rules,
+)
+from chemist_server.tool_servers.python_tool_server.cliTool.git_tools import (
+    get_git_status,
+    list_branches,
+    search_codebase,
+)
 
-from .adapters.python_tool_adapter import PythonToolAdapter
-from .errors import AdapterError, ToolError, TransportError
+# Remove PythonToolAdapter import
 from .health import CoreHealth, SystemHealth
 from .logger import StructuredLogger
 from .registry import ToolRegistry
@@ -24,19 +34,26 @@ logger = StructuredLogger("chemist_server.mcp_core.app")
 
 # --- Lifespan Context ---
 class CoreLifespanContext:
-    # ... (keep definition as before) ...
     def __init__(
         self,
         config: CoreConfig,
         registry: ToolRegistry,
         router: Router,
         health_checker: SystemHealth,
-    ):
+    ) -> None:
+        """Initialize the Core Lifespan Context.
+
+        Args:
+            config: Core configuration
+            registry: Tool registry
+            router: Request router
+            health_checker: System health checker
+        """
         self.config = config
         self.registry = registry
         self.router = router
         self.health_checker = health_checker
-        self.py_tool_adapter: PythonToolAdapter | None = None
+        # Remove py_tool_adapter attribute
 
 
 @asynccontextmanager
@@ -52,95 +69,12 @@ async def core_lifespan(app: FastMCP) -> AsyncIterator[CoreLifespanContext]:
     router = Router(registry)
     health_checker = SystemHealth([CoreHealth()])
 
-    # --- Adapter Setup ---
-    # Create PythonToolAdapter with parameters from its constructor
-    host = config.get_tool_server_python_host()
-    port = config.get_tool_server_python_port()
-    timeout = 30.0  # Default timeout
-    retries = config.core.max_retries
-
-    try:
-        # Use tool_timeout if available
-        timeout = float(config.core.tool_timeout)
-    except (AttributeError, ValueError):
-        logger.warning("Could not get tool_timeout from config, using default")
-
-    py_tool_server_adapter = PythonToolAdapter(
-        host=host,
-        port=port,
-        timeout=timeout,
-        retries=retries,
-    )
-
+    # Remove adapter setup section
     lifespan_ctx = CoreLifespanContext(config.core, registry, router, health_checker)
-    lifespan_ctx.py_tool_adapter = py_tool_server_adapter
 
     try:
-        # Initialize adapter (creates httpx client, performs initial health check)
-        await py_tool_server_adapter.initialize()
-        logger.info("PythonToolAdapter initialized.")
-
-        # --- Dynamic Tool Registration ---
-        if config.tool_server_python.dynamic_tool_discovery:
-            logger.info("Attempting dynamic tool discovery from Python Tool Server...")
-            try:
-                # Now we can safely use the adapted list_remote_tools method
-                try:
-                    remote_tools = await py_tool_server_adapter.list_remote_tools()
-                    for tool in remote_tools:
-                        # Register each discovered tool using the adapter
-                        registry.register_tool(
-                            tool_name=tool.name,  # This works with both real and fallback implementation
-                            adapter=py_tool_server_adapter,
-                            version=getattr(
-                                tool, "version", "1.0.0"
-                            ),  # Safe with both implementations
-                            description=tool.description,  # Safe with both implementations
-                        )
-                    logger.info(
-                        f"Dynamically registered {len(remote_tools)} tools via PythonToolAdapter."
-                    )
-                except (ImportError, AttributeError) as e:
-                    # If we hit errors with the dynamic discovery, fall back to manual registration
-                    logger.warning(
-                        f"Dynamic tool registration failed, using fallback: {e}"
-                    )
-
-                    # Register some tools manually as a fallback
-                    sample_tools = [
-                        {"name": "python_echo", "description": "Echo tool in Python"},
-                        {"name": "python_math", "description": "Math operations"},
-                    ]
-
-                    for tool in sample_tools:
-                        registry.register_tool(
-                            tool_name=tool["name"],
-                            adapter=py_tool_server_adapter,
-                            version="1.0.0",  # Default version
-                            description=tool["description"],
-                        )
-
-                    logger.info(
-                        f"Manually registered {len(sample_tools)} tools via PythonToolAdapter."
-                    )
-            except (AdapterError, ToolError, TransportError) as e:
-                logger.error(
-                    f"Failed tool registration: {e}. Manual registration might be needed.",
-                    exc_info=True,
-                )
-            except Exception as e:
-                logger.error(
-                    f"Unexpected error during tool registration: {e}",
-                    exc_info=True,
-                )
-        else:
-            logger.info(
-                "Dynamic tool discovery disabled. Manual registration expected if proxying."
-            )
-            # Add manual registration here if needed as fallback
-            # known_python_tools = { ... }
-            # for tool_name, description in known_python_tools.items():
-            #     registry.register_tool(...)
+        # Remove python_tool_adapter initialization
+        # Remove dynamic tool discovery
 
         logger.info("Core Lifespan setup complete.")
         yield lifespan_ctx  # Yield context for the app to run
@@ -161,55 +95,171 @@ def get_fastmcp_app(config: AppConfig) -> FastMCP:
         dependencies=[],
     )
 
-    # --- Tool Registration using @mcp.tool ---
-    # Bridge Tool (routes through Router/Registry/Adapter)
-    @app.tool(name="execute_proxied_tool")
-    # ... (keep implementation as before) ...
-    async def execute_tool_handler(
+    # Remove execute_proxied_tool handler
+
+    # Direct tools from CLI and Git toolsets
+    @app.tool(
+        name="run_command",
+        description="Execute command-line operations with auto-correction for Windows and UV package manager",
+    )
+    async def run_command_wrapper(
         ctx: Context[ServerSession, CoreLifespanContext],
-        tool_name: str,
-        parameters: dict[str, Any] = {},
-        version: str | None = None,
-        use_circuit_breaker: bool = True,
-    ) -> Any:
-        router = ctx.request_context.lifespan_context.router
+        command: str,
+    ) -> dict[str, Any]:
+        """Execute command-line operations.
+
+        Args:
+            ctx: Request context
+            command: The command to execute
+
+        Returns:
+            Command execution results
+        """
         logger.info(
-            f"Executing proxied tool: {tool_name}",
-            tool=tool_name,
+            "Executing run_command tool",
+            command=command,
             request_id=ctx.request_id,
         )
         try:
-            result = await router.route_request(
-                tool_name=tool_name,
-                parameters=parameters,
-                version=version,
-                use_circuit_breaker=use_circuit_breaker,
-            )
+            result = await run_command(ctx=None, command=command)
             logger.info(
-                f"Proxied tool {tool_name} executed successfully.",
-                tool=tool_name,
+                "Command executed successfully",
                 request_id=ctx.request_id,
             )
             return result
         except Exception as e:
             logger.error(
-                f"Error executing proxied tool {tool_name}: {e}",
-                tool=tool_name,
+                f"Error executing command: {e}",
                 request_id=ctx.request_id,
                 exc_info=True,
             )
             raise
 
-    # Direct Core Tool Example
+    @app.tool(
+        name="show_security_rules",
+        description="Display security configuration for command execution",
+    )
+    async def show_security_rules_wrapper(
+        ctx: Context[ServerSession, CoreLifespanContext],
+    ) -> dict[str, Any]:
+        """Show security rules for command execution.
+
+        Args:
+            ctx: Request context
+
+        Returns:
+            Security rules configuration
+        """
+        logger.info(
+            "Executing show_security_rules tool",
+            request_id=ctx.request_id,
+        )
+        try:
+            result = await show_security_rules(ctx=None)
+            return result
+        except Exception as e:
+            logger.error(
+                f"Error showing security rules: {e}",
+                request_id=ctx.request_id,
+                exc_info=True,
+            )
+            raise
+
+    @app.tool(name="git_status", description="Get the Git status of a repository")
+    async def git_status_wrapper(
+        ctx: Context[ServerSession, CoreLifespanContext],
+    ) -> dict[str, Any]:
+        """Get Git repository status.
+
+        Args:
+            ctx: Request context
+
+        Returns:
+            Git status information
+        """
+        logger.info(
+            "Executing git_status tool",
+            request_id=ctx.request_id,
+        )
+        try:
+            result = await get_git_status()
+            return result
+        except Exception as e:
+            logger.error(
+                f"Error getting git status: {e}",
+                request_id=ctx.request_id,
+                exc_info=True,
+            )
+            raise
+
+    @app.tool(name="git_branches", description="List branches in a Git repository")
+    async def git_branches_wrapper(
+        ctx: Context[ServerSession, CoreLifespanContext],
+    ) -> dict[str, Any]:
+        """List Git repository branches.
+
+        Args:
+            ctx: Request context
+
+        Returns:
+            List of branches
+        """
+        logger.info(
+            "Executing git_branches tool",
+            request_id=ctx.request_id,
+        )
+        try:
+            result = await list_branches()
+            return result
+        except Exception as e:
+            logger.error(
+                f"Error listing git branches: {e}",
+                request_id=ctx.request_id,
+                exc_info=True,
+            )
+            raise
+
+    @app.tool(name="search_code", description="Search for patterns in the codebase")
+    async def search_code_wrapper(
+        ctx: Context[ServerSession, CoreLifespanContext],
+        query: str,
+        file_patterns: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Search codebase for patterns.
+
+        Args:
+            ctx: Request context
+            query: Pattern to search for
+            file_patterns: Optional file patterns to search
+
+        Returns:
+            Search results
+        """
+        logger.info(
+            "Executing search_code tool",
+            query=query,
+            file_patterns=file_patterns,
+            request_id=ctx.request_id,
+        )
+        try:
+            result = await search_codebase(query=query, file_patterns=file_patterns)
+            return result
+        except Exception as e:
+            logger.error(
+                f"Error searching code: {e}",
+                request_id=ctx.request_id,
+                exc_info=True,
+            )
+            raise
+
+    # Core Tool Example
     @app.tool(name="core_add")
-    # ... (keep implementation as before) ...
     def core_add_tool(a: int, b: int) -> int:
         logger.info(f"Executing core_add tool with a={a}, b={b}")
         return a + b
 
     # Health Check Tool
     @app.tool(name="core_health")
-    # ... (keep implementation as before) ...
     async def core_health_tool(
         ctx: Context[ServerSession, CoreLifespanContext],
     ) -> dict:

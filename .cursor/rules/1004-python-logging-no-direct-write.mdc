@@ -1,0 +1,74 @@
+---
+description: CRITICAL AVOID writing log messages directly to files; ALWAYS use the configured logging handlers via StructuredLogger
+globs: src/**/*.py
+alwaysApply: false
+---
+<aiDecision>
+  description: CRITICAL AVOID writing log messages directly to files; ALWAYS use the configured logging handlers via StructuredLogger
+  globs: "src/**/*.py"
+  alwaysApply: true
+</aiDecision>
+
+# Python Logging Standard: Use Handlers, Avoid Direct File Writes
+
+<context>
+  <role>Code Quality Agent</role>
+  <purpose>Ensure logs are managed reliably through the configured logging handlers, avoiding fragile direct file writes.</purpose>
+  <version>1.0.0</version>
+</context>
+
+<requirements>
+  <requirement>MUST NOT use `open(log_file, 'w').write(...)` or similar constructs for writing log messages or error details.</requirement>
+  <requirement>MUST rely on the logging handlers configured by `configure_logging` in `chemist_server.mcp_core.logger.logger` to write logs to files.</requirement>
+  <requirement>MUST use methods of `StructuredLogger` instances (`logger.info`, `logger.error`, etc.) for all log output.</requirement>
+  <requirement>ENSURE that errors, including tracebacks, are logged using `logger.error(..., exc_info=True)` or `logger.critical(..., exc_info=True)`. The configured handlers will manage writing this information to the appropriate log file.</requirement>
+</requirements>
+
+<examples>
+  <good-practice>
+    <description>Relying on configured handlers via StructuredLogger</description>
+    <example>
+      ```python
+      from chemist_server.mcp_core.logger import StructuredLogger
+      logger = StructuredLogger("my_module")
+
+      def perform_task():
+          try:
+              # ... task logic ...
+              logger.info("Task successful")
+          except Exception as e:
+              # Logger handles writing exception details to configured file handler
+              logger.error("Task failed unexpectedly", error=str(e), exc_info=True)
+      ```
+    </example>
+
+  </good-practice>
+
+  <bad-practice>
+    <description>Writing logs directly to files</description>
+    <example>
+      ```python
+      # BAD PRACTICE - Direct file writing bypasses logging system
+      import traceback
+      from pathlib import Path
+
+      LOG_FILE = Path("logs/manual_log.txt")
+
+      def perform_task():
+          try:
+              # ... task logic ...
+              with open(LOG_FILE, "a") as f:
+                  f.write("Task successful\n")
+          except Exception as e:
+              with open(LOG_FILE, "a") as f:
+                  f.write(f"ERROR: Task failed: {e}\n")
+                  f.write(traceback.format_exc() + "\n") # Manual traceback writing
+      ```
+    </example>
+
+  </bad-practice>
+</examples>
+
+<rationale>
+  Direct file writing for logs is brittle, lacks formatting consistency, bypasses log level filtering, ignores configured rotation/size limits, and makes centralized log management impossible. The standard `logging` library with configured handlers provides robust and manageable log file output.
+</rationale>

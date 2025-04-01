@@ -1,46 +1,11 @@
 {
   "mcpServers": {
-    "web-fetch-server": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-fetch"],
-      "env": {
-        "PYTHONIOENCODING": "utf-8",
-        "PYTHONPATH": "${workspaceFolder}",
-        "PYTHONUNBUFFERED": "1",
-        "MCP_LOG_LEVEL": "DEBUG"
-      },
-      "transport": "stdio",
-      "shell": true,
-      "enabled": true
-    },
-    "github-server": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "PYTHONIOENCODING": "utf-8",
-        "PYTHONUNBUFFERED": "1"
-      },
-      "transport": "stdio",
-      "shell": true,
-      "enabled": true
-    },
-    "sequential-thinking": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
-      "env": {
-        "PYTHONIOENCODING": "utf-8",
-        "PYTHONUNBUFFERED": "1"
-      },
-      "transport": "stdio",
-      "shell": true,
-      "enabled": true
-    },
-    "python-mcp-server": {
+    "my-python-mcp-server": {
       "command": "${workspaceFolder}/run_mcp_server.bat",
       "args": [],
       "transport": "stdio",
       "shell": true,
-      "enabled": false
+      "enabled": true
     }
   }
 }

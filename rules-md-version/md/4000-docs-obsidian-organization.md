@@ -1,11 +1,12 @@
 ---
 description: IMPORTANT MAINTAIN hierarchical folder structure using _index.md WHEN working with docs-obsidian content
-globs: docs-obsidian/**/*.md, *.md
-alwaysApply: false
+globs: 'docs-obsidian/**/*.md'
+alwaysApply: true
 ---
+
  <aiDecision>
   description: IMPORTANT MAINTAIN hierarchical folder structure using _index.md WHEN working with docs-obsidian content
-  globs: docs-obsidian/**/*.md
+  globs: "docs-obsidian/**/*.md"
   alwaysApply: true
 </aiDecision>
 
@@ -91,3 +92,7 @@ alwaysApply: false
     <file>Fleeting MOC.md</file> <!-- Optional Inbox -->
   </folder>
 </structure>
+
+<examples>
+  <!-- Add examples here if applicable -->
+</examples>

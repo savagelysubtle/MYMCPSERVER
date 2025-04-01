@@ -1,7 +1,6 @@
 """Git-related tools for the Python Tool Server."""
 
 # Standard library imports
-import logging
 import os
 from pathlib import Path
 from typing import Any
@@ -9,21 +8,15 @@ from typing import Any
 # Third-party imports
 import git
 
-# Application imports (absolute)
-from src.chemist_server.config import get_config_instance
+# Application imports - simplified
+from chemist_server.config import get_config_instance
+from chemist_server.mcp_core.logger import StructuredLogger
 
 # Get configuration instance
 config = get_config_instance()
 
-# Configure logger - try to use structured logger if available
-try:
-    from src.chemist_server.mcp_core.logger import StructuredLogger
-
-    logger = StructuredLogger("tool_servers.python_tool_server.cliTool.git_tools")
-except ImportError:
-    # Fall back to standard logging
-    logger = logging.getLogger(__name__)
-    logger.info("Using standard logging for git_tools (StructuredLogger not available)")
+# Configure logger using StructuredLogger
+logger = StructuredLogger("chemist_server.tool_servers.cliTool.git_tools")
 
 # Determine workspace/project root - using multiple methods to ensure robustness
 WORKSPACE_ROOT = os.environ.get("WORKSPACE_FOLDER")

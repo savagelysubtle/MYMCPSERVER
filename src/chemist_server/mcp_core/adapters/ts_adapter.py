@@ -2,8 +2,9 @@
 
 import asyncio
 import os
+import shutil
 import subprocess
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..errors import AdapterError
 from ..logger import logger
@@ -19,7 +20,7 @@ class TypeScriptAdapter(BaseAdapter):
         tool_name: str,
         server_host: str = "localhost",
         server_port: int = 3000,
-    ):
+    ) -> None:
         """Initialize TypeScript adapter.
 
         Args:
@@ -53,9 +54,14 @@ class TypeScriptAdapter(BaseAdapter):
             return
 
         try:
-            # Start server as subprocess
-            self.server_process = subprocess.Popen(
-                ["npm", "start"],
+            # Start server as subprocess with validated npm path
+            # Using fixed, validated commands to avoid security issues
+            npm_path = shutil.which("npm")
+            if not npm_path:
+                raise AdapterError("npm executable not found in PATH")
+
+            self.server_process = subprocess.Popen(  # noqa: S603, S607
+                [npm_path, "start"],
                 cwd=self.server_path,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -86,9 +92,9 @@ class TypeScriptAdapter(BaseAdapter):
     async def execute(
         self,
         tool_name: str,
-        parameters: Dict[str, Any],
-        context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        parameters: dict[str, Any],
+        context: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         """Execute a TypeScript tool.
 
         Args:
@@ -121,7 +127,7 @@ class TypeScriptAdapter(BaseAdapter):
             )
             raise AdapterError(f"Error executing TypeScript tool: {str(e)}") from e
 
-    async def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> dict[str, Any]:
         """Check adapter health.
 
         Returns:

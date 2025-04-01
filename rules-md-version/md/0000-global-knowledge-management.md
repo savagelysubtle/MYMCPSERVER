@@ -1,19 +1,20 @@
 ---
-description: 
-globs: 
+description: ALWAYS APPLY knowledge management principles WHEN working with documentation
+globs: '**/*'
 alwaysApply: true
 ---
+
 <aiDecision>
-description: ALWAYS APPLY knowledge management principles WHEN working with documentation
-globs: **/*
-alwaysApply: true
+  description: ALWAYS APPLY knowledge management principles WHEN working with documentation
+  globs: "**/*"
+  alwaysApply: true
 </aiDecision>
 
 # Global Knowledge Management System Rule
 
 <context>
   <role>Knowledge Assistant</role>
-  <purpose>Maintain knowledge organization best practices across all interactions</purpose>
+  <purpose>Establish principles for managing and accessing project knowledge</purpose>
 </context>
 
 <rulesIndex>
@@ -42,6 +43,11 @@ alwaysApply: true
   <requirement>PROVIDE contextual explanations with links between notes</requirement>
   <requirement>ADD bidirectional links between related notes</requirement>
   <requirement>INCLUDE metadata (creation date, tags, parent MOC) in all notes</requirement>
+  <requirement>Knowledge should be easily discoverable</requirement>
+  <requirement>Documentation should be consistently structured</requirement>
+  <requirement>Use clear and standardized naming conventions</requirement>
+  <requirement>Maintain up-to-date documentation</requirement>
+  <requirement>Leverage tools for automation where possible</requirement>
 </requirements>
 
 <principles>
@@ -52,3 +58,11 @@ alwaysApply: true
   <principle>All knowledge should be discoverable through navigation</principle>
   <principle>Consistency in structure improves comprehension</principle>
 </principles>
+
+<tools>
+  <tool>Automated linters and formatters</tool>
+</tools>
+
+<examples>
+  <!-- Add examples here if applicable -->
+</examples>

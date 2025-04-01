@@ -12,6 +12,12 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
+# Import StructuredLogger for structured logging
+from chemist_server.mcp_core.logger import StructuredLogger
+
+# Configure logger
+logger = StructuredLogger("chemist_server.tool_servers.cliTool.command_tools")
+
 
 # Exception classes for different command errors
 class CommandError(Exception):
@@ -192,6 +198,10 @@ class CommandExecutor:
             # On Windows, we use cmd.exe to run commands
             cmd_prefix = "cmd.exe /c "
 
+            logger.debug(
+                "Executing command", command=command, working_dir=self.allowed_dir
+            )
+
             # Create process with timeout
             process = await asyncio.create_subprocess_shell(
                 cmd_prefix + command,
@@ -200,67 +210,96 @@ class CommandExecutor:
                 cwd=self.allowed_dir,
             )
 
-            # Run with timeout
+            # Set up a task for command execution with timeout
             try:
                 stdout, stderr = await asyncio.wait_for(
                     process.communicate(), timeout=self.config.command_timeout
                 )
             except TimeoutError:
-                # Try to terminate the process
-                process.terminate()
+                # Kill the process if it times out
                 try:
-                    await asyncio.wait_for(process.wait(), timeout=2)
-                except TimeoutError:
                     process.kill()
-
+                except Exception:
+                    # Process may have already exited
+                    pass
                 raise CommandTimeoutError(
                     f"Command execution timed out after {self.config.command_timeout} seconds"
                 )
 
+            # Process results
+            stdout_str = stdout.decode("utf-8", errors="replace") if stdout else ""
+            stderr_str = stderr.decode("utf-8", errors="replace") if stderr else ""
+            exit_code = process.returncode or 0
+
+            logger.debug(
+                "Command execution completed",
+                exit_code=exit_code,
+                stdout_length=len(stdout_str),
+                stderr_length=len(stderr_str),
+            )
+
             return {
-                "stdout": stdout.decode("utf-8", errors="replace"),
-                "stderr": stderr.decode("utf-8", errors="replace"),
-                "exit_code": process.returncode or 0,  # Ensure None is converted to 0
+                "stdout": stdout_str,
+                "stderr": stderr_str,
+                "exit_code": exit_code,
             }
 
-        except (CommandError, asyncio.CancelledError):
-            # Re-raise command errors
+        except CommandTimeoutError:
+            # Re-raise timeout errors
+            logger.warning(
+                "Command execution timed out",
+                command=command,
+                timeout=self.config.command_timeout,
+            )
+            raise
+        except CommandSecurityError as e:
+            # Re-raise security errors
+            logger.warning(
+                "Command security validation failed", error=str(e), command=command
+            )
             raise
         except Exception as e:
-            # Wrap other exceptions
-            raise CommandExecutionError(f"Command execution failed: {str(e)}") from e
+            # Log and wrap other exceptions
+            logger.error(
+                "Command execution failed unexpectedly",
+                error=str(e),
+                error_type=type(e).__name__,
+                command=command,
+                exc_info=True,
+            )
+            raise CommandExecutionError(f"Command execution failed: {str(e)}")
 
     def get_security_rules(self) -> dict[str, str | list[str] | int | Any]:
-        """Return the current security configuration"""
+        """Get the current security configuration for this executor"""
+        logger.debug("Retrieving security rules configuration")
         return {
-            "working_directory": self.allowed_dir,
-            "allowed_commands": "all"
-            if self.config.allowed_commands is None
-            else self.config.allowed_commands,
-            "allowed_flags": "all"
-            if self.config.allowed_flags is None
-            else self.config.allowed_flags,
+            "allowed_directory": self.allowed_dir,
+            "allowed_commands": self.config.allowed_commands or "all",
+            "allowed_flags": self.config.allowed_flags or "all",
             "max_command_length": self.config.max_command_length,
             "command_timeout": self.config.command_timeout,
         }
 
 
-# Helper function to create executor from environment variables
 def create_executor_from_env() -> CommandExecutor:
-    """Create a CommandExecutor configured from environment variables"""
-    # Get allowed directory (required)
+    """
+    Create a CommandExecutor from environment variables
+
+    Returns:
+        Configured CommandExecutor instance
+    """
+    # Get configuration from environment variables
     allowed_dir = os.environ.get("ALLOWED_DIR")
     if not allowed_dir:
-        raise ValueError("ALLOWED_DIR environment variable is required")
+        logger.error("ALLOWED_DIR environment variable not set")
+        raise ValueError("ALLOWED_DIR environment variable must be set")
 
     # Parse allowed commands
     allowed_commands_str = os.environ.get(
         "ALLOWED_COMMANDS", "dir,type,cd,echo,where,whoami"
     )
     allowed_commands = (
-        allowed_commands_str.split(",")
-        if allowed_commands_str
-        else ["dir", "type", "cd", "echo", "where", "whoami"]
+        allowed_commands_str.split(",") if allowed_commands_str != "all" else ["all"]
     )
 
     # Parse allowed flags
@@ -268,21 +307,26 @@ def create_executor_from_env() -> CommandExecutor:
         "ALLOWED_FLAGS", "/q,/c,/s,/b,/a,/p,/w,-r,-h,--help"
     )
     allowed_flags = (
-        allowed_flags_str.split(",")
-        if allowed_flags_str
-        else ["/q", "/c", "/s", "/b", "/a", "/p", "/w", "-r", "-h", "--help"]
+        allowed_flags_str.split(",") if allowed_flags_str != "all" else ["all"]
     )
 
     # Get other config values
     max_command_length = int(os.environ.get("MAX_COMMAND_LENGTH", "1024"))
     command_timeout = int(os.environ.get("COMMAND_TIMEOUT", "30"))
 
-    # Create and return the config and executor
+    # Create and return the executor
     config = CommandConfig(
         allowed_dir=allowed_dir,
         allowed_commands=allowed_commands,
         allowed_flags=allowed_flags,
         max_command_length=max_command_length,
+        command_timeout=command_timeout,
+    )
+
+    logger.info(
+        "Created CommandExecutor from environment variables",
+        allowed_dir=allowed_dir,
+        allowed_commands=allowed_commands,
         command_timeout=command_timeout,
     )
 

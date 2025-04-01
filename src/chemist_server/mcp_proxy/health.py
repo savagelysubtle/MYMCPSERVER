@@ -23,7 +23,7 @@ async def check_health() -> dict[str, Any]:
         "service": "mcp_proxy",
         "timestamp": start_time,
         "healthy": True,
-        "version": config.server.version,
+        "version": "1.0.0",  # Hardcoded version since server.version doesn't exist
         "checks": {},
     }
 
@@ -90,11 +90,11 @@ async def check_core_connectivity() -> dict:
         # For now, just return success
         return {
             "healthy": True,
-            "core_url": config.core.url,
+            "core_url": "http://127.0.0.1:8000",  # Hardcoded since config.core.url doesn't exist
             "latency_ms": 10,  # Simulated latency
         }
     except Exception as e:
-        return {"healthy": False, "core_url": config.core.url, "error": str(e)}
+        return {"healthy": False, "core_url": "http://127.0.0.1:8000", "error": str(e)}
 
 
 async def check_transport_health() -> dict:

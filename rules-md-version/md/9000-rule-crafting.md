@@ -1,11 +1,12 @@
 ---
 description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
-globs: .cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
-alwaysApply: false
+globs: '**/*.mdc, .cursor/rules/**/*'
+alwaysApply: true
 ---
+
 <aiDecision>
   description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
-  globs: .cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
+  globs: "**/*.mdc, .cursor/rules/**/*"
   alwaysApply: true
 </aiDecision>
 
@@ -19,13 +20,13 @@ alwaysApply: false
 
 <requirements>
   <requirement>ALWAYS USE aiDecision XML tags at beginning of rule with description, globs, and alwaysApply</requirement>
-  
-  <requirement>USE ACTION TRIGGER OUTCOME format for descriptions</requirement>
-  <requirement>START descriptions with action words (ALWAYS, WHEN, CRITICAL, IMPORTANT)</requirement>
-  <requirement>INCLUDE specific glob patterns for rule application</requirement>
-  <requirement>STRUCTURE rules with context, requirements, and examples sections</requirement>
-  <requirement>USE proper XML formatting with descriptive tag names</requirement>
-  <requirement>FOLLOW standard naming convention: 0XXX for global, 1XXX for language, 4XXX for documentation, 5XXX for MCP, 9XXX for meta-rules</requirement>
+
+<requirement>USE ACTION TRIGGER OUTCOME format for descriptions</requirement>
+<requirement>START descriptions with action words (ALWAYS, WHEN, CRITICAL, IMPORTANT)</requirement>
+<requirement>INCLUDE specific glob patterns for rule application</requirement>
+<requirement>STRUCTURE rules with context, requirements, and examples sections</requirement>
+<requirement>USE proper XML formatting with descriptive tag names</requirement>
+<requirement>FOLLOW standard naming convention: 0XXX for global, 1XXX for language, 4XXX for documentation, 5XXX for MCP, 9XXX for meta-rules</requirement>
 </requirements>
 
 <examples>
@@ -37,12 +38,13 @@ alwaysApply: false
         globs: src/**/*.js,.cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
         alwaysApply: false
       </aiDecision>
-      
+
       # Rule Title
-      
+
       <context>...</context>
       <requirements>...</requirements>
       <examples>...</examples>
     </example>
+
   </good-practice>
 </examples>

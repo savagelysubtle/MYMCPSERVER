@@ -5,12 +5,14 @@ cli-mcp-server project (https://github.com/MladenSU/cli-mcp-server).
 Optimized for Windows environments with special handling for UV package management.
 """
 
-import logging
 import os
 import re
 import shlex
 import sys
 from typing import Any
+
+# Import StructuredLogger instead of standard logging
+from chemist_server.mcp_core.logger import StructuredLogger
 
 from .command_tools import (
     CommandConfig,
@@ -21,8 +23,8 @@ from .command_tools import (
     create_executor_from_env,
 )
 
-# Configure logging
-logger = logging.getLogger(__name__)
+# Configure structured logging
+logger = StructuredLogger("chemist_server.tool_servers.cliTool.cli_tools")
 
 # Default allowed directory is the current working directory
 DEFAULT_ALLOWED_DIR = os.getcwd()

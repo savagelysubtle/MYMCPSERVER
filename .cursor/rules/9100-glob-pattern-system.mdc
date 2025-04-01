@@ -1,14 +1,13 @@
 ---
 description: WHEN creating rule files ENSURE using precise aidecision tags with action-oriented descriptions and efficient glob patterns
-globs: **/*.mdc,*.cursor/rules/**/*
+globs: **/*.md rules-md-version/**/*.md
 alwaysApply: false
 ---
-<aidecision>
-  description= "WHEN creating rule files ENSURE using precise aidecision tags with action-oriented descriptions and efficient glob patterns"
-  globs= "**/*.mdc, .cursor/rules/**/*"
-  applyAlways= "true"
-  category= "RULES_STYLE"
-</aidecision>
+<aiDecision>
+  description: WHEN creating rule files ENSURE using precise aidecision tags with action-oriented descriptions and efficient glob patterns
+  globs: **/*.md rules-md-version/**/*.md
+  alwaysApply: true
+</aiDecision>
 
 > **TL;DR:** Define rule files with proper aidecision tags containing action-oriented descriptions and specific, targeted glob patterns to optimize rule performance, improve clarity, and avoid unnecessary processing.
 
@@ -66,5 +65,10 @@ alwaysApply: false
     - Provides deterministic guidance
     - Avoids ambiguity about when/how the rule applies
     - Improves overall rule discoverability and effectiveness
+
   </content>
 </details>
+
+<examples>
+  <!-- Add examples here if applicable -->
+</examples>

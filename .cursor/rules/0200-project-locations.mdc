@@ -1,11 +1,11 @@
 ---
 description: ALWAYS follow these project location rules when working with the codebase
-globs: src/**/*,**/*.py,**/*.ts,**/*.js,**/*.md
+globs: **/*.py **/*.ts **/*.js **/*.md
 alwaysApply: false
 ---
 <aiDecision>
-  description: "ALWAYS follow these project location rules WHEN working with the codebase"
-  globs: "**/*.py,**/*.ts,**/*.js,**/*.md"
+  description: ALWAYS follow these project location rules WHEN working with the codebase
+  globs: **/*.py **/*.ts **/*.js **/*.md
   alwaysApply: true
 </aiDecision>
 
@@ -91,25 +91,27 @@ alwaysApply: false
     <example>
       from pathlib import Path
       import os
-      
+
       # Get path from environment with fallback
       logs_path = Path(os.getenv("LOGS_PATH", Path.cwd() / "logs"))
-      
+
       # Create log directory if it doesn't exist
       (logs_path / "core").mkdir(parents=True, exist_ok=True)
-      
+
       # Use the path
       log_file = logs_path / "core" / f"app.{time.strftime('%Y%m%d')}.log"
     </example>
+
   </good-practice>
-  
+
   <bad-practice>
     <description>Using hardcoded absolute paths</description>
     <example>
       # DON'T DO THIS - Hardcoded path that won't work across environments
       log_file = "D:/Coding/Python_Projects/MYMCPSERVER/logs/core/app.log"
-      
+
       # Instead use environment variables or relative paths from project root
     </example>
+
   </bad-practice>
 </examples>

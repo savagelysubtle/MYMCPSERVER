@@ -1,11 +1,12 @@
 ---
 description: ALWAYS USE typed links WHEN defining relationships between notes in Obsidian and ensure context
-globs: docs-obsidian/**/*.md, *.md
-alwaysApply: false
+globs: 'docs-obsidian/**/*.md'
+alwaysApply: true
 ---
+
 <aiDecision>
   description: ALWAYS USE typed links WHEN defining relationships between notes in Obsidian and ensure context
-  globs: docs-obsidian/**/*.md
+  globs: "docs-obsidian/**/*.md"
   alwaysApply: true
 </aiDecision>
 
@@ -36,6 +37,7 @@ alwaysApply: false
       - [[Related Concept]](related)
       - [[Example Usage]](example)
     </example>
+
   </good-practice>
 
   <bad-practice>
@@ -49,5 +51,6 @@ alwaysApply: false
       - [[Example Usage]]
       <!-- Relationship types are unclear -->
     </example>
+
   </bad-practice>
 </examples>

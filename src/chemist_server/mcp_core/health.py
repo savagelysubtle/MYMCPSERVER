@@ -1,7 +1,6 @@
 import time
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Dict, List
 
 from .logger import logger
 
@@ -18,7 +17,7 @@ class HealthCheck(ABC):
     """Base health check interface."""
 
     @abstractmethod
-    async def check_health(self) -> Dict:
+    async def check_health(self) -> dict:
         """Perform health check."""
         pass
 
@@ -26,11 +25,16 @@ class HealthCheck(ABC):
 class SystemHealth(HealthCheck):
     """System-wide health monitoring."""
 
-    def __init__(self, components: List[HealthCheck]):
+    def __init__(self, components: list[HealthCheck]) -> None:
+        """Initialize the system health checker.
+
+        Args:
+            components: List of health check components
+        """
         self.components = components
         self.start_time = time.time()
 
-    async def check_health(self) -> Dict:
+    async def check_health(self) -> dict:
         """Check health of all components."""
         status = HealthStatus.HEALTHY
         results = {}
@@ -69,7 +73,7 @@ class SystemHealth(HealthCheck):
 class CoreHealth(HealthCheck):
     """MCP Core health check."""
 
-    async def check_health(self) -> Dict:
+    async def check_health(self) -> dict:
         """Check core component health."""
         try:
             # Check critical services
@@ -84,13 +88,21 @@ class CoreHealth(HealthCheck):
             logger.error("Core health check failed", error=str(e))
             return {"status": HealthStatus.UNHEALTHY, "error": str(e)}
 
-    async def check_database(self):
-        """Check database connection."""
+    async def check_database(self) -> None:
+        """Check database connection.
+
+        This is a placeholder method. Actual implementation should check database
+        connectivity and raise exceptions if issues are found.
+        """
         # Implement database health check
         pass
 
-    async def check_cache(self):
-        """Check cache connection."""
+    async def check_cache(self) -> None:
+        """Check cache connection.
+
+        This is a placeholder method. Actual implementation should check cache
+        connectivity and raise exceptions if issues are found.
+        """
         # Implement cache health check
         pass
 
@@ -98,7 +110,7 @@ class CoreHealth(HealthCheck):
 class ToolServerHealth(HealthCheck):
     """Tool server health check."""
 
-    async def check_health(self) -> Dict:
+    async def check_health(self) -> dict:
         """Check tool server health."""
         try:
             # Check tool availability
@@ -112,7 +124,7 @@ class ToolServerHealth(HealthCheck):
             logger.error("Tool server health check failed", error=str(e))
             return {"status": HealthStatus.UNHEALTHY, "error": str(e)}
 
-    async def check_tools(self) -> List[str]:
+    async def check_tools(self) -> list[str]:
         """Check available tools."""
         # Implement tool availability check
         return []

@@ -1,0 +1,72 @@
+---
+description: CRITICAL AVOID using print() for logging or status updates; ALWAYS use the project's StructuredLogger
+globs: src/**/*.py
+alwaysApply: false
+---
+<aiDecision>
+  description: CRITICAL AVOID using print() for logging or status updates; ALWAYS use the project's StructuredLogger
+  globs: "src/**/*.py"
+  alwaysApply: true
+</aiDecision>
+
+# Python Logging Standard: Use StructuredLogger, Avoid Print
+
+<context>
+  <role>Code Quality Agent</role>
+  <purpose>Ensure consistent and structured logging throughout the Python codebase by using the dedicated StructuredLogger instead of print statements.</purpose>
+  <version>1.0.0</version>
+</context>
+
+<requirements>
+  <requirement>MUST import StructuredLogger from `chemist_server.mcp_core.logger` or obtain a logger instance correctly.</requirement>
+  <requirement>MUST replace all uses of `print()` intended for logging, debugging, or status updates with appropriate `logger` methods (`logger.debug()`, `logger.info()`, `logger.warning()`, `logger.error()`, `logger.critical()`).</requirement>
+  <requirement>MUST pass contextual information as keyword arguments to the logger methods for structured logging (e.g., `logger.info("Task complete", task_id=123)`).</requirement>
+  <requirement>MUST NOT use `print()` for error reporting; use `logger.error(..., exc_info=True)` or `logger.critical(..., exc_info=True)` instead.</requirement>
+  <requirement>ENSURE logger instances are obtained correctly within modules (e.g., `logger = StructuredLogger(__name__)`).</requirement>
+</requirements>
+
+<examples>
+  <good-practice>
+    <description>Using StructuredLogger for logging</description>
+    <example>
+      ```python
+      from chemist_server.mcp_core.logger import StructuredLogger
+      logger = StructuredLogger(__name__)
+
+      def process_item(item_id: int):
+          logger.info("Processing started", item_id=item_id)
+          try:
+              # ... processing logic ...
+              logger.debug("Intermediate step successful", item_id=item_id, step="parse")
+              logger.info("Processing finished successfully", item_id=item_id)
+          except ValueError as e:
+              logger.error("Processing failed due to invalid value", item_id=item_id, error=str(e), exc_info=True)
+      ```
+    </example>
+
+  </good-practice>
+
+  <bad-practice>
+    <description>Using print for logging and status</description>
+    <example>
+      ```python
+      # BAD PRACTICE - Uses print instead of logger
+      import sys
+
+      def process_item(item_id: int):
+          print(f"Processing started for item {item_id}", file=sys.stderr) # Should use logger.info
+          try:
+              # ... processing logic ...
+              print("Step complete", file=sys.stderr) # Should use logger.debug
+              print(f"Finished item {item_id}", file=sys.stderr) # Should use logger.info
+          except ValueError as e:
+              print(f"ERROR: Processing failed for item {item_id}: {e}", file=sys.stderr) # Should use logger.error
+      ```
+    </example>
+
+  </bad-practice>
+</examples>
+
+<rationale>
+  Using the centralized `StructuredLogger` ensures logs are consistent in format, respect configured levels, are directed to the correct files/outputs, and include valuable structured context. `print()` bypasses all these benefits, leading to inconsistent and hard-to-manage logs.
+</rationale>

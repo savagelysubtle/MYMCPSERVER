@@ -3,7 +3,7 @@
 import json
 import time
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Any
 
 from ..logger import logger
 from .collectors import Counter, Gauge, Histogram, Metric, MetricsCollector
@@ -12,7 +12,7 @@ from .collectors import Counter, Gauge, Histogram, Metric, MetricsCollector
 class MetricsExporter(ABC):
     """Base class for metrics exporters."""
 
-    def __init__(self, collectors: List[MetricsCollector]):
+    def __init__(self, collectors: list[MetricsCollector]) -> None:
         """Initialize metrics exporter.
 
         Args:
@@ -24,7 +24,7 @@ class MetricsExporter(ABC):
             collectors=[collector.namespace for collector in collectors],
         )
 
-    def collect_all(self) -> List[Metric]:
+    def collect_all(self) -> list[Metric]:
         """Collect metrics from all collectors.
 
         Returns:
@@ -54,7 +54,7 @@ class MetricsExporter(ABC):
 class PrometheusExporter(MetricsExporter):
     """Exporter for Prometheus metrics format."""
 
-    def __init__(self, collectors: List[MetricsCollector], prefix: str = "mcp"):
+    def __init__(self, collectors: list[MetricsCollector], prefix: str = "mcp") -> None:
         """Initialize Prometheus exporter.
 
         Args:
@@ -95,7 +95,7 @@ class PrometheusExporter(MetricsExporter):
 
         return "\n".join(output)
 
-    def _format_counter(self, output: List[str], name: str, counter: Counter) -> None:
+    def _format_counter(self, output: list[str], name: str, counter: Counter) -> None:
         """Format counter for Prometheus.
 
         Args:
@@ -106,7 +106,7 @@ class PrometheusExporter(MetricsExporter):
         labels_str = self._format_labels(counter.labels)
         output.append(f"{name}{labels_str} {counter.value}")
 
-    def _format_gauge(self, output: List[str], name: str, gauge: Gauge) -> None:
+    def _format_gauge(self, output: list[str], name: str, gauge: Gauge) -> None:
         """Format gauge for Prometheus.
 
         Args:
@@ -118,7 +118,7 @@ class PrometheusExporter(MetricsExporter):
         output.append(f"{name}{labels_str} {gauge.value}")
 
     def _format_histogram(
-        self, output: List[str], name: str, histogram: Histogram
+        self, output: list[str], name: str, histogram: Histogram
     ) -> None:
         """Format histogram for Prometheus.
 
@@ -141,7 +141,7 @@ class PrometheusExporter(MetricsExporter):
         output.append(f"{name}_sum{labels_str} {histogram.sum}")
         output.append(f"{name}_count{labels_str} {histogram.count}")
 
-    def _format_labels(self, labels: Dict[str, str]) -> str:
+    def _format_labels(self, labels: dict[str, str]) -> str:
         """Format labels for Prometheus.
 
         Args:
@@ -161,8 +161,8 @@ class JsonFileExporter(MetricsExporter):
     """Exporter for metrics to JSON file."""
 
     def __init__(
-        self, collectors: List[MetricsCollector], file_path: str, append: bool = False
-    ):
+        self, collectors: list[MetricsCollector], file_path: str, append: bool = False
+    ) -> None:
         """Initialize JSON file exporter.
 
         Args:
@@ -198,7 +198,7 @@ class JsonFileExporter(MetricsExporter):
             elif isinstance(metric, Histogram):
                 data["metrics"][metric.name] = {
                     "type": "histogram",
-                    "buckets": {str(k): v for k, v in histogram.bucket_values.items()},
+                    "buckets": {str(k): v for k, v in metric.bucket_values.items()},
                     "sum": metric.sum,
                     "count": metric.count,
                     "labels": metric.labels,

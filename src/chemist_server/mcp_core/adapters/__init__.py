@@ -2,7 +2,6 @@
 
 from .base_adapter import BaseAdapter
 from .python_adapter import PythonAdapter
-from .python_tool_adapter import PythonToolAdapter
-from .ts_adapter import TSAdapter
+from .ts_adapter import TypeScriptAdapter as TSAdapter
 
-__all__ = ["BaseAdapter", "PythonAdapter", "PythonToolAdapter", "TSAdapter"]
+__all__ = ["BaseAdapter", "PythonAdapter", "TSAdapter"]

@@ -18,7 +18,7 @@ class Router:
     a given tool request, and applies circuit breaking for fault tolerance.
     """
 
-    def __init__(self, registry: ToolRegistry):
+    def __init__(self, registry: ToolRegistry) -> None:
         """Initialize the router.
 
         Args:

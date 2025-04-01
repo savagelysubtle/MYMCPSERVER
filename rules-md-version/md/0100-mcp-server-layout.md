@@ -1,13 +1,22 @@
 ---
-description: 
-globs: src/**,src/**/*
+description: ALWAYS Follow the the architecture laid out in linked docs
+globs: '**/*'
 alwaysApply: false
 ---
-<IMPORTANT>
-CRITICAL: ALWAYS Follow the the architecture laid out in [filetree.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/filetree.md), [flowchart.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/flowchart/flowchart.md) when working in the project files
-fileTree [filetree.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/filetree.md) shows the rest of the server including test
-flowChart [flowchart.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/flowchart/flowchart.md) shows the overall flow of the project
-</IMPORTANT>
+
+<aiDecision>
+  description: ALWAYS Follow the the architecture laid out in linked docs
+  globs: "**/*"
+  alwaysApply: false
+</aiDecision>
+
+<context>
+  <IMPORTANT>
+  CRITICAL: ALWAYS Follow the the architecture laid out in [filetree.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/filetree.md), [flowchart.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/flowchart/flowchart.md) when working in the project files
+  fileTree [filetree.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/filetree.md) shows the rest of the server including test
+  flowChart [flowchart.md](mdc:docs-obsidian/user added for indexing later/mcpPlanning/final/flowchart/flowchart.md) shows the overall flow of the project
+  </IMPORTANT>
+</context>
 
 <fileTreeMAINSRC>
 ├── src/                            # All source code lives here
@@ -82,3 +91,11 @@ flowChart [flowchart.md](mdc:docs-obsidian/user added for indexing later/mcpPlan
 │                   ├── index.ts    # Tool implementation
 │                   └── models.ts   # Tool-specific data models
 </fileTreeMAINSRC>
+
+<requirements>
+  <!-- Add requirements here based on the fileTree if applicable -->
+</requirements>
+
+<examples>
+  <!-- Add examples here if applicable -->
+</examples>

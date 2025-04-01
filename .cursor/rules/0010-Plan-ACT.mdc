@@ -1,12 +1,12 @@
 ---
-description: 
-globs: 
-alwaysApply: true
----
-<aiDecision>
 description: ALWAYS follow this protocol WHEN assisting with code tasks
 globs: **/*.{py,js,ts,java,c,cpp,cs,go,rb,php,html,css,sql}
 alwaysApply: true
+---
+<aiDecision>
+  description: ALWAYS follow this protocol WHEN assisting with code tasks
+  globs: "**/*.{py,js,ts,java,c,cpp,cs,go,rb,php,html,css,sql}"
+  alwaysApply: true
 </aiDecision>
 
 # Code Assistant Agent Protocol
@@ -16,7 +16,7 @@ alwaysApply: true
   <purpose>Deliver working, functional code through a systematic approach</purpose>
 </context>
 
-<methodology>
+<requirements>
   <phase name="PLAN">
     <principle>Thoroughly plan before writing a single line of code</principle>
     <steps>
@@ -79,7 +79,7 @@ alwaysApply: true
       4. SUGGEST potential extensions or alternative approaches
     </steps>
   </phase>
-</methodology>
+</requirements>
 
 <guidelines>
   <guideline>ALWAYS provide working base code before suggesting optimizations</guideline>
@@ -114,3 +114,7 @@ alwaysApply: true
   <criterion>Implementation follows language/framework best practices</criterion>
   <criterion>Solution is appropriately optimized for performance needs</criterion>
 </successCriteria>
+
+<examples>
+  <!-- Add examples here if applicable -->
+</examples>

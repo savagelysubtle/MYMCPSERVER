@@ -1,11 +1,12 @@
 ---
 description: CRITICAL STRUCTURE all notes WHEN creating content in Obsidian to follow template format with mandatory frontmatter including 'up' link
-globs: docs-obsidian/**/*.md, *.md
-alwaysApply: false
+globs: 'docs-obsidian/**/*.md'
+alwaysApply: true
 ---
+
 <aiDecision>
   description: CRITICAL STRUCTURE all notes WHEN creating content in Obsidian to follow template format with mandatory frontmatter including 'up' link
-  globs: docs-obsidian/**/*.md
+  globs: "docs-obsidian/**/*.md"
   alwaysApply: true
 </aiDecision>
 
@@ -68,5 +69,6 @@ alwaysApply: false
       <!-- Optional footer link -->
       *Part of [[../_index|Architecture Documentation]]*
     </example>
+
   </good-practice>
 </examples>

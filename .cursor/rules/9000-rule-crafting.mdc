@@ -1,11 +1,11 @@
 ---
 description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
-globs: .cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
+globs: rules-md-version/**.md
 alwaysApply: false
 ---
 <aiDecision>
   description: ALWAYS FOLLOW rule creation standards WHEN crafting new rules
-  globs: .cursor/rules/*.mdc,**/*.mdc*,*.mdc,*.cursor/**/*,*.cursor/rules/**,*.cursor/rules/**/*
+  globs: rules-md-version/**.md *.md
   alwaysApply: true
 </aiDecision>
 

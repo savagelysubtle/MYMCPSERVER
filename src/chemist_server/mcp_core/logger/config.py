@@ -6,14 +6,13 @@ Please use LoggingConfig from src/config.py instead of LogConfig from this modul
 
 import warnings
 
+from src.config import LoggingConfig  # type: ignore
+
 warnings.warn(
     "mcp_core.logger.config is deprecated. Use LoggingConfig from 'src/config.py' instead.",
     DeprecationWarning,
     stacklevel=2,
 )
-
-# Keeping a stub reference to not break existing imports immediately
-from src.config import LoggingConfig  # type: ignore
 
 # Backwards compatibility alias
 LogConfig = LoggingConfig

@@ -1,36 +1,35 @@
 ---
-description: 
+description: Maintain consistent Python code style with proper docstrings, typing, and indentation
 globs: src/**/*.py,*src/**/*.py,**/*.py
 alwaysApply: false
 ---
----
-description: Maintain consistent Python code style with proper docstrings, typing, and indentation
-globs: src/**/*.py
----
+<aiDecision>
+  description: Maintain consistent Python code style with proper docstrings, typing, and indentation
+  globs: "src/**/*.py"
+  alwaysApply: true
+</aiDecision>
 
-<cursor-rule>
-  <title>Python Code Style Guidelines</title>
-  <version>1.0.0</version>
+# Python Code Style Guidelines
 
-  <context>
-    Apply to all Python files to ensure consistent style across the codebase
-  </context>
+<context>
+  Apply to all Python files to ensure consistent style across the codebase
+</context>
 
-  <requirements>
-    <requirement>Include type hints for all parameters and return values</requirement>
-    <requirement>Use 4-space indentation (no tabs)</requirement>
-    <requirement>Use f-strings for string formatting (not %-formatting or .format())</requirement>
-    <requirement>Follow PEP 8 naming conventions (snake_case for functions/variables, PascalCase for classes)</requirement>
-    <requirement>Include informative docstrings with Args, Returns, and Raises sections as needed</requirement>
-    <requirement>Use Google-style docstrings for all modules, classes, and functions</requirement>
-    <requirement>Keep line length to a maximum of 88 characters</requirement>
-    <requirement>Use proper type annotations for optional parameters</requirement>
-  </requirements>
+<requirements>
+  <requirement>Use Google-style docstrings for all modules, classes, and functions</requirement>
+  <requirement>Include type hints for all parameters and return values</requirement>
+  <requirement>Use 4-space indentation (no tabs)</requirement>
+  <requirement>Use f-strings for string formatting (not %-formatting or .format())</requirement>
+  <requirement>Follow PEP 8 naming conventions (snake_case for functions/variables, PascalCase for classes)</requirement>
+  <requirement>Include informative docstrings with Args, Returns, and Raises sections as needed</requirement>
+  <requirement>Keep line length to a maximum of 88 characters</requirement>
+  <requirement>Use proper type annotations for optional parameters</requirement>
+</requirements>
 
-  <examples>
-    <good-example>
-      <title>Well-Formatted Python Class with Proper Style</title>
-      <code>
+<examples>
+  <good-example>
+    <title>Well-Formatted Python Class with Proper Style</title>
+    <code>
 class FileReader:
     """Main class for reading and parsing files with MIME type detection.
 
@@ -87,14 +86,16 @@ class FileReader:
 
         # Implementation details...
         return self._fallback_mime_type(path)
-      </code>
-    </good-example>
+    </code>
 
-    <bad-example>
-      <title>Poor Python Formatting Style</title>
-      <code>
-class file_reader:  # Incorrect class naming (should be PascalCase)
-    '''Class that reads files''' # Incomplete docstring
+  </good-example>
+
+  <bad-example>
+    <title>Poor Python Formatting Style</title>
+    <code>
+
+class file_reader: # Incorrect class naming (should be PascalCase)
+'''Class that reads files''' # Incomplete docstring
 
     def __init__(self, max_workers=2, preview_length=100, cache_manager=None):  # Missing type hints
         # No docstring for method
@@ -118,28 +119,29 @@ class file_reader:  # Incorrect class naming (should be PascalCase)
         if magic == None:  # Should use "is None" not "== None"
             logger.warning('Magic library not available, using default MIME type')  # Using undefined logger variable
             return "application/octet-stream"
-      </code>
-    </bad-example>
-  </examples>
+    </code>
 
-  <guidance>
-    <step>Start each file with a module-level docstring explaining its purpose</step>
-    <step>Use Google-style docstrings for all public classes and methods</step>
-    <step>Include type hints for parameters, return values, and attributes</step>
-    <step>Follow naming conventions: snake_case for variables/functions, PascalCase for classes</step>
-    <step>Use proper spacing around operators and after commas</step>
-    <step>Use f-strings for string interpolation</step>
-    <step>Use consistent 4-space indentation</step>
-    <step>Prefix private attributes/methods with a single underscore</step>
-    <step>Include detailed docstrings with Args, Returns, and Raises sections</step>
-    <step>Break long parameter lists or function calls into multiple lines with consistent indentation</step>
-  </guidance>
+  </bad-example>
 
-  <rationale>
-    <point>Consistent code style improves readability and maintainability</point>
-    <point>Type hints enable better IDE support and catch errors early</point>
-    <point>Proper docstrings make the code self-documenting</point>
-    <point>Following established Python conventions makes the code more accessible to new contributors</point>
-    <point>Proper error handling with descriptive messages improves debugging</point>
-  </rationale>
-</cursor-rule>
+</examples>
+
+<guidance>
+  <step>Start each file with a module-level docstring explaining its purpose</step>
+  <step>Use Google-style docstrings for all public classes and methods</step>
+  <step>Include type hints for parameters, return values, and attributes</step>
+  <step>Follow naming conventions: snake_case for variables/functions, PascalCase for classes</step>
+  <step>Use proper spacing around operators and after commas</step>
+  <step>Use f-strings for string interpolation</step>
+  <step>Use consistent 4-space indentation</step>
+  <step>Prefix private attributes/methods with a single underscore</step>
+  <step>Include detailed docstrings with Args, Returns, and Raises sections</step>
+  <step>Break long parameter lists or function calls into multiple lines with consistent indentation</step>
+</guidance>
+
+<rationale>
+  <point>Consistent code style improves readability and maintainability</point>
+  <point>Type hints enable better IDE support and catch errors early</point>
+  <point>Proper docstrings make the code self-documenting</point>
+  <point>Following established Python conventions makes the code more accessible to new contributors</point>
+  <point>Proper error handling with descriptive messages improves debugging</point>
+</rationale>

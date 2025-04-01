@@ -1,22 +1,19 @@
 ---
 created: 2025-03-30
-updated: 2025-03-30
+updated: 2024-04-01
 tags: [folder-note, general-knowledge]
 parent: [[../_index]]
 up: [[../_index]]
-contains: [
-  [[makingRules/_index]],
-  [[makingRules/creatingRules]]
-]
-lists: [
-  {
-    "name": "Knowledge Areas",
-    "items": [
-      "[[makingRules/_index|General Knowledge]]",
-      "[[makingRules/creatingRules|Rule Creation]]"
-    ]
-  }
-]
+contains:
+  [[[makingRules/_index]], [[makingRules/creatingRules]], '[[git/_index]]']
+lists:
+  [
+    {
+      'name': 'Knowledge Areas',
+      'items':
+        ['[[makingRules/_index|Rule Creation]]', '[[git/_index|Git Usage]]'],
+    },
+  ]
 ---
 
 # General Knowledge Directory
@@ -28,6 +25,9 @@ This directory contains general knowledge and principles that apply across diffe
 ```
 generalKnowledge/
 ├── _index.md                 # Directory index
+├── git/                     # Git usage guides
+│   ├── _index.md            # Git index
+│   └── Using SSH Keys with Multiple GitHub Repos.md
 └── makingRules/             # Rule creation guides
     ├── _index.md            # Rule creation index
     └── creatingRules.md     # Rule creation process
@@ -37,28 +37,32 @@ generalKnowledge/
 
 ### General Knowledge
 
-- [[makingRules/_index|Knowledge Overview]]
 - Cross-cutting concepts
 - Universal principles
 - Shared patterns
 
 ### Rule Creation
 
-- [[makingRules/creatingRules|Rule Creation Guide]]
-- Rule development process
-- Rule validation
-- Rule implementation
+- [[makingRules/_index|Rule Creation Guides]]
+- [[makingRules/creatingRules|Rule Creation Process]]
+
+### Git Usage
+
+- [[git/_index|Git Guides]]
+- [[git/Using SSH Keys with Multiple GitHub Repos|Using SSH Keys with Multiple Repos]]
 
 ## Knowledge Organization
 
 ### Core Concepts
 
 1. Universal Principles
+
    - Design principles
    - Development practices
    - Implementation patterns
 
 2. Rule Development
+
    - Rule creation process
    - Rule validation methods
    - Rule application guides
@@ -77,6 +81,7 @@ generalKnowledge/
 ### Child Directories
 
 - [[makingRules/_index|Rule Creation]]
+- [[git/_index|Git Usage]]
 
 ### Related Directories
 
@@ -109,6 +114,7 @@ generalKnowledge/
 ### Knowledge Categories
 
 1. Universal Knowledge
+
    - Design principles
    - Development practices
    - Quality standards
@@ -121,6 +127,7 @@ generalKnowledge/
 ### Application Areas
 
 1. Development
+
    - Coding standards
    - Design patterns
    - Testing practices

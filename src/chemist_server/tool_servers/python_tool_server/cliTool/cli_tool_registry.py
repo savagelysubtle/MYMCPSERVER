@@ -7,9 +7,15 @@ It defines tool metadata and integration points for the server architecture.
 
 from typing import Any
 
+# Import StructuredLogger
+from chemist_server.mcp_core.logger import StructuredLogger
+
 # Import the actual tool implementations
 from .cli_tools import run_command, show_security_rules
 from .git_tools import get_git_status, list_branches, search_codebase
+
+# Configure logger
+logger = StructuredLogger("chemist_server.tool_servers.cliTool.cli_tool_registry")
 
 # Define tool metadata for MCP server registration
 CLI_TOOLS = [
@@ -141,8 +147,11 @@ def register_tools(server: Any) -> None:
     for tool in CLI_TOOLS:
         try:
             server.register_tool(tool["function"])
+            logger.info(f"Registered tool: {tool['name']}")
         except Exception as e:
-            print(f"Failed to register tool {tool['name']}: {str(e)}")
+            logger.error(
+                f"Failed to register tool {tool['name']}: {str(e)}", exc_info=True
+            )
 
 
 def get_tool_definitions() -> dict[str, dict[str, Any]]:

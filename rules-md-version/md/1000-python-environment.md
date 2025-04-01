@@ -1,11 +1,12 @@
 ---
-description: ALWAYS use uv packagemanagement and uv venv and sync
-globs: **/*.py,pyproject.toml
-alwaysApply: false
+description: WHEN working on Python projects ALWAYS verify virtual environment activation THEN use uv for package management
+globs: '**/*.py, pyproject.toml, requirements.txt'
+alwaysApply: true
 ---
+
 <aiDecision>
   description: WHEN working on Python projects ALWAYS verify virtual environment activation THEN use uv for package management
-  globs: **/*.py pyproject.toml requirements.txt
+  globs: "**/*.py, pyproject.toml, requirements.txt"
   alwaysApply: true
 </aiDecision>
 
@@ -43,6 +44,7 @@ alwaysApply: false
       <method os="windows">.\.venv\Scripts\activate</method>
       <method os="windows">.venv\Scripts\activate</method>
     </activation-methods>
+
   </virtual-environment>
 
   <package-management>
@@ -59,6 +61,7 @@ alwaysApply: false
       <variable name="PYTHONPATH">May need to be set to include project root for proper imports</variable>
       <variable name="VIRTUAL_ENV">Set automatically when virtual environment is activated</variable>
     </environment-variables>
+
   </package-management>
 
   <import-resolution>
@@ -88,20 +91,24 @@ alwaysApply: false
 source .venv/bin/activate  # Unix/macOS
 
 # Then use uv to install packages
+
 uv add requests
 uv add --dev pytest
-      </example>
-    </good-practice>
+</example>
+</good-practice>
 
     <bad-practice>
       <description>Installing packages without activating virtual environment</description>
       <example>
+
 # BAD: Installing directly without environment activation
+
 pip install requests
 
 # BAD: Using pip instead of uv
+
 pip install pytest
-      </example>
-    </bad-practice>
-  </examples>
+</example>
+</bad-practice>
+</examples>
 </python-environment-management>

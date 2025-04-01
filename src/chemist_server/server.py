@@ -4,11 +4,9 @@
 import argparse
 import logging  # For bootstrap only
 import sys
-import time
 from pathlib import Path
 
 import anyio
-from anyio.to_thread import run_sync as anyio_run_sync
 
 # --- Centralized Config and Logging ---
 # Make sure src is added before these imports if run directly
@@ -65,110 +63,7 @@ async def start_core_service(config: AppConfig) -> None:
         raise  # Propagate failure to task group
 
 
-async def start_python_tool_server(config: AppConfig) -> None:
-    tool_runner_logger = StructuredLogger("mymcpserver.pytool_runner")
-    print("=== STARTING PYTHON TOOL SERVER WRAPPER ===", file=sys.stderr)
-    try:
-        # Late import
-        print("=== IMPORTING PYTHON TOOL SERVER MODULE ===", file=sys.stderr)
-        from chemist_server.tool_servers.python_tool_server.server import (
-            start_server as start_py_tool_server,
-        )
-
-        tool_runner_logger.info("Attempting to start Python Tool Server...")
-        print("=== GETTING PYTHON TOOL SERVER CONFIG ===", file=sys.stderr)
-
-        # Get the configuration parameters
-        host = config.get_tool_server_python_host()
-        port = config.get_tool_server_python_port()
-
-        # Set up logging directory explicitly for the tool server
-        tool_log_dir = Path(config.logs_path) / "tools" / "python-tool-server"
-        tool_log_dir.mkdir(parents=True, exist_ok=True)
-
-        # Use plain text file logging to avoid JSON issues
-        log_file = tool_log_dir / f"python_tool_server_{host}_{port}.log"
-        print(f"=== SETTING UP LOG FILE AT: {log_file} ===", file=sys.stderr)
-
-        # Create a file handler for direct logging (not through the structured logger)
-        file_handler = logging.FileHandler(log_file, encoding="utf-8")
-        file_handler.setFormatter(
-            logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        )
-
-        # Add this handler to the Python logger module
-        logging.getLogger().addHandler(file_handler)
-        print("=== DIRECT FILE LOGGING SETUP COMPLETE ===", file=sys.stderr)
-
-        # Run the blocking function in a worker thread
-        tool_runner_logger.info(f"Starting Python Tool Server on {host}:{port}")
-        print(
-            f"=== ABOUT TO START PYTHON TOOL SERVER ON {host}:{port} ===",
-            file=sys.stderr,
-        )
-
-        # Using anyio 4.9.0 syntax for running in worker thread
-        # Create a wrapper function to pass the parameters
-        def start_server_with_params() -> None:
-            print("=== INSIDE WRAPPER FUNCTION ===", file=sys.stderr)
-            try:
-                with open(log_file, "a", encoding="utf-8") as f:
-                    f.write(f"\n=== STARTING SERVER AT {time.ctime()} ===\n")
-
-                start_py_tool_server(host=host, port=port)
-                print("=== TOOL SERVER START CALL COMPLETED ===", file=sys.stderr)
-
-                with open(log_file, "a", encoding="utf-8") as f:
-                    f.write(f"\n=== SERVER COMPLETED AT {time.ctime()} ===\n")
-            except Exception as e:
-                print(
-                    f"=== ERROR IN WRAPPER: {type(e).__name__} - {str(e)} ===",
-                    file=sys.stderr,
-                )
-                import traceback
-
-                error_trace = traceback.format_exc()
-                print(f"=== TRACEBACK: {error_trace} ===", file=sys.stderr)
-
-                # Write error directly to file to avoid JSON issues
-                with open(log_file, "a", encoding="utf-8") as f:
-                    f.write(f"\n=== ERROR AT {time.ctime()} ===\n")
-                    f.write(f"Error: {type(e).__name__} - {str(e)}\n")
-                    f.write(f"Traceback:\n{error_trace}\n")
-
-                raise
-            # No return statement here, implicitly returns None
-
-        print("=== CALLING ANYIO_RUN_SYNC ===", file=sys.stderr)
-        await anyio_run_sync(start_server_with_params)
-        print("=== ANYIO_RUN_SYNC RETURNED ===", file=sys.stderr)
-
-        tool_runner_logger.info(
-            "Python Tool Server finished."
-        )  # Will only log on clean exit
-
-    except Exception as e:
-        print(
-            f"=== PYTHON TOOL SERVER WRAPPER EXCEPTION: {type(e).__name__} - {str(e)} ===",
-            file=sys.stderr,
-        )
-        import traceback
-
-        error_trace = traceback.format_exc()
-        print(f"=== TRACEBACK: {error_trace} ===", file=sys.stderr)
-
-        # Try to write error directly to a fallback file
-        try:
-            fallback_log = Path(config.logs_path) / "python_tool_server_error.log"
-            with open(fallback_log, "a", encoding="utf-8") as f:
-                f.write(f"\n=== WRAPPER ERROR AT {time.ctime()} ===\n")
-                f.write(f"Error: {type(e).__name__} - {str(e)}\n")
-                f.write(f"Traceback:\n{error_trace}\n")
-        except Exception:
-            pass  # If this fails, we've already printed to stderr
-
-        tool_runner_logger.error(f"Python Tool Server failed: {e}", exc_info=True)
-        raise  # Propagate failure
+# Removed start_python_tool_server function
 
 
 async def run_services(config: AppConfig) -> None:
@@ -179,17 +74,12 @@ async def run_services(config: AppConfig) -> None:
 
     try:
         async with anyio.create_task_group() as tg:
-            if components_to_run in ["all", "core"]:
-                runner_logger.info("Starting Core Service Task...")
+            # All components now mean the same as core, since we've integrated everything
+            if components_to_run in ["all", "core", "tool"]:
+                runner_logger.info("Starting Core Service with Integrated Tools...")
                 tg.start_soon(start_core_service, config)
 
-            if components_to_run in ["all", "tool"]:
-                # For now, only start Python tool server
-                # Add logic here to start other tool servers if needed
-                runner_logger.info("Starting Python Tool Server Task...")
-                tg.start_soon(start_python_tool_server, config)
-
-            runner_logger.info("All selected services started.")
+            runner_logger.info("All services started.")
     except Exception as e:
         runner_logger.error(f"Error within service task group: {e}", exc_info=True)
         raise  # Allow main loop to catch and exit

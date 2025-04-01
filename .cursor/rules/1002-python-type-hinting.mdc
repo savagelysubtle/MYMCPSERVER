@@ -1,81 +1,90 @@
 ---
-description: 
+description: WHEN writing Python code ALWAYS use type hints for functions, methods, and variables
 globs: src/**/*.py,*src/**/*.py,**/*.py
 alwaysApply: false
 ---
 ---
 description: WHEN writing Python code ALWAYS use type hints for functions, methods, and variables
-globs: src/**/*.py
+globs: 'src/**/*.py'
+alwaysApply: true
 ---
 
-<python-typing-rule>
-  <version>1.0.0</version>
+<aiDecision>
+  description: WHEN writing Python code ALWAYS use type hints for functions, methods, and variables
+  globs: "src/**/*.py"
+  alwaysApply: true
+</aiDecision>
 
-  <context>
-    The AIchemist Codex codebase follows strict typing practices to improve code quality, IDE support, and maintainability.
-    All Python modules must include proper type hints.
-  </context>
+# Python Type Hinting Rule
 
-  <requirements>
-    <requirement>Add type hints to all function and method parameters</requirement>
-    <requirement>Add return type annotations to all functions and methods</requirement>
-    <requirement>Use type hints for class attributes when declared</requirement>
-    <requirement>Import necessary typing classes (Dict, List, Optional, Union, etc.)</requirement>
-    <requirement>Use appropriate typing constructs for complex types</requirement>
-    <requirement>Add docstrings with parameter and return value descriptions</requirement>
-  </requirements>
+<context>
+  The AIchemist Codex codebase follows strict typing practices to improve code quality, IDE support, and maintainability.
+  All Python modules must include proper type hints.
+</context>
 
-  <typing-imports>
-    <basic-types>
-      <type>Dict</type>
-      <type>List</type>
-      <type>Set</type>
-      <type>Tuple</type>
-      <type>Optional</type>
-      <type>Union</type>
-      <type>Any</type>
-      <type>Callable</type>
-      <type>TypeVar</type>
-      <type>Generic</type>
-      <type>Iterable</type>
-    </basic-types>
-    <import-statement>from typing import Dict, List, Optional, Set, Tuple, Union, Any, Callable, TypeVar, Generic, Iterable</import-statement>
-  </typing-imports>
+<requirements>
+  <requirement>Add type hints to all function and method parameters</requirement>
+  <requirement>Add return type annotations to all functions and methods</requirement>
+  <requirement>Use type hints for class attributes when declared</requirement>
+  <requirement>Import necessary typing classes (Dict, List, Optional, Union, etc.)</requirement>
+  <requirement>Use appropriate typing constructs for complex types</requirement>
+  <requirement>Add docstrings with parameter and return value descriptions</requirement>
+</requirements>
 
-  <docstring-format>
-    <function>
-      <template>
-      """
-      {function_description}
+<typing-imports>
+  <basic-types>
+    <type>Dict</type>
+    <type>List</type>
+    <type>Set</type>
+    <type>Tuple</type>
+    <type>Optional</type>
+    <type>Union</type>
+    <type>Any</type>
+    <type>Callable</type>
+    <type>TypeVar</type>
+    <type>Generic</type>
+    <type>Iterable</type>
+  </basic-types>
+  <import-statement>from typing import Dict, List, Optional, Set, Tuple, Union, Any, Callable, TypeVar, Generic, Iterable</import-statement>
+</typing-imports>
 
-      Args:
-          {parameter_name} ({parameter_type}): {parameter_description}
+<docstring-format>
+  <function>
+    <template>
+    """
+    {function_description}
 
-      Returns:
-          {return_type}: {return_description}
+    Args:
+        {parameter_name} ({parameter_type}): {parameter_description}
 
-      Raises:
-          {exception_type}: {exception_description}
-      """
-      </template>
-    </function>
+    Returns:
+        {return_type}: {return_description}
 
-    <class>
-      <template>
-      """
-      {class_description}
+    Raises:
+        {exception_type}: {exception_description}
+    """
+    </template>
 
-      Attributes:
-          {attribute_name} ({attribute_type}): {attribute_description}
-      """
-      </template>
-    </class>
-  </docstring-format>
+  </function>
 
-  <examples>
-    <good-example>
-      <description>Function with proper type hints and docstring</description>
-      <code>
+  <class>
+    <template>
+    """
+    {class_description}
+
+    Attributes:
+        {attribute_name} ({attribute_type}): {attribute_description}
+    """
+    </template>
+
+  </class>
+
+</docstring-format>
+
+<examples>
+  <good-example>
+    <description>Function with proper type hints and docstring</description>
+    <code>
 def process_document(
     document: Document,
     tags: Optional[List[str]] = None,
@@ -109,15 +118,17 @@ def process_document(
         result["tags"] = list(document.tags)
 
     return result
-      </code>
-    </good-example>
+    </code>
 
-    <good-example>
-      <description>Class with typed attributes and methods</description>
-      <code>
+  </good-example>
+
+  <good-example>
+    <description>Class with typed attributes and methods</description>
+    <code>
+
 class DocumentProcessor:
-    """
-    Processes documents and applies transformations.
+"""
+Processes documents and applies transformations.
 
     Attributes:
         max_length (int): Maximum content length to process
@@ -149,55 +160,58 @@ class DocumentProcessor:
         """
         # Processing logic
         return ProcessedDocument(document.id, document.content[:self.max_length])
-      </code>
-    </good-example>
+    </code>
 
-    <bad-example>
-      <description>Function missing type hints</description>
-      <code>
+  </good-example>
+
+  <bad-example>
+    <description>Function missing type hints</description>
+    <code>
+
 # Missing type hints
+
 def process_document(document, tags=None, max_length=1000):
-    """Process a document."""
-    # Implementation
-    return {"processed": True}
-      </code>
-    </bad-example>
+"""Process a document.""" # Implementation
+return {"processed": True}
+</code>
+</bad-example>
 
-    <bad-example>
-      <description>Incomplete type hints</description>
-      <code>
+  <bad-example>
+    <description>Incomplete type hints</description>
+    <code>
+
 # Incomplete type hints (missing return type)
+
 def extract_metadata(document: Document, fields: List[str]):
-    """Extract metadata from document."""
-    # Implementation
-    return {field: getattr(document, field) for field in fields}
-      </code>
-    </bad-example>
-  </examples>
+"""Extract metadata from document.""" # Implementation
+return {field: getattr(document, field) for field in fields}
+</code>
+</bad-example>
+</examples>
 
-  <module-specific-types>
-    <file-system>
-      <type-imports>from pathlib import Path</type-imports>
-      <common-types>
-        <type name="file_path">Union[str, Path]</type>
-        <type name="directory_path">Union[str, Path]</type>
-        <type name="file_content">Union[str, bytes]</type>
-      </common-types>
-    </file-system>
+<module-specific-types>
+  <file-system>
+    <type-imports>from pathlib import Path</type-imports>
+    <common-types>
+      <type name="file_path">Union[str, Path]</type>
+      <type name="directory_path">Union[str, Path]</type>
+      <type name="file_content">Union[str, bytes]</type>
+    </common-types>
+  </file-system>
 
-    <parsing>
-      <type-imports>from typing import BinaryIO, TextIO</type-imports>
-      <common-types>
-        <type name="parser_result">Dict[str, Any]</type>
-        <type name="document_content">str</type>
-      </common-types>
-    </parsing>
+  <parsing>
+    <type-imports>from typing import BinaryIO, TextIO</type-imports>
+    <common-types>
+      <type name="parser_result">Dict[str, Any]</type>
+      <type name="document_content">str</type>
+    </common-types>
+  </parsing>
 
-    <tagging>
-      <common-types>
-        <type name="tags">Set[str]</type>
-        <type name="tag_hierarchy">Dict[str, List[str]]</type>
-      </common-types>
-    </tagging>
-  </module-specific-types>
-</python-typing-rule>
+  <tagging>
+    <common-types>
+      <type name="tags">Set[str]</type>
+      <type name="tag_hierarchy">Dict[str, List[str]]</type>
+    </common-types>
+  </tagging>
+
+</module-specific-types>
